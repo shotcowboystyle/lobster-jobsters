@@ -1,0 +1,18 @@
+# gitleaks config: extend the default rules, allowlist documented placeholders.
+# env.example files intentionally contain variable names with obvious fake values.
+title = "lobster-jobsters"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Placeholder values in example config; never real credentials"
+regexes = [
+  '''(?i)=\s*(your_|channel_id_for_|sk_live_or_test_key|pk_live_or_test_key|whsec_your_|/path/to/)''',
+  '''(?i)(CHANNEL_ID_[A-Z_]+|YOUR_DISCORD_SERVER_ID|CEO_DISCORD_ID|[A-Z_]+_AGENT_ID)''',
+]
+paths = [
+  '''workforce/.*/config/env\.example$''',
+  '''workforce/.*/config/discord-config\.example\.json$''',
+  '''templates/.*''',
+]
