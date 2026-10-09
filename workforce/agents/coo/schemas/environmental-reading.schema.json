@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EnvironmentalReading",
+  "description": "Environmental sensor reading captured by Birch",
+  "type": "object",
+  "required": ["reading_id", "device_id", "zone", "measured_at", "metrics"],
+  "properties": {
+    "reading_id": {
+      "type": "string",
+      "pattern": "^acme-ops-env-\\d{4}-\\d{2}-\\d{2}T\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "device_id": { "type": "string" },
+    "zone": {
+      "type": "string",
+      "enum": ["greenhouse_1", "greenhouse_2", "workshop_room", "outdoor_north", "outdoor_south", "van"]
+    },
+    "measured_at": { "type": "string", "format": "date-time" },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "temperature_f": { "type": "number" },
+        "humidity_pct": { "type": "number" },
+        "light_lux": { "type": "number" },
+        "soil_moisture_pct": { "type": "number" }
+      }
+    },
+    "optimal_range": {
+      "type": "object",
+      "properties": {
+        "temperature_f": { "type": "object", "properties": { "min": { "type": "number" }, "max": { "type": "number" } } },
+        "humidity_pct": { "type": "object", "properties": { "min": { "type": "number" }, "max": { "type": "number" } } },
+        "light_lux": { "type": "object", "properties": { "min": { "type": "number" }, "max": { "type": "number" } } }
+      }
+    },
+    "in_range": { "type": "boolean" },
+    "off_range_metrics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "consecutive_off_range_hours": {
+      "type": "number",
+      "minimum": 0,
+      "description": "How long this zone has been off-range; > 6h triggers alert"
+    },
+    "alert_raised": { "type": "boolean", "default": false }
+  }
+}

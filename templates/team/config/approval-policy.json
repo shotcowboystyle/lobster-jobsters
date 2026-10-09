@@ -1,0 +1,32 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the {{COMPANY}} {{TEAM_NAME}} team ({{PERSONA}})",
+    "rules": {
+      "approve_within_authority": {
+        "requires_approval": true,
+        "approvers": ["{{TEAM_SLUG}}"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Routine {{TEAM_SHORT}} work items: {{PERSONA}} approves."
+      },
+      "approve_above_threshold": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_usd": 1000,
+        "notes": "Any commitment above threshold_usd, or affecting another team's domain: {{OWNER}} approval required."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["{{TEAM_SLUG}}", "ceo"],
+        "notes": "Emergency stop can be activated immediately by {{PERSONA}} or {{OWNER}}. Resumption requires {{OWNER}}."
+      }
+    }
+  }
+}

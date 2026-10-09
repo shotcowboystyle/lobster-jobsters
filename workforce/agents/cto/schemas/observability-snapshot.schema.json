@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ObservabilitySnapshot",
+  "description": "Periodic platform health snapshot — daily by Bastion, weekly aggregate by Allen",
+  "type": "object",
+  "required": ["snapshot_id", "as_of", "uptime", "latency", "error_rate", "status"],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^acme-tech-obs-\\d{4}-\\d{2}-\\d{2}-(daily|weekly|monthly)$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["daily", "weekly", "monthly"]
+    },
+    "as_of": { "type": "string", "format": "date" },
+    "period_start": { "type": "string", "format": "date-time" },
+    "period_end": { "type": "string", "format": "date-time" },
+    "uptime": {
+      "type": "object",
+      "properties": {
+        "actual_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "target_pct": { "type": "number", "default": 99.9 },
+        "downtime_minutes": { "type": "number", "minimum": 0 },
+        "meets_slo": { "type": "boolean" }
+      }
+    },
+    "latency": {
+      "type": "object",
+      "properties": {
+        "p50_ms": { "type": "number" },
+        "p95_ms": { "type": "number" },
+        "p99_ms": { "type": "number" },
+        "p95_target_ms": { "type": "number", "default": 500 },
+        "meets_slo": { "type": "boolean" }
+      }
+    },
+    "error_rate": {
+      "type": "object",
+      "properties": {
+        "rate_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "target_pct": { "type": "number", "default": 1.0 },
+        "meets_slo": { "type": "boolean" }
+      }
+    },
+    "page_load": {
+      "type": "object",
+      "properties": {
+        "median_ms": { "type": "number" },
+        "p75_ms": { "type": "number" },
+        "lighthouse_performance": { "type": "number", "minimum": 0, "maximum": 100 },
+        "lighthouse_accessibility": { "type": "number", "minimum": 0, "maximum": 100 },
+        "lighthouse_seo": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "infrastructure": {
+      "type": "object",
+      "properties": {
+        "ssl_cert_days_to_expiry": { "type": "integer" },
+        "backup_last_completed_at": { "type": "string", "format": "date-time" },
+        "backup_restore_verified": { "type": "boolean" },
+        "cdn_cache_hit_rate_pct": { "type": "number" }
+      }
+    },
+    "deploys_this_period": { "type": "integer" },
+    "incidents_this_period": {
+      "type": "object",
+      "properties": {
+        "sev1_count": { "type": "integer" },
+        "sev2_count": { "type": "integer" },
+        "sev3_count": { "type": "integer" },
+        "sev4_count": { "type": "integer" },
+        "median_mttr_minutes": { "type": "integer" }
+      }
+    },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "cto_review", "published", "archived"]
+    }
+  }
+}

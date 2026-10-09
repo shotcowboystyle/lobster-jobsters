@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FacilityIncident",
+  "description": "Facility incident or maintenance need owned by Birch",
+  "type": "object",
+  "required": ["incident_id", "kind", "severity", "description", "detected_at", "status"],
+  "properties": {
+    "incident_id": {
+      "type": "string",
+      "pattern": "^acme-ops-inc-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "environmental_failure",
+        "equipment_failure",
+        "pest_outbreak",
+        "disease_outbreak",
+        "weather_damage",
+        "safety_incident",
+        "maintenance_needed",
+        "infrastructure_issue",
+        "other"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "description": { "type": "string" },
+    "detected_at": { "type": "string", "format": "date-time" },
+    "detected_by": { "type": "string", "description": "Agent or human who flagged it" },
+    "affected_zone": { "type": "string", "description": "Greenhouse 1 / outdoor north / workshop / van" },
+    "affected_tree_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" }
+    },
+    "estimated_cost_usd": { "type": "number" },
+    "ceo_approval_required": {
+      "type": "boolean",
+      "description": "True if estimated_cost_usd > $1,000"
+    },
+    "vendor_required": { "type": "boolean", "default": false },
+    "owner": { "type": "string", "default": "birch" },
+    "mitigation_plan": { "type": "string" },
+    "root_cause": { "type": "string" },
+    "corrective_action": { "type": "string" },
+    "preventive_action": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["detected", "triaged", "in_progress", "resolved", "escalated", "archived"]
+    },
+    "resolved_at": { "type": "string", "format": "date-time" },
+    "linked_environmental_readings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

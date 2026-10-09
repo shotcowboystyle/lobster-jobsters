@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Incident",
+  "description": "Production incident — SEV-classified, owned by Bastion (primary) + Forge / Pixel (per surface)",
+  "type": "object",
+  "required": ["incident_id", "title", "severity", "detected_at", "affected_surfaces", "status"],
+  "properties": {
+    "incident_id": {
+      "type": "string",
+      "pattern": "^acme-tech-inc-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "severity": {
+      "type": "string",
+      "enum": ["sev1_critical", "sev2_high", "sev3_medium", "sev4_low"],
+      "description": "SEV-1: prod down or > 50% degradation; SEV-2: significant degradation; SEV-3: partial impact; SEV-4: minor"
+    },
+    "detected_at": { "type": "string", "format": "date-time" },
+    "detected_by": { "type": "string", "description": "Agent / monitoring system / human reporter" },
+    "detection_source": {
+      "type": "string",
+      "enum": ["sentry", "uptime_check", "user_report", "internal_user", "alert_routine", "other"]
+    },
+    "affected_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["website", "booking", "payment", "cms", "api", "admin", "email", "third_party_integration"]
+      }
+    },
+    "user_impact_estimate": { "type": "string" },
+    "owner": {
+      "type": "string",
+      "enum": ["bastion", "forge", "pixel", "allen"]
+    },
+    "linked_release_id": { "type": "string", "description": "If incident appears to be from a release" },
+    "triage_notes": { "type": "string" },
+    "triaged_at": { "type": "string", "format": "date-time" },
+    "mitigation": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "applied_at": { "type": "string", "format": "date-time" },
+        "applied_by": { "type": "string" },
+        "rollback_used": { "type": "boolean", "default": false }
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "resolved_at": { "type": "string", "format": "date-time" },
+        "resolved_by": { "type": "string" }
+      }
+    },
+    "postmortem": {
+      "type": "object",
+      "properties": {
+        "root_cause": { "type": "string" },
+        "contributing_factors": { "type": "array", "items": { "type": "string" } },
+        "what_went_well": { "type": "array", "items": { "type": "string" } },
+        "what_went_poorly": { "type": "array", "items": { "type": "string" } },
+        "corrective_actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": { "type": "string" },
+              "owner": { "type": "string" },
+              "due_date": { "type": "string", "format": "date" },
+              "linked_debt_id": { "type": "string" }
+            }
+          }
+        },
+        "preventive_actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": { "type": "string" },
+              "owner": { "type": "string" },
+              "due_date": { "type": "string", "format": "date" }
+            }
+          }
+        },
+        "published_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "ceo_escalated": { "type": "boolean", "default": false },
+    "ceo_escalated_at": { "type": "string", "format": "date-time" },
+    "customer_notification_sent": { "type": "boolean", "default": false },
+    "customer_notification_idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-tech-.+-notify-\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["detected", "triaged", "mitigated", "resolved", "postmortem", "archived", "escalated"]
+    },
+    "mttr_minutes": {
+      "type": "integer",
+      "description": "Mean time to resolution — computed from detected_at to resolved_at"
+    }
+  }
+}

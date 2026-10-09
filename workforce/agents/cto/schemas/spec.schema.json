@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Spec",
+  "description": "Technical spec drafted by a sub-agent owner; requester signs off",
+  "type": "object",
+  "required": ["spec_id", "feature_id", "owner", "summary", "drafted_at", "status"],
+  "properties": {
+    "spec_id": {
+      "type": "string",
+      "pattern": "^acme-tech-sp-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "feature_id": {
+      "type": "string",
+      "pattern": "^acme-tech-fr-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "owner": {
+      "type": "string",
+      "enum": ["pixel", "forge", "bastion", "allen"]
+    },
+    "summary": { "type": "string", "maxLength": 1500 },
+    "architecture_notes": { "type": "string" },
+    "data_model_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "table": { "type": "string" },
+          "change_kind": { "type": "string", "enum": ["add", "alter", "drop", "rename"] },
+          "description": { "type": "string" },
+          "migration_plan": { "type": "string" },
+          "rollback_plan": { "type": "string" }
+        }
+      }
+    },
+    "api_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "endpoint": { "type": "string" },
+          "change_kind": { "type": "string", "enum": ["add", "modify", "deprecate", "remove"] },
+          "breaking": { "type": "boolean" },
+          "migration_plan": { "type": "string" }
+        }
+      }
+    },
+    "ui_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "page_or_component": { "type": "string" },
+          "description": { "type": "string" },
+          "mockup_url": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "infra_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "resource": { "type": "string" },
+          "change_kind": { "type": "string" },
+          "description": { "type": "string" },
+          "rollback_plan": { "type": "string" }
+        }
+      }
+    },
+    "test_plan": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "rollout_plan": { "type": "string" },
+    "monitoring_additions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Other feature_ids, vendor SaaS, infra prereqs"
+    },
+    "estimated_hours": { "type": "number" },
+    "estimated_cost_usd": { "type": "number" },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "cto_review", "requester_review", "accepted", "rejected", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "accepted_at": { "type": "string", "format": "date-time" },
+    "accepted_by": { "type": "string" }
+  }
+}

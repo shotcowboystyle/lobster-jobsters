@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PickList",
+  "description": "Per-route pick manifest produced by Grove for the loading crew",
+  "type": "object",
+  "required": ["pick_list_id", "route_id", "items", "created_at"],
+  "properties": {
+    "pick_list_id": {
+      "type": "string",
+      "pattern": "^acme-pl-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$",
+      "description": "Format: acme-pl-YYYY-MM-DD-{slug}"
+    },
+    "route_id": { "type": "string" },
+    "loading_date": { "type": "string", "format": "date" },
+    "loading_window": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "format": "time" },
+        "end": { "type": "string", "format": "time" }
+      }
+    },
+    "van_id": { "type": "string" },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["contract_id", "stop_order", "species", "size", "quantity", "inventory_row"],
+        "properties": {
+          "contract_id": { "type": "string", "pattern": "^acme-c-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+          "stop_order": { "type": "integer", "minimum": 1 },
+          "buyer_name": { "type": "string" },
+          "species": { "type": "string" },
+          "size": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "inventory_row": { "type": "string", "description": "Row identifier in the canonical inventory sheet" },
+          "loading_notes": { "type": "string" }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "reconciled_at": { "type": "string", "format": "date-time" },
+    "discrepancies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "contract_id": { "type": "string" },
+          "expected": { "type": "integer" },
+          "loaded": { "type": "integer" },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

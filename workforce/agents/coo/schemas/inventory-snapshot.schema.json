@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InventorySnapshot",
+  "description": "Weekly inventory snapshot shared with CFO + Sales",
+  "type": "object",
+  "required": ["snapshot_id", "as_of", "totals", "by_species_size", "health_distribution", "mortality_trailing_30d", "status"],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^acme-ops-inv-\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "as_of": { "type": "string", "format": "date" },
+    "totals": {
+      "type": "object",
+      "properties": {
+        "total_count": { "type": "integer", "minimum": 0 },
+        "available_count": { "type": "integer", "minimum": 0 },
+        "reserved_count": { "type": "integer", "minimum": 0 },
+        "allocated_count": { "type": "integer", "minimum": 0 },
+        "quarantined_count": { "type": "integer", "minimum": 0 },
+        "sick_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "by_species_size": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "species": { "type": "string" },
+          "size": { "type": "string" },
+          "on_hand": { "type": "integer" },
+          "reserved": { "type": "integer" },
+          "available": { "type": "integer" },
+          "safety_threshold": { "type": "integer" },
+          "at_threshold": { "type": "boolean" }
+        }
+      }
+    },
+    "health_distribution": {
+      "type": "object",
+      "properties": {
+        "grade_a": { "type": "integer" },
+        "grade_b": { "type": "integer" },
+        "grade_c": { "type": "integer" },
+        "quarantine": { "type": "integer" }
+      }
+    },
+    "mortality_trailing_30d": {
+      "type": "object",
+      "properties": {
+        "lost_count": { "type": "integer" },
+        "denominator": { "type": "integer" },
+        "rate_pct": { "type": "number" },
+        "alert_threshold_pct": { "type": "number", "default": 2.0 },
+        "above_threshold": { "type": "boolean" }
+      }
+    },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "coo_review", "published", "archived"]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_ceo_strategy": {
+        "id": "CHANNEL_ID_STRATEGY",
+        "name": "#acme-ceo-strategy",
+        "purpose": "Compass weekly strategic questions and Apex's strategic notes",
+        "agents_that_post": ["ceo", "strategy-synthesizer"],
+        "human_actions": ["answer", "defer", "drop", "discuss"]
+      },
+      "acme_ceo_decisions": {
+        "id": "CHANNEL_ID_DECISIONS",
+        "name": "#acme-ceo-decisions",
+        "purpose": "Almanac decision-entry confirmations and outcome captures",
+        "agents_that_post": ["decision-journal"],
+        "human_actions": ["ack", "edit", "drop", "record_outcome"]
+      },
+      "acme_ceo_memos": {
+        "id": "CHANNEL_ID_MEMOS",
+        "name": "#acme-ceo-memos",
+        "purpose": "Atlas memo drafts and Envoy external-comm drafts for CEO review",
+        "agents_that_post": ["memo-drafter", "external-comms"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_ceo_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-ceo-alerts",
+        "purpose": "Ledger anomalies, outbound send failures, emergency-stop events",
+        "agents_that_post": ["ceo", "external-comms"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": [
+          "answer_strategic_question",
+          "capture_decision",
+          "record_outcome",
+          "approve_memo",
+          "approve_external_comm",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "apex": {
+        "discord_user_id": "APEX_AGENT_ID",
+        "name": "Apex (CEO Shadow)",
+        "can_approve": ["emergency_stop"],
+        "notification_preference": "none"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 24,
+      "escalation_timeout_hours": 48,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

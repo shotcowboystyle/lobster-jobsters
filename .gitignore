@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Secrets — env files live outside the repo; only env.example is tracked
+.env
+.env.*
+!*/env.example
+
+# Per-deployment state: ledgers, backups, daily memory logs
+**/data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+**/memory/*.md
+
+# Vendored third-party skills are installed from .clawhub/lock.json, not committed
+**/skills/*/
+!**/skills/README.md
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local Claude settings
+.claude/settings.local.json

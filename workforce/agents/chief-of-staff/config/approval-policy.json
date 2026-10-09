@@ -1,0 +1,58 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for ACME Bonsai Chief of Staff team",
+    "rules": {
+      "publish_briefing": {
+        "requires_approval": true,
+        "approvers": ["chief_of_staff"],
+        "min_approvers": 1,
+        "timeout_hours": 6,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold"],
+        "notes": "Routine briefings: River may auto-publish during the delegation window if no edit is required."
+      },
+      "publish_initiative_color_change": {
+        "requires_approval": true,
+        "approvers": ["initiative_sponsor"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold"],
+        "notes": "Initiative health color is set by the sponsor; River verifies but does not override."
+      },
+      "external_communication": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Any communication to external stakeholders (investors, banks, regulators) requires explicit CEO approval."
+      },
+      "delegation_window": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["approve", "reject", "revoke"],
+        "notes": "Jane may grant River a defined window of delegation authority for routine briefing publication."
+      },
+      "agent_restart_or_pause": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "reject"],
+        "notes": "Magpie surfaces anomalies; restart/pause of any agent requires CEO approval."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["chief_of_staff", "ceo"],
+        "notes": "Emergency stop can be activated immediately by River or Jane."
+      }
+    }
+  }
+}

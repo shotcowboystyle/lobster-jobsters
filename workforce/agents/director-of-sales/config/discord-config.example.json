@@ -1,0 +1,74 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_sales_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-sales-drafts",
+        "purpose": "Quote drafts, opportunity reviews, subscription proposals, event quotes",
+        "agents_that_post": ["director-of-sales", "wholesale-sales", "local-sales", "subscription-sales", "event-rental"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_sales_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-sales-approvals",
+        "purpose": "CEO escalations: > 25% discount, < 12-mo subscription, major saves, custom terms",
+        "agents_that_post": ["director-of-sales"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_sales_pipeline": {
+        "id": "CHANNEL_ID_PIPELINE",
+        "name": "#acme-sales-pipeline",
+        "purpose": "Weekly pipeline snapshot, weighted forecast, conversion metrics",
+        "agents_that_post": ["director-of-sales"],
+        "human_actions": ["review", "comment", "directive"]
+      },
+      "acme_sales_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-sales-alerts",
+        "purpose": "Stalled opportunities, missed quotes, churn risks, missed deposits, emergency-stop",
+        "agents_that_post": ["director-of-sales", "wholesale-sales", "local-sales", "subscription-sales", "event-rental"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": [
+          "approve_discount_large",
+          "approve_subscription_short_term",
+          "approve_custom_commercial_terms",
+          "approve_customer_refund",
+          "approve_major_account_save",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "director_of_sales": {
+        "discord_user_id": "DOS_AGENT_ID",
+        "name": "Cash (Director of Sales)",
+        "can_approve": [
+          "approve_quote_send",
+          "approve_discount_standard",
+          "approve_discount_volume",
+          "approve_discount_large",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "cfo": {
+        "discord_user_id": "CFO_AGENT_ID",
+        "name": "Sterling (CFO, via Margin)",
+        "can_approve": ["approve_discount_large"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 24,
+      "escalation_timeout_hours": 48,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

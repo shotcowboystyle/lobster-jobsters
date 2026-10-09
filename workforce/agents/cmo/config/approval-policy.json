@@ -1,0 +1,78 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for ACME Bonsai social media publishing",
+    "rules": {
+      "publish_post": {
+        "requires_approval": true,
+        "approvers": [
+          "primary",
+          "secondary"
+        ],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": [
+          "approve",
+          "edit",
+          "hold",
+          "reject"
+        ],
+        "notes": "Every post must be explicitly approved before publishing. Silence is never consent."
+      },
+      "publish_reply": {
+        "requires_approval": true,
+        "approvers": [
+          "primary",
+          "secondary"
+        ],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "skip",
+        "allowed_actions": [
+          "approve",
+          "edit",
+          "skip"
+        ],
+        "notes": "Replies should be timely. If not approved within 12h, skip and log."
+      },
+      "approve_calendar": {
+        "requires_approval": true,
+        "approvers": [
+          "primary"
+        ],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "remind",
+        "allowed_actions": [
+          "approve",
+          "edit",
+          "reject"
+        ],
+        "notes": "Weekly calendar needs primary operator approval."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": [
+          "primary",
+          "secondary"
+        ],
+        "notes": "Emergency stop can be activated immediately by any authorized actor."
+      },
+      "delete_published_post": {
+        "requires_approval": true,
+        "approvers": [
+          "primary"
+        ],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": [
+          "approve",
+          "reject"
+        ],
+        "notes": "Deleting published posts is a critical action requiring primary approval."
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DepositInvoice",
+  "description": "Deposit or balance invoice issued by Finch via Stripe or ACH",
+  "type": "object",
+  "required": ["contract_id", "kind", "amount_usd", "method", "status", "idempotency_key", "issued_at"],
+  "properties": {
+    "contract_id": { "type": "string", "pattern": "^acme-c-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "kind": { "type": "string", "enum": ["deposit", "balance"] },
+    "amount_usd": { "type": "number", "minimum": 0 },
+    "method": { "type": "string", "enum": ["stripe", "ach"] },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "sent", "viewed", "paid", "failed", "refunded", "voided"]
+    },
+    "stripe_payment_intent_id": { "type": "string" },
+    "stripe_invoice_id": { "type": "string" },
+    "ach_transfer_id": { "type": "string" },
+    "payment_link": { "type": "string", "format": "uri" },
+    "due_date": { "type": "string", "format": "date" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "paid_at": { "type": "string", "format": "date-time" },
+    "failed_at": { "type": "string", "format": "date-time" },
+    "failure_reason": { "type": "string" },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-.+-(deposit|balance)-\\d+$",
+      "description": "Format: acme-{contract_id}-{kind}-{attempt}"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["awaiting_approval", "approved", "rejected", "auto_approved_under_threshold"]
+    },
+    "cfo_acknowledged": {
+      "type": "boolean",
+      "description": "Required true if amount_usd > 10000"
+    }
+  }
+}

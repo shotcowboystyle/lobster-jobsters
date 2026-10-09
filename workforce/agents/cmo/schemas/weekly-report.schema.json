@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WeeklyReport",
+  "description": "Weekly performance report from Weekly Analyst",
+  "type": "object",
+  "required": ["report_id", "week_start", "week_end", "publishing_summary", "engagement_summary", "vertical_performance", "platform_comparison", "recommendations", "created_at"],
+  "properties": {
+    "report_id": {
+      "type": "string",
+      "pattern": "^acme-report-\\d{4}-W\\d{2}$"
+    },
+    "week_start": { "type": "string", "format": "date" },
+    "week_end": { "type": "string", "format": "date" },
+    "publishing_summary": {
+      "type": "object",
+      "properties": {
+        "total_published": { "type": "integer" },
+        "by_platform": {
+          "type": "object",
+          "properties": {
+            "instagram": { "type": "integer" },
+            "facebook": { "type": "integer" }
+          }
+        },
+        "by_vertical": {
+          "type": "object",
+          "properties": {
+            "wholesale": { "type": "integer" },
+            "local": { "type": "integer" },
+            "display": { "type": "integer" },
+            "events": { "type": "integer" }
+          }
+        },
+        "failed": { "type": "integer" },
+        "rejected": { "type": "integer" },
+        "held": { "type": "integer" },
+        "avg_draft_to_publish_hours": { "type": "number" }
+      }
+    },
+    "engagement_summary": {
+      "type": "object",
+      "properties": {
+        "total_likes": { "type": "integer" },
+        "total_comments": { "type": "integer" },
+        "total_saves": { "type": "integer" },
+        "total_shares": { "type": "integer" },
+        "total_reach": { "type": "integer" },
+        "avg_engagement_rate": { "type": "number" },
+        "top_post_id": { "type": "string" },
+        "top_post_engagement_rate": { "type": "number" }
+      }
+    },
+    "vertical_performance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vertical": { "type": "string" },
+          "posts": { "type": "integer" },
+          "avg_engagement_rate": { "type": "number" },
+          "total_reach": { "type": "integer" }
+        }
+      }
+    },
+    "platform_comparison": {
+      "type": "object",
+      "properties": {
+        "instagram": {
+          "type": "object",
+          "properties": {
+            "avg_engagement_rate": { "type": "number" },
+            "avg_reach": { "type": "number" }
+          }
+        },
+        "facebook": {
+          "type": "object",
+          "properties": {
+            "avg_engagement_rate": { "type": "number" },
+            "avg_reach": { "type": "number" }
+          }
+        }
+      }
+    },
+    "audience_insights": { "type": "string" },
+    "recommendations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "system_health": {
+      "type": "object",
+      "properties": {
+        "publish_failures": { "type": "integer" },
+        "approval_timeouts": { "type": "integer" },
+        "routine_failures": { "type": "integer" },
+        "incidents": { "type": "integer" }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

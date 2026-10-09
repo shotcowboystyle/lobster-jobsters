@@ -1,0 +1,75 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai CFO team (Sterling)",
+    "rules": {
+      "approve_monthly_close": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold"],
+        "notes": "Monthly close package requires Jane's approval before final archive."
+      },
+      "approve_forecast": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Monthly forecast + quarterly re-forecast require Jane's approval before publication."
+      },
+      "approve_pricing_change_small": {
+        "requires_approval": true,
+        "approvers": ["cfo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_pct": 15,
+        "notes": "Pricing changes / discounts at or below 15% off list can be approved by Sterling."
+      },
+      "approve_pricing_change_large": {
+        "requires_approval": true,
+        "approvers": ["cfo", "ceo"],
+        "min_approvers": 2,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_pct": 15,
+        "notes": "Discounts > 15% off list require Sterling + Jane approval. Discounts below cost require strategic rationale documented."
+      },
+      "approve_unbudgeted_spend": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_usd": 5000,
+        "notes": "Spend > $5,000 outside an approved budget requires Jane approval."
+      },
+      "approve_external_finance_comm": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Any communication to bank, tax authority, or external auditor requires Jane's per-message approval."
+      },
+      "document_exception": {
+        "requires_approval": false,
+        "authorized_actors": ["garrison", "sterling"],
+        "notes": "Garrison documents exceptions immediately; Sterling acknowledges within 24h."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["cfo", "ceo"],
+        "notes": "Emergency stop can be activated immediately by Sterling or Jane."
+      }
+    }
+  }
+}

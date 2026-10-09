@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkshopEvent",
+  "description": "Workshop session owned by Hazel",
+  "type": "object",
+  "required": ["workshop_id", "title", "scheduled_at", "instructor", "capacity", "status", "drafted_at"],
+  "properties": {
+    "workshop_id": {
+      "type": "string",
+      "pattern": "^acme-ops-ws-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "description": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["intro", "intermediate", "advanced", "specialty", "field_trip"]
+    },
+    "scheduled_at": { "type": "string", "format": "date-time" },
+    "duration_minutes": { "type": "integer", "minimum": 30 },
+    "location": {
+      "type": "string",
+      "description": "Workshop room / outdoor area / off-site venue"
+    },
+    "instructor": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "confirmed": { "type": "boolean", "default": false },
+        "confirmed_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "capacity": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "integer", "minimum": 1, "default": 4 },
+        "max": { "type": "integer", "minimum": 1, "maximum": 20, "default": 12 }
+      }
+    },
+    "price_usd": { "type": "number", "minimum": 0 },
+    "materials_checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "ready": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "demo_tree_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" }
+    },
+    "registrations_count": { "type": "integer", "minimum": 0 },
+    "attended_count": { "type": "integer", "minimum": 0 },
+    "no_show_count": { "type": "integer", "minimum": 0 },
+    "satisfaction_score": { "type": "number", "minimum": 0, "maximum": 5 },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "calendar", "registration_open", "confirmed", "in_session", "debrief", "closed", "cancelled"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "closed_at": { "type": "string", "format": "date-time" },
+    "cancellation_reason": { "type": "string" }
+  }
+}

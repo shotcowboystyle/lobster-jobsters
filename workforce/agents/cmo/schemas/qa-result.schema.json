@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QAResult",
+  "description": "Quality assurance review result from Brand QA agent",
+  "type": "object",
+  "required": ["post_id", "qa_status", "brand_voice", "vertical_alignment", "factual_accuracy", "prohibited_patterns", "placeholder_check", "platform_compliance", "high_risk_flags", "repetition_check", "reviewed_at"],
+  "properties": {
+    "post_id": { "type": "string" },
+    "qa_status": {
+      "type": "string",
+      "enum": ["pass", "pass_with_flags", "fail"]
+    },
+    "brand_voice": { "type": "string" },
+    "vertical_alignment": { "type": "string" },
+    "factual_accuracy": { "type": "string" },
+    "prohibited_patterns": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "placeholder_check": { "type": "string" },
+    "platform_compliance": { "type": "string" },
+    "high_risk_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "repetition_check": { "type": "string" },
+    "notes": { "type": "string" },
+    "revision_instructions": {
+      "type": "string",
+      "description": "Required when qa_status is 'fail'"
+    },
+    "reviewed_at": { "type": "string", "format": "date-time" }
+  }
+}

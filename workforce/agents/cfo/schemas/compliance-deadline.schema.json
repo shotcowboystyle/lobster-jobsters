@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComplianceDeadline",
+  "description": "Tax / regulatory / licensing deadline tracked by Garrison",
+  "type": "object",
+  "required": ["compliance_id", "kind", "jurisdiction", "due_date", "owner", "status"],
+  "properties": {
+    "compliance_id": {
+      "type": "string",
+      "pattern": "^acme-fin-cmp-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "sales_tax",
+        "use_tax",
+        "income_tax_federal",
+        "income_tax_state",
+        "payroll_tax",
+        "business_license",
+        "permit",
+        "insurance_renewal",
+        "1099_filing",
+        "w2_filing",
+        "annual_report",
+        "audit",
+        "other"
+      ]
+    },
+    "jurisdiction": {
+      "type": "string",
+      "description": "Federal, state code, or city"
+    },
+    "due_date": { "type": "string", "format": "date" },
+    "frequency": {
+      "type": "string",
+      "enum": ["monthly", "quarterly", "annual", "one_time"]
+    },
+    "owner": { "type": "string", "default": "garrison" },
+    "preparer": { "type": "string", "description": "External CPA, in-house, or service provider" },
+    "amount_due_usd": { "type": "number" },
+    "estimated_amount_due_usd": { "type": "number" },
+    "filing_method": { "type": "string", "enum": ["electronic", "paper", "in_person"] },
+    "status": {
+      "type": "string",
+      "enum": ["tracked", "due_soon", "in_progress", "filed", "missed", "archived"]
+    },
+    "acknowledged_at": { "type": "string", "format": "date-time", "description": "When Sterling acknowledged the upcoming deadline" },
+    "filed_at": { "type": "string", "format": "date-time" },
+    "filing_confirmation": { "type": "string", "description": "Provider confirmation number" },
+    "filing_receipt_path": { "type": "string" },
+    "linked_exception_id": { "type": "string", "description": "If missed → ties to an exception entry" }
+  }
+}

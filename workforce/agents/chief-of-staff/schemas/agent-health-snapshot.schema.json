@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentHealthSnapshot",
+  "description": "Periodic health snapshot of all OpenClaw agents under ACME Bonsai — produced by Magpie",
+  "type": "object",
+  "required": ["snapshot_id", "swept_at", "agents", "overall_status"],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^acme-hs-\\d{4}-\\d{2}-\\d{2}T\\d{2}-\\d{2}$"
+    },
+    "swept_at": { "type": "string", "format": "date-time" },
+    "agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["workspace", "status"],
+        "properties": {
+          "workspace": {
+            "type": "string",
+            "description": "Path relative to workforce/agents/"
+          },
+          "status": { "type": "string", "enum": ["green", "yellow", "red", "unknown"] },
+          "bootstrap_files_present": {
+            "type": "object",
+            "properties": {
+              "SOUL_md": { "type": "boolean" },
+              "IDENTITY_md": { "type": "boolean" },
+              "AGENTS_md": { "type": "boolean" },
+              "USER_md": { "type": "boolean" },
+              "HEARTBEAT_md": { "type": "boolean" }
+            }
+          },
+          "last_daily_log": { "type": "string", "format": "date" },
+          "hours_since_last_log": { "type": "number" },
+          "emergency_stop_engaged": { "type": "boolean" },
+          "recent_failed_transitions": { "type": "integer", "minimum": 0 },
+          "anomalies": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "overall_status": { "type": "string", "enum": ["green", "yellow", "red"] },
+    "delta_from_previous": {
+      "type": "object",
+      "description": "What changed since the last snapshot",
+      "properties": {
+        "improved": { "type": "array", "items": { "type": "string" } },
+        "degraded": { "type": "array", "items": { "type": "string" } },
+        "new_alerts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "posted_to_discord": { "type": "boolean", "default": false }
+  }
+}

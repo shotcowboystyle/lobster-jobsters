@@ -1,0 +1,86 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai Creative Director team (Masahiko)",
+    "rules": {
+      "approve_deliverable": {
+        "requires_approval": true,
+        "approvers": ["creative_director"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "revising", "reject"],
+        "notes": "Every design deliverable requires Masahiko's review against brand system before delivery."
+      },
+      "approve_photo_shoot": {
+        "requires_approval": true,
+        "approvers": ["creative_director"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "revising", "reject"],
+        "notes": "Photo shoots require Masahiko's review of edited proofs before library archive."
+      },
+      "approve_care_guide": {
+        "requires_approval": true,
+        "approvers": ["creative_director"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "revising", "reject"],
+        "notes": "Care guides require Care Education technical review AND Masahiko brand review before publication."
+      },
+      "approve_creative_project_large": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_usd": 2000,
+        "notes": "Creative projects > $2,000 require Jane approval before commitment."
+      },
+      "approve_rebranding": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Rebranding or major identity change requires Jane approval."
+      },
+      "approve_brand_system_update": {
+        "requires_approval": true,
+        "approvers": ["creative_director", "ceo"],
+        "min_approvers": 2,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Brand system updates require Masahiko + Jane approval with impact analysis across all touchpoints."
+      },
+      "approve_external_publish": {
+        "requires_approval": true,
+        "approvers": ["creative_director"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Publishing any asset to external surfaces requires Masahiko approval. Idempotency key required."
+      },
+      "approve_photo_release_request": {
+        "requires_approval": true,
+        "approvers": ["creative_director"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Requesting photo release from customer requires Masahiko's review of request wording."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["creative_director", "ceo"],
+        "notes": "Emergency stop on asset publication can be activated immediately by Masahiko or Jane."
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InventoryItem",
+  "description": "Per-tree inventory record. Sheet is canonical for counts; this schema documents the record shape and ledger workflow state.",
+  "type": "object",
+  "required": ["tree_id", "species", "size", "location", "health_grade", "status", "received_at"],
+  "properties": {
+    "tree_id": {
+      "type": "string",
+      "pattern": "^acme-tr-[a-z0-9-]+$"
+    },
+    "species": { "type": "string" },
+    "size": {
+      "type": "string",
+      "description": "e.g. '4in', '6in', 'specimen-24in'"
+    },
+    "location": {
+      "type": "string",
+      "description": "Greenhouse row / outdoor zone / staging area / customer (if allocated)"
+    },
+    "health_grade": {
+      "type": "string",
+      "enum": ["A", "B", "C", "quarantine"],
+      "description": "A = display-ready; B = healthy retail; C = needs attention; quarantine = isolated"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["received", "quarantined", "healthy", "sick", "reserved", "allocated", "fulfilled", "lost", "archived"]
+    },
+    "safety_threshold": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Minimum reservable count for this species/size before alert"
+    },
+    "reserved_for": {
+      "type": "object",
+      "description": "If status = reserved or allocated",
+      "properties": {
+        "channel": { "type": "string", "enum": ["wholesale", "rental", "retail", "marketing", "workshop"] },
+        "reference_id": { "type": "string", "description": "contract_id, rental_id, sale_id, etc." },
+        "reserved_at": { "type": "string", "format": "date-time" },
+        "hold_until": { "type": "string", "format": "date-time" }
+      }
+    },
+    "received_at": { "type": "string", "format": "date-time" },
+    "quarantine_end_at": { "type": "string", "format": "date-time" },
+    "last_health_check_at": { "type": "string", "format": "date-time" },
+    "health_notes": { "type": "string" },
+    "treatment_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "at": { "type": "string", "format": "date-time" },
+          "treatment": { "type": "string" },
+          "by": { "type": "string" }
+        }
+      }
+    },
+    "fulfilled_at": { "type": "string", "format": "date-time" },
+    "lost_at": { "type": "string", "format": "date-time" },
+    "lost_reason": { "type": "string" }
+  }
+}

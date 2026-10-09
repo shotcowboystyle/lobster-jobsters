@@ -1,0 +1,10 @@
+{
+  "all_outbound_enabled": true,
+  "reason": null,
+  "stopped_by": null,
+  "stopped_at": null,
+  "resume_notes": null,
+  "resumed_by": null,
+  "resumed_at": null,
+  "scope_notes": "When all_outbound_enabled is false, EVERY team's outbound action is halted regardless of per-team emergency-stop state. Per-team emergency stops still apply when independently set. See ops/exec-runbook.md for procedure."
+}

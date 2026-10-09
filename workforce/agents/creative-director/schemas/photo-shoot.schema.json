@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PhotoShoot",
+  "description": "Photography session — owned by Iris; planned, captured, edited, reviewed",
+  "type": "object",
+  "required": ["shoot_id", "kind", "requested_at", "subject_summary", "status"],
+  "properties": {
+    "shoot_id": {
+      "type": "string",
+      "pattern": "^acme-creative-sh-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "linked_brief_id": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["inventory_documentation", "lifestyle", "event_coverage", "before_after_care", "rental_showcase", "workshop_coverage", "wholesale_catalog", "marketing_campaign", "other"]
+    },
+    "subject_summary": { "type": "string" },
+    "tree_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" }
+    },
+    "venue": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "owner_kind": { "type": "string", "enum": ["acme", "customer", "third_party_venue"] },
+        "release_required": { "type": "boolean", "default": false },
+        "release_signed_at": { "type": "string", "format": "date-time" },
+        "release_docusign_envelope_id": { "type": "string" }
+      }
+    },
+    "scheduled_at": { "type": "string", "format": "date-time" },
+    "photographer": { "type": "string" },
+    "shot_list": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "angle": { "type": "string" },
+          "captured": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "lighting_notes": { "type": "string" },
+    "honest_representation_check": {
+      "type": "object",
+      "properties": {
+        "captured_natural": { "type": "boolean", "default": true },
+        "editing_within_truth": { "type": "boolean", "default": true },
+        "notes": { "type": "string" }
+      }
+    },
+    "raw_files_location": { "type": "string" },
+    "edited_files_location": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "camera": { "type": "string" },
+        "lens": { "type": "string" },
+        "date_captured": { "type": "string", "format": "date" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "requested_at": { "type": "string", "format": "date-time" },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "edited_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "linked_asset_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["requested", "scheduled", "captured", "editing", "cd_review", "approved", "rescheduled", "cancelled", "rejected", "archived"]
+    },
+    "rescheduled_reason": { "type": "string" },
+    "cancelled_reason": { "type": "string" }
+  }
+}

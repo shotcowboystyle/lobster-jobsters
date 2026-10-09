@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HealthCheckIn",
+  "description": "Proactive customer health check-in — owned by Poppy for at-risk customers; Maple for post-care follow-ups",
+  "type": "object",
+  "required": ["checkin_id", "customer_id", "kind", "scheduled_for", "status"],
+  "properties": {
+    "checkin_id": {
+      "type": "string",
+      "pattern": "^acme-care-ck-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer_id": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "post_delivery", "post_workshop", "post_care_consult",
+        "subscription_satisfaction", "wholesale_relationship",
+        "at_risk_intervention", "renewal_window", "csat_dip", "activity_drop"
+      ]
+    },
+    "trigger": {
+      "type": "object",
+      "properties": {
+        "reason": { "type": "string" },
+        "linked_consult_id": { "type": "string" },
+        "linked_subscription_id": { "type": "string" },
+        "linked_delivery_id": { "type": "string" },
+        "csat_signal": { "type": "string" },
+        "days_inactive": { "type": "integer" }
+      }
+    },
+    "scheduled_for": { "type": "string", "format": "date" },
+    "outreach_channel": {
+      "type": "string",
+      "enum": ["email", "sms", "phone", "in_person"]
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "sent_at": { "type": "string", "format": "date-time" },
+        "idempotency_key": { "type": "string", "pattern": "^acme-care-.+-checkin-\\d+$" },
+        "by": { "type": "string" }
+      }
+    },
+    "customer_response": {
+      "type": "object",
+      "properties": {
+        "received_at": { "type": "string", "format": "date-time" },
+        "summary": { "type": "string" },
+        "satisfaction_indicator": { "type": "string", "enum": ["positive", "neutral", "negative", "no_response"] },
+        "issues_raised": { "type": "array", "items": { "type": "string" } },
+        "linked_followup_ticket_id": { "type": "string" }
+      }
+    },
+    "no_response_attempts": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of re-attempts before escalating"
+    },
+    "outcome": {
+      "type": "object",
+      "properties": {
+        "outcome": { "type": "string", "enum": ["confirmed_satisfied", "raised_issue_resolved", "raised_issue_unresolved", "at_risk_save_attempt", "lost"] },
+        "outcome_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["scheduled", "executed", "response_received", "no_response", "re_attempt", "escalated", "archived"]
+    }
+  }
+}

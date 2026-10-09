@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeliveryEta",
+  "description": "Per-buyer delivery-window email payload sent by Miles",
+  "type": "object",
+  "required": ["contract_id", "route_id", "buyer_email", "delivery_window_start", "delivery_window_end", "status", "idempotency_key"],
+  "properties": {
+    "contract_id": { "type": "string", "pattern": "^acme-c-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "route_id": { "type": "string", "pattern": "^acme-rt-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "buyer_email": { "type": "string", "format": "email" },
+    "buyer_name": { "type": "string" },
+    "stop_order": { "type": "integer", "minimum": 1 },
+    "delivery_date": { "type": "string", "format": "date" },
+    "delivery_window_start": { "type": "string", "format": "date-time" },
+    "delivery_window_end": { "type": "string", "format": "date-time" },
+    "address_confirmed": { "type": "string" },
+    "items_summary": { "type": "string", "description": "Plain-language summary of trees in this delivery" },
+    "balance_due_usd": { "type": "number", "minimum": 0 },
+    "balance_due_date": { "type": "string", "format": "date" },
+    "subject_line": { "type": "string" },
+    "body_text": { "type": "string" },
+    "body_html": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "coordinator_review", "sent", "delivered", "bounced", "buyer_replied"]
+    },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-.+-route-.+-\\d+$",
+      "description": "Format: acme-{contract_id}-route-{route_id}-{attempt}"
+    }
+  }
+}

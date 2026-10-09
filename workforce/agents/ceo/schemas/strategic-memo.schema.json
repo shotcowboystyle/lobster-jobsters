@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrategicMemo",
+  "description": "Long-form CEO memo drafted by Atlas on Jane's explicit request",
+  "type": "object",
+  "required": ["memo_id", "kind", "headline", "audience", "body_markdown", "word_count", "status", "requested_at"],
+  "properties": {
+    "memo_id": {
+      "type": "string",
+      "pattern": "^acme-ceo-m-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "investor_update",
+        "all_hands_letter",
+        "strategic_positioning",
+        "board_material",
+        "press_statement",
+        "internal_announcement",
+        "adhoc"
+      ]
+    },
+    "headline": { "type": "string", "maxLength": 200 },
+    "audience": {
+      "type": "string",
+      "description": "Who this is written for — guides voice and depth"
+    },
+    "body_markdown": { "type": "string" },
+    "word_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "soft_cap": {
+      "type": "integer",
+      "default": 1500,
+      "description": "Default 1,500 words unless Jane extends"
+    },
+    "supporting_references": {
+      "type": "array",
+      "items": { "type": "string", "description": "Ledger references that ground the memo" }
+    },
+    "linked_decision_id": { "type": "string" },
+    "linked_question_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["requested", "drafting", "ceo_review", "revising", "approved", "delivered", "rejected", "archived"]
+    },
+    "requested_at": { "type": "string", "format": "date-time" },
+    "requested_by": { "type": "string", "default": "Jane" },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "delivered_at": { "type": "string", "format": "date-time" },
+    "delivery_channel": { "type": "string", "description": "e.g. email-to-list, posted-to-blog, board-deck-attachment" },
+    "revision_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "round": { "type": "integer" },
+          "notes": { "type": "string" },
+          "at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

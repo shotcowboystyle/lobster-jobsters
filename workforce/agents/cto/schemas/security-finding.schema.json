@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SecurityFinding",
+  "description": "Vulnerability / security finding owned by Bastion",
+  "type": "object",
+  "required": ["finding_id", "kind", "severity", "summary", "detected_at", "status"],
+  "properties": {
+    "finding_id": {
+      "type": "string",
+      "pattern": "^acme-tech-sec-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["dependency_cve", "code_vuln", "config_issue", "secret_exposure", "auth_weakness", "data_exposure", "ssl_cert", "third_party", "other"]
+    },
+    "cve_id": { "type": "string" },
+    "cvss_score": { "type": "number", "minimum": 0, "maximum": 10 },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low", "info"]
+    },
+    "summary": { "type": "string" },
+    "affected_components": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Package names, services, endpoints, configs"
+    },
+    "detected_at": { "type": "string", "format": "date-time" },
+    "detection_source": {
+      "type": "string",
+      "enum": ["dependabot", "snyk", "manual", "external_report", "third_party_disclosure", "scanner"]
+    },
+    "patch_available": { "type": "boolean" },
+    "patch_summary": { "type": "string" },
+    "exploit_in_wild": { "type": "boolean", "default": false },
+    "patch_target_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Critical/high: 24h target; medium: 7 days; low: 30 days"
+    },
+    "risk_acceptance": {
+      "type": "object",
+      "description": "Required if status = deferred",
+      "properties": {
+        "rationale": { "type": "string" },
+        "approved_by_cto": { "type": "boolean" },
+        "approved_by_ceo": { "type": "boolean" },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "review_date": { "type": "string", "format": "date" }
+      }
+    },
+    "patch_pr_id": { "type": "string" },
+    "verified_at": { "type": "string", "format": "date-time" },
+    "verified_by": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["detected", "triaged", "patching", "patched", "verified", "deferred", "archived"]
+    }
+  }
+}

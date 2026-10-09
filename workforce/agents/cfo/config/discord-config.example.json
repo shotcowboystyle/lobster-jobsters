@@ -1,0 +1,67 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_finance_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-finance-drafts",
+        "purpose": "Close packages, forecast drafts, pricing analyses, variance reports for review",
+        "agents_that_post": ["cfo", "finance-ops", "fpa", "pricing-profitability"],
+        "human_actions": ["review", "approve", "edit", "hold", "reject"]
+      },
+      "acme_finance_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-finance-approvals",
+        "purpose": "CEO escalations: large spend, discount below cost, banking, compliance items",
+        "agents_that_post": ["cfo"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_finance_reports": {
+        "id": "CHANNEL_ID_REPORTS",
+        "name": "#acme-finance-reports",
+        "purpose": "Weekly cash + AR aging + margin snapshots; monthly close summaries",
+        "agents_that_post": ["cfo", "fpa", "pricing-profitability"],
+        "human_actions": ["review", "comment", "directive"]
+      },
+      "acme_finance_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-finance-alerts",
+        "purpose": "Runway threshold breaches, missed deadlines, ledger anomalies, emergency-stop events",
+        "agents_that_post": ["cfo", "finance-ops", "fpa", "controls-compliance", "pricing-profitability"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": [
+          "approve_monthly_close",
+          "approve_forecast",
+          "approve_pricing_change_large",
+          "approve_unbudgeted_spend",
+          "approve_external_finance_comm",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "cfo": {
+        "discord_user_id": "CFO_AGENT_ID",
+        "name": "Sterling (CFO)",
+        "can_approve": [
+          "approve_pricing_change_small",
+          "approve_pricing_change_large",
+          "document_exception",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 24,
+      "escalation_timeout_hours": 72,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

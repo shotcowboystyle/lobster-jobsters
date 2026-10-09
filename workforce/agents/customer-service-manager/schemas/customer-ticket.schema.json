@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CustomerTicket",
+  "description": "Customer support ticket — owned by Pearl until routed, then by Pearl / Oakley / Maple",
+  "type": "object",
+  "required": ["ticket_id", "customer_id", "channel", "received_at", "summary", "status"],
+  "properties": {
+    "ticket_id": {
+      "type": "string",
+      "pattern": "^acme-care-tk-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Reference into Director of Sales sales ledger customer_accounts table"
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["email", "sms", "chat", "phone", "social_media", "in_person", "internal_referral"]
+    },
+    "received_at": { "type": "string", "format": "date-time" },
+    "summary": { "type": "string", "maxLength": 500 },
+    "category": {
+      "type": "string",
+      "enum": ["general_inquiry", "order_status", "delivery_issue", "billing_question", "tree_health", "care_question", "rental_issue", "subscription_issue", "wholesale_issue", "feedback", "compliment", "complaint", "legal", "media", "other"]
+    },
+    "subcategory_tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "owner": {
+      "type": "string",
+      "enum": ["pearl", "oakley", "maple", "poppy"]
+    },
+    "linked_order_issue_id": { "type": "string" },
+    "linked_consult_id": { "type": "string" },
+    "linked_refund_id": { "type": "string" },
+    "linked_escalation_id": { "type": "string" },
+    "first_response": {
+      "type": "object",
+      "properties": {
+        "sent_at": { "type": "string", "format": "date-time" },
+        "channel": { "type": "string", "enum": ["email", "sms", "phone", "chat", "in_person"] },
+        "idempotency_key": { "type": "string", "pattern": "^acme-care-.+-reply-first-\\d+$" },
+        "within_sla": { "type": "boolean", "description": "True if within 2h business hours of received_at" }
+      }
+    },
+    "status_updates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "update_count": { "type": "integer" },
+          "sent_at": { "type": "string", "format": "date-time" },
+          "summary": { "type": "string" },
+          "idempotency_key": { "type": "string", "pattern": "^acme-care-.+-update-\\d+-\\d+$" }
+        }
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "properties": {
+        "resolved_at": { "type": "string", "format": "date-time" },
+        "resolved_by": { "type": "string" },
+        "resolution_summary": { "type": "string" },
+        "customer_confirmed": { "type": "boolean", "default": false },
+        "csat_score": { "type": "number", "minimum": 0, "maximum": 5 },
+        "csat_collected_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "legal_trigger_detected": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if message contains 'lawyer', 'lawsuit', 'consumer protection', or similar"
+    },
+    "contact_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Total number of customer-to-CSM contacts on this issue"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["received", "triaged", "assigned", "in_progress", "resolved", "escalated", "archived"]
+    }
+  }
+}

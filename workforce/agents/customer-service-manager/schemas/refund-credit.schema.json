@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RefundCredit",
+  "description": "Refund or store credit issuance — owned by Oakley; approved by Poppy ≤ $500 / Jane > $500",
+  "type": "object",
+  "required": ["refund_id", "ticket_id", "customer_id", "kind", "amount_usd", "rationale", "status", "drafted_at"],
+  "properties": {
+    "refund_id": {
+      "type": "string",
+      "pattern": "^acme-care-rf-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "ticket_id": { "type": "string", "pattern": "^acme-care-tk-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "order_issue_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["refund_partial", "refund_full", "store_credit", "fee_waiver"]
+    },
+    "amount_usd": { "type": "number", "minimum": 0 },
+    "rationale": { "type": "string", "description": "Why this refund / credit is appropriate" },
+    "approval_path": {
+      "type": "string",
+      "enum": ["poppy_only", "poppy_plus_ceo"],
+      "description": "poppy_only for ≤ $500; poppy_plus_ceo for > $500"
+    },
+    "company_responsibility": {
+      "type": "string",
+      "enum": ["company_error", "tree_quality_failure", "delivery_failure", "service_recovery", "goodwill", "policy_application"],
+      "description": "Why we're issuing this — drives Sterling's accounting categorization"
+    },
+    "linked_stripe_payment_intent_id": { "type": "string" },
+    "stripe_refund_id": { "type": "string" },
+    "approval": {
+      "type": "object",
+      "properties": {
+        "poppy_approved_at": { "type": "string", "format": "date-time" },
+        "ceo_approved_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "processed_at": { "type": "string", "format": "date-time" },
+        "idempotency_key": { "type": "string", "pattern": "^acme-care-.+-process-\\d+$" },
+        "stripe_response": { "type": "string" },
+        "communicated_to_customer_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "cfo_notification": {
+      "type": "object",
+      "description": "Notify Sterling (CFO) for finance ledger reconciliation",
+      "properties": {
+        "sent_at": { "type": "string", "format": "date-time" },
+        "exception_log_id": { "type": "string", "description": "Garrison's exception log reference if applicable" }
+      }
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "csm_approved", "ceo_approval_required", "ceo_approved", "rejected", "processed", "archived"]
+    },
+    "rejected_reason": { "type": "string" }
+  }
+}

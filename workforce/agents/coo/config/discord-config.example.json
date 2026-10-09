@@ -1,0 +1,67 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_ops_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-ops-drafts",
+        "purpose": "Inventory snapshots, delivery schedules, workshop calendars, environmental logs",
+        "agents_that_post": ["coo", "inventory-agent", "logistics-agent", "workshop-coordinator", "facility-management"],
+        "human_actions": ["review", "comment", "directive"]
+      },
+      "acme_ops_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-ops-approvals",
+        "purpose": "CEO escalations: shortfall, rental damage, repairs, cancellations",
+        "agents_that_post": ["coo"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_ops_fulfillment": {
+        "id": "CHANNEL_ID_FULFILLMENT",
+        "name": "#acme-ops-fulfillment",
+        "purpose": "Delivery confirmations, rental coordination, workshop reminders",
+        "agents_that_post": ["logistics-agent", "workshop-coordinator"],
+        "human_actions": ["acknowledge", "reschedule"]
+      },
+      "acme_ops_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-ops-alerts",
+        "purpose": "Mortality, env failures, safety incidents, missed deliveries, emergency-stop",
+        "agents_that_post": ["coo", "inventory-agent", "logistics-agent", "workshop-coordinator", "facility-management"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": [
+          "approve_inventory_shortfall",
+          "approve_rental_damage_dispute",
+          "approve_facility_intervention",
+          "approve_major_repair",
+          "approve_workshop_cancellation",
+          "approve_mortality_response",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "coo": {
+        "discord_user_id": "COO_AGENT_ID",
+        "name": "Victor (COO)",
+        "can_approve": [
+          "approve_inventory_reallocation",
+          "approve_inventory_shortfall",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 12,
+      "escalation_timeout_hours": 24,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

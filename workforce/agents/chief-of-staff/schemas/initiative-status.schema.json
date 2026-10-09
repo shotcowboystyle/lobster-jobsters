@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InitiativeStatus",
+  "description": "Strategic initiative status snapshot maintained by Egret",
+  "type": "object",
+  "required": ["initiative_id", "name", "sponsor", "status", "health_color", "success_criteria", "snapshot_at"],
+  "properties": {
+    "initiative_id": {
+      "type": "string",
+      "pattern": "^acme-init-[a-z0-9-]+$"
+    },
+    "name": { "type": "string" },
+    "summary": { "type": "string", "maxLength": 500 },
+    "sponsor": {
+      "type": "string",
+      "description": "Executive agent or human owner accountable for this initiative"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "active", "on_hold", "closed", "cancelled", "archived"]
+    },
+    "health_color": {
+      "type": "string",
+      "enum": ["green", "yellow", "red"],
+      "description": "Sponsor's honest assessment for this snapshot week"
+    },
+    "previous_health_color": {
+      "type": "string",
+      "enum": ["green", "yellow", "red"]
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "target_date": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["pending", "in_progress", "done", "missed"] }
+        }
+      }
+    },
+    "current_blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_review_date": { "type": "string", "format": "date" },
+    "snapshot_at": { "type": "string", "format": "date-time" },
+    "days_since_last_change": { "type": "integer", "minimum": 0 },
+    "stall_flag": {
+      "type": "boolean",
+      "description": "True if days_since_last_change > 14 and status = active"
+    }
+  }
+}

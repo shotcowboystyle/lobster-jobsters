@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DecisionEntry",
+  "description": "Journaled CEO decision captured by Almanac; reopened at outcome window",
+  "type": "object",
+  "required": ["decision_id", "headline", "decided_at", "decided_by", "reversibility", "alternatives_considered", "choice_made", "rationale", "status"],
+  "properties": {
+    "decision_id": {
+      "type": "string",
+      "pattern": "^acme-ceo-d-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "headline": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "One-sentence summary of the decision"
+    },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "decided_by": { "type": "string", "default": "Jane", "description": "Always Jane unless explicitly delegated" },
+    "reversibility": {
+      "type": "string",
+      "enum": ["reversible", "hard_to_reverse", "irreversible"],
+      "description": "Drives how much ceremony is appropriate"
+    },
+    "horizon": {
+      "type": "string",
+      "enum": ["today", "this_quarter", "this_year", "multi_year"]
+    },
+    "alternatives_considered": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["label", "why_not_chosen"],
+        "properties": {
+          "label": { "type": "string" },
+          "why_not_chosen": { "type": "string" }
+        }
+      }
+    },
+    "choice_made": { "type": "string" },
+    "rationale": {
+      "type": "string",
+      "description": "Why this choice — the reasoning that compounds"
+    },
+    "what_would_change_my_mind": {
+      "type": "string",
+      "description": "What data or event would cause Jane to reverse this decision"
+    },
+    "expected_outcome": { "type": "string" },
+    "outcome_window_end": {
+      "type": "string",
+      "format": "date",
+      "description": "When Almanac will reopen this entry to record actual outcome"
+    },
+    "linked_question_id": { "type": "string" },
+    "linked_initiative_id": { "type": "string" },
+    "linked_memo_id": { "type": "string" },
+    "linked_comm_id": { "type": "string" },
+    "source_teams": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["cmo", "cfo", "coo", "cto", "director-of-sales", "creative-director", "customer-service-manager", "contract-coordinator", "chief-of-staff", "ceo"]
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["captured", "outcome_window_open", "outcome_captured", "outcome_inconclusive", "archived"]
+    },
+    "outcome_capture": {
+      "$ref": "outcome-capture.schema.json"
+    }
+  }
+}

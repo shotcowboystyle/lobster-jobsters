@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quote",
+  "description": "Quote sent to a customer in any of the four streams",
+  "type": "object",
+  "required": ["quote_id", "stream", "customer_id", "line_items", "subtotal_usd", "total_usd", "valid_until", "drafted_at", "status", "idempotency_key"],
+  "properties": {
+    "quote_id": {
+      "type": "string",
+      "pattern": "^acme-sales-qt-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "stream": {
+      "type": "string",
+      "enum": ["wholesale", "local", "subscription", "event_rental"]
+    },
+    "linked_opportunity_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "line_items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["description", "quantity", "unit_price_usd"],
+        "properties": {
+          "description": { "type": "string" },
+          "species": { "type": "string" },
+          "size": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "unit_price_usd": { "type": "number", "minimum": 0 },
+          "discount_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+          "line_total_usd": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "subtotal_usd": { "type": "number", "minimum": 0 },
+    "discount_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "discount_usd": { "type": "number", "minimum": 0 },
+    "total_usd": { "type": "number", "minimum": 0 },
+    "approval_path": {
+      "type": "string",
+      "enum": ["cash_only", "cash_volume", "cash_plus_ceo_plus_margin"]
+    },
+    "strategic_rationale": { "type": "string", "description": "Required for discount > 20%" },
+    "payment_terms": {
+      "type": "string",
+      "description": "e.g. 'net-30', '50% deposit, balance on delivery', 'monthly recurring'"
+    },
+    "valid_until": { "type": "string", "format": "date" },
+    "delivery_window": {
+      "type": "object",
+      "properties": {
+        "earliest": { "type": "string", "format": "date" },
+        "latest": { "type": "string", "format": "date" }
+      }
+    },
+    "inventory_confirmation": {
+      "type": "object",
+      "properties": {
+        "confirmed_by_tally": { "type": "boolean", "default": false },
+        "confirmed_at": { "type": "string", "format": "date-time" },
+        "confirmation_reference": { "type": "string" }
+      }
+    },
+    "margin_floor_check": {
+      "type": "object",
+      "properties": {
+        "checked_by_margin": { "type": "boolean", "default": false },
+        "checked_at": { "type": "string", "format": "date-time" },
+        "above_floor": { "type": "boolean" }
+      }
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "viewed_at": { "type": "string", "format": "date-time" },
+    "accepted_at": { "type": "string", "format": "date-time" },
+    "rejected_at": { "type": "string", "format": "date-time" },
+    "expired_at": { "type": "string", "format": "date-time" },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-sales-.+-send-\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "cash_review", "sent", "viewed", "accepted", "rejected", "expired", "archived"]
+    }
+  }
+}

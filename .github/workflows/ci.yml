@@ -1,0 +1,54 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install tools
+        run: sudo apt-get update -q && sudo apt-get install -y -q jq sqlite3
+
+      - name: Structural validation
+        run: scripts/validate.sh
+
+      - name: Governance audit
+        run: python3 scripts/audit.py --strict
+
+      - name: Ledger tooling self-check
+        run: scripts/ledger.sh demo
+
+      - name: Scaffolder smoke test
+        run: |
+          scripts/new-agent.sh team ci-team --name "CI Test Team" --persona Probe --emoji 🧪 --creature "lab mouse"
+          scripts/new-agent.sh sub ci-team checker --persona Gauge --role "Checker Agent" --emoji 📏 --creature "ruler"
+          scripts/validate.sh
+          python3 scripts/audit.py --strict
+          git clean -fdq workforce/agents/ci-team
+
+      - name: Rebrand smoke test
+        run: |
+          scripts/rebrand.sh --company "CI Co" --slug ci-co --owner "Casey Ingram" --owner-first Casey --domain ci.example
+          scripts/validate.sh
+          ! grep -rqi 'acme' workforce/SOUL.md
+          git checkout -- workforce
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

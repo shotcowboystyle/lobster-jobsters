@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreativeRequest",
+  "description": "Asset/photo request from Creative Director",
+  "type": "object",
+  "required": ["post_id", "asset_type", "subject", "composition", "lighting", "mood", "platform_specs", "needed_by", "priority"],
+  "properties": {
+    "post_id": { "type": "string" },
+    "asset_type": {
+      "type": "string",
+      "enum": ["photo", "styled_product_photo", "location_shot", "flat_lay", "graphic", "carousel", "video_clip", "reuse_existing"]
+    },
+    "subject": { "type": "string" },
+    "composition": { "type": "string" },
+    "lighting": { "type": "string" },
+    "mood": { "type": "string" },
+    "platform_specs": {
+      "type": "object",
+      "properties": {
+        "instagram": { "type": "string" },
+        "facebook": { "type": "string" }
+      }
+    },
+    "props_styling": { "type": "string" },
+    "existing_asset_note": { "type": "string" },
+    "needed_by": { "type": "string", "format": "date" },
+    "priority": { "type": "string", "enum": ["urgent", "standard", "low"] },
+    "status": {
+      "type": "string",
+      "enum": ["requested", "in_progress", "fulfilled", "cancelled"],
+      "default": "requested"
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

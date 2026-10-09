@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MeetingAgenda",
+  "description": "Executive meeting agenda drafted by River + Heron, approved by Jane 24h ahead",
+  "type": "object",
+  "required": ["meeting_id", "title", "scheduled_for", "attendees", "objective", "items", "status", "drafted_at"],
+  "properties": {
+    "meeting_id": {
+      "type": "string",
+      "pattern": "^acme-mtg-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string" },
+    "scheduled_for": { "type": "string", "format": "date-time" },
+    "duration_minutes": { "type": "integer", "minimum": 5, "maximum": 240 },
+    "attendees": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "objective": { "type": "string", "description": "One sentence — why this meeting exists" },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["topic", "owner", "minutes", "outcome_statement"],
+        "properties": {
+          "topic": { "type": "string" },
+          "owner": { "type": "string" },
+          "minutes": { "type": "integer", "minimum": 1 },
+          "outcome_statement": { "type": "string", "description": "What we should have decided/produced by the end of this item" },
+          "prior_action_item_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "ledger_references": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "ceo_review", "approved", "in_progress", "completed", "cancelled"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "approved_by": { "type": "string" },
+    "minutes_url": { "type": "string", "format": "uri" }
+  }
+}

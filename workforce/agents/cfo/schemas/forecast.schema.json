@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Forecast",
+  "description": "Forecast / scenario model output produced by Horizon",
+  "type": "object",
+  "required": ["forecast_id", "kind", "horizon_periods", "assumptions", "scenarios", "status", "drafted_at"],
+  "properties": {
+    "forecast_id": {
+      "type": "string",
+      "pattern": "^acme-fin-fc-\\d{4}-\\d{2}-\\d{2}-(monthly|quarterly|adhoc|runway)$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["monthly", "quarterly", "adhoc", "runway"]
+    },
+    "horizon_periods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "description": "Period labels like '2026-07' or 'Q3-2026'"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Every assumption stated explicitly. Models are arguments, not answers.",
+      "items": {
+        "type": "object",
+        "required": ["assumption", "value", "rationale"],
+        "properties": {
+          "assumption": { "type": "string" },
+          "value": { "type": "string" },
+          "rationale": { "type": "string" },
+          "source": { "type": "string", "description": "Ledger reference or data source" }
+        }
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "required": ["base"],
+      "properties": {
+        "base": { "$ref": "#/$defs/scenario" },
+        "upside": { "$ref": "#/$defs/scenario" },
+        "downside": { "$ref": "#/$defs/scenario" }
+      }
+    },
+    "sensitivity": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "variable": { "type": "string" },
+          "low_value": { "type": "string" },
+          "high_value": { "type": "string" },
+          "effect_on_metric": { "type": "string" }
+        }
+      }
+    },
+    "key_metrics": {
+      "type": "object",
+      "properties": {
+        "ending_cash_usd": { "type": "number" },
+        "runway_days": { "type": "integer" },
+        "revenue_usd": { "type": "number" },
+        "gross_margin_pct": { "type": "number" },
+        "net_income_usd": { "type": "number" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "assumptions_locked", "cfo_review", "ceo_review", "published", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "published_at": { "type": "string", "format": "date-time" },
+    "drafted_by": { "type": "string", "default": "fpa" },
+    "approved_by": { "type": "string" }
+  },
+  "$defs": {
+    "scenario": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "narrative": { "type": "string" },
+        "line_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "period": { "type": "string" },
+              "metric": { "type": "string" },
+              "value_usd": { "type": "number" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

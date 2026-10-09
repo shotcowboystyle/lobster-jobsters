@@ -1,0 +1,88 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai CTO team (Allen)",
+    "rules": {
+      "approve_feature_small": {
+        "requires_approval": true,
+        "approvers": ["cto"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "defer", "reject"],
+        "notes": "Features ≤ 40 hours and ≤ $3K: Allen approves. Spec required."
+      },
+      "approve_feature_large": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "defer", "reject"],
+        "threshold_hours": 40,
+        "threshold_usd": 3000,
+        "notes": "Features > 40 hours OR > $3K cost: Jane approval required."
+      },
+      "approve_release": {
+        "requires_approval": true,
+        "approvers": ["cto"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Standard releases: Allen approves after staging QA. No Friday deploys; no pre-campaign deploys."
+      },
+      "approve_major_release": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Major releases (architecture changes, platform migrations, schema migrations affecting prod data): Jane approval required."
+      },
+      "approve_rollback": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["approve", "reject"],
+        "notes": "Production rollback during incident requires Jane sign-off (or Allen acting on Jane's prior delegation during off-hours)."
+      },
+      "approve_saas_addition": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "threshold_usd_monthly": 200,
+        "notes": "Any new SaaS / vendor subscription > $200/month requires Jane approval. CFO (Sterling) informed for budget tracking."
+      },
+      "approve_security_risk_acceptance": {
+        "requires_approval": true,
+        "approvers": ["cto", "ceo"],
+        "min_approvers": 2,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Deferring a high/critical security finding requires documented risk acceptance from both Allen + Jane."
+      },
+      "approve_data_destruction": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "reject"],
+        "notes": "Any deletion of production data, table drop, or destructive migration requires Jane approval."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["cto", "ceo"],
+        "notes": "Emergency stop on deploys can be activated immediately by Allen or Jane."
+      }
+    }
+  }
+}

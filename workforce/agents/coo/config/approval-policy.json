@@ -1,0 +1,89 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai COO team (Victor)",
+    "rules": {
+      "approve_delivery_confirmation": {
+        "requires_approval": false,
+        "authorized_actors": ["cedar"],
+        "notes": "Cedar auto-sends delivery confirmations once inventory is reserved + route is approved."
+      },
+      "approve_workshop_confirmation": {
+        "requires_approval": false,
+        "authorized_actors": ["hazel"],
+        "notes": "Hazel auto-sends workshop reminders + confirmations once materials + instructor are confirmed."
+      },
+      "approve_inventory_reallocation": {
+        "requires_approval": true,
+        "approvers": ["coo"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "reject"],
+        "notes": "Reallocating inventory away from a confirmed customer requires Victor's approval."
+      },
+      "approve_inventory_shortfall": {
+        "requires_approval": true,
+        "approvers": ["coo", "ceo"],
+        "min_approvers": 2,
+        "timeout_hours": 12,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve_partial", "approve_substitute", "reject"],
+        "notes": "Inventory cannot fulfill a confirmed commitment: Victor + Jane decide."
+      },
+      "approve_rental_damage_dispute": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve_assessment", "edit", "waive"],
+        "threshold_usd": 300,
+        "notes": "Damage disputes > $300 require Jane's call."
+      },
+      "approve_facility_intervention": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "reject"],
+        "threshold_usd": 1000,
+        "notes": "Any operational intervention > $1,000 requires Jane approval."
+      },
+      "approve_major_repair": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "threshold_usd": 5000,
+        "notes": "Major maintenance / repair > $5,000 requires Jane approval."
+      },
+      "approve_workshop_cancellation": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "reschedule", "reject"],
+        "notes": "Workshop cancellations require Jane approval."
+      },
+      "approve_mortality_response": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit"],
+        "notes": "Mortality > 2% in 30 days triggers immediate Jane alert and response plan."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["coo", "ceo"],
+        "notes": "Emergency stop can be activated immediately by Victor or Jane."
+      }
+    }
+  }
+}

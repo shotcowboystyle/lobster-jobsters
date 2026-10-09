@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClosedDeal",
+  "description": "Won or lost deal — used for revenue + cohort analysis",
+  "type": "object",
+  "required": ["deal_id", "stream", "customer_id", "outcome", "total_usd", "closed_at"],
+  "properties": {
+    "deal_id": {
+      "type": "string",
+      "pattern": "^acme-sales-dl-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "stream": {
+      "type": "string",
+      "enum": ["wholesale", "local", "subscription", "event_rental"]
+    },
+    "linked_opportunity_id": { "type": "string" },
+    "linked_quote_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "outcome": { "type": "string", "enum": ["won", "lost"] },
+    "total_usd": { "type": "number", "minimum": 0 },
+    "expected_total_usd": { "type": "number", "minimum": 0 },
+    "won_factors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What drove the win (price, fit, relationship, timing, etc.)"
+    },
+    "lost_factors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What drove the loss (price, fit, competitor, timing, etc.)"
+    },
+    "lost_competitor": { "type": "string" },
+    "closed_at": { "type": "string", "format": "date-time" },
+    "closed_by": { "type": "string" },
+    "downstream_handoff": {
+      "type": "object",
+      "properties": {
+        "team": { "type": "string", "enum": ["contract-coordinator", "coo", "cfo", "customer-service-manager"] },
+        "handoff_at": { "type": "string", "format": "date-time" },
+        "reference_id": { "type": "string", "description": "ID in downstream team's ledger" }
+      }
+    }
+  }
+}

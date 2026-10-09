@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OutcomeCapture",
+  "description": "Actual outcome recorded against a journaled decision when its outcome window closes",
+  "type": "object",
+  "required": ["decision_id", "captured_at", "outcome_text", "outcome_vs_expected"],
+  "properties": {
+    "decision_id": {
+      "type": "string",
+      "pattern": "^acme-ceo-d-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "outcome_text": { "type": "string", "description": "What actually happened" },
+    "outcome_vs_expected": {
+      "type": "string",
+      "enum": ["better", "as_expected", "worse", "different_axis", "inconclusive"]
+    },
+    "reflection_note": {
+      "type": "string",
+      "description": "Jane's one-line reflection — what to remember for next time"
+    },
+    "would_decide_again": {
+      "type": "string",
+      "enum": ["same", "different", "unsure"]
+    },
+    "supporting_references": {
+      "type": "array",
+      "items": { "type": "string", "description": "Ledger references that document the outcome" }
+    }
+  }
+}

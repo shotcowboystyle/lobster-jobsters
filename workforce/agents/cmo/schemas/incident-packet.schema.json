@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IncidentPacket",
+  "description": "Incident report for failures, crises, or system issues",
+  "type": "object",
+  "required": ["incident_id", "severity", "type", "description", "detected_at", "status"],
+  "properties": {
+    "incident_id": {
+      "type": "string",
+      "pattern": "^acme-incident-\\d{4}-\\d{2}-\\d{2}-\\d{3}$"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["publish_failure", "api_auth_error", "rate_limit", "negative_engagement", "crisis", "system_error", "data_integrity", "emergency_stop"]
+    },
+    "description": { "type": "string" },
+    "affected_post_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "agent_source": { "type": "string" },
+    "error_details": { "type": "string" },
+    "resolution": { "type": "string" },
+    "resolved_by": { "type": "string" },
+    "detected_at": { "type": "string", "format": "date-time" },
+    "resolved_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["open", "investigating", "resolved", "escalated"]
+    }
+  }
+}

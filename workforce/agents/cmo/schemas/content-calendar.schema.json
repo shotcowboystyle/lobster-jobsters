@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ContentCalendar",
+  "description": "Weekly content calendar structure",
+  "type": "object",
+  "required": ["calendar_id", "week_start", "week_end", "entries", "created_at", "status"],
+  "properties": {
+    "calendar_id": {
+      "type": "string",
+      "pattern": "^acme-cal-\\d{4}-W\\d{2}$"
+    },
+    "week_start": { "type": "string", "format": "date" },
+    "week_end": { "type": "string", "format": "date" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "approved_by": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "awaiting_approval", "approved", "active", "completed"]
+    },
+    "strategy_notes": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date", "day_of_week", "platform", "vertical", "theme"],
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "day_of_week": { "type": "string", "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] },
+          "platform": { "type": "string", "enum": ["instagram", "facebook"] },
+          "vertical": { "type": "string", "enum": ["wholesale", "local", "display", "events"] },
+          "theme": { "type": "string" },
+          "brief_summary": { "type": "string" },
+          "asset_needs": { "type": "string", "enum": ["new_photo", "existing_asset", "graphic", "video", "carousel", "tbd"] },
+          "priority": { "type": "string", "enum": ["standard", "high", "low"] },
+          "post_id": { "type": "string", "description": "Assigned after brief generation" },
+          "status": {
+            "type": "string",
+            "enum": ["planned", "briefed", "drafted", "published", "skipped"]
+          }
+        }
+      }
+    }
+  }
+}

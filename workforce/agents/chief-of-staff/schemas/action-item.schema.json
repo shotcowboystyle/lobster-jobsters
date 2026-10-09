@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ActionItem",
+  "description": "Action item produced by an executive meeting or briefing; owned by Wren until done or dropped",
+  "type": "object",
+  "required": ["action_item_id", "title", "owner", "deadline", "status", "opened_at"],
+  "properties": {
+    "action_item_id": {
+      "type": "string",
+      "pattern": "^acme-ai-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "outcome_statement": {
+      "type": "string",
+      "description": "What 'done' looks like. Required before the item can move to in_progress."
+    },
+    "owner": {
+      "type": "string",
+      "description": "Discord handle or agent ID of the responsible owner"
+    },
+    "deadline": { "type": "string", "format": "date" },
+    "originating_meeting_id": { "type": "string" },
+    "originating_briefing_id": { "type": "string" },
+    "originating_initiative_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["opened", "in_progress", "blocked", "done", "dropped", "archived"]
+    },
+    "blocked_reason": { "type": "string" },
+    "dropped_reason": { "type": "string" },
+    "follow_ups_sent": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string", "enum": ["24h", "48h", "escalation_72h"] },
+          "sent_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "opened_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" },
+    "completion_note": { "type": "string" }
+  }
+}

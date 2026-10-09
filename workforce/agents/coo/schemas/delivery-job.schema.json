@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeliveryJob",
+  "description": "Single delivery owned by Cedar",
+  "type": "object",
+  "required": ["delivery_id", "customer", "tree_ids", "scheduled_window", "address", "status", "drafted_at"],
+  "properties": {
+    "delivery_id": {
+      "type": "string",
+      "pattern": "^acme-ops-dl-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["wholesale", "subscription_install", "retail", "marketing", "internal"]
+    },
+    "linked_reference": {
+      "type": "object",
+      "description": "Reference to source artifact",
+      "properties": {
+        "ref_type": { "type": "string" },
+        "ref_id": { "type": "string" }
+      }
+    },
+    "customer": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" }
+      }
+    },
+    "tree_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" }
+    },
+    "scheduled_window": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "address": {
+      "type": "object",
+      "required": ["street", "city", "state", "zip"],
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string", "minLength": 2, "maxLength": 2 },
+        "zip": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" }
+      }
+    },
+    "route_id": { "type": "string", "description": "If part of a multi-stop route" },
+    "driver": { "type": "string" },
+    "van_id": { "type": "string" },
+    "confirmation": {
+      "type": "object",
+      "properties": {
+        "sent_at": { "type": "string", "format": "date-time" },
+        "channel": { "type": "string", "enum": ["email", "sms", "phone"] },
+        "idempotency_key": { "type": "string", "pattern": "^acme-ops-.+-confirm-\\d+$" },
+        "customer_acknowledged": { "type": "boolean", "default": false }
+      }
+    },
+    "pod": {
+      "type": "object",
+      "description": "Proof of delivery",
+      "properties": {
+        "kind": { "type": "string", "enum": ["signature", "photo", "door_drop"] },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "asset_path": { "type": "string" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["scheduled", "confirmed", "loaded", "in_transit", "delivered", "pod_captured", "closed", "rescheduled", "failed"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "delivered_at": { "type": "string", "format": "date-time" },
+    "failure_reason": { "type": "string" }
+  }
+}

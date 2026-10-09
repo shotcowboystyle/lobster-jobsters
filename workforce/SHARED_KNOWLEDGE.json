@@ -1,0 +1,217 @@
+{
+  "$schema": "https://openclaw.com/schemas/shared-knowledge.v1.json",
+  "version": "1.0.0",
+  "business": "ACME Bonsai",
+  "location": "Harbor City (coastal, Zone 9a humid subtropical)",
+  "description": "Workspace-level semantic memory index. Loaded by any agent that needs canonical facts about the business + organization. See docs/architecture.md for the layered memory model.",
+  "indexed_at": "2026-10-09",
+  "facts": {
+    "operating_units": [
+      "retail / local-direct",
+      "wholesale tree operations",
+      "subscription display services",
+      "event rentals",
+      "workshops"
+    ],
+    "ceo": {
+      "name": "Jane Founder",
+      "email": "jane@acme-bonsai.example",
+      "timezone": "America/New_York",
+      "ai_shadow": "Apex 🪨"
+    },
+    "stock_source": "closed family tree farm — abundant supply for the foreseeable future",
+    "fulfillment": "ACME van only (no third-party freight)",
+    "primary_climate_zone": "9a humid subtropical (Harbor City)",
+    "coordination_channel": "Discord",
+    "executive_office_orchestrator": "River 🦉 (Chief of Staff)"
+  },
+  "workforce": {
+    "executive_layer": [
+      {
+        "role": "CEO AI shadow",
+        "persona": "Apex 🪨 (granite)",
+        "workspace": "agents/ceo/"
+      },
+      {
+        "role": "Chief of Staff",
+        "persona": "River 🦉 (owl)",
+        "workspace": "agents/chief-of-staff/"
+      }
+    ],
+    "operating_layer": [
+      {
+        "role": "CMO",
+        "persona": "ACME Bonsai marketing team",
+        "workspace": "agents/cmo/"
+      },
+      {
+        "role": "CFO",
+        "persona": "Sterling 🦅 (red-tailed hawk)",
+        "workspace": "agents/cfo/"
+      },
+      {
+        "role": "COO",
+        "persona": "Victor 🐙 (octopus)",
+        "workspace": "agents/coo/"
+      },
+      {
+        "role": "CTO",
+        "persona": "Allen 🎯 (orchestrator)",
+        "workspace": "agents/cto/"
+      },
+      {
+        "role": "Director of Sales",
+        "persona": "Cash 🐬 (Navigator dolphin)",
+        "workspace": "agents/director-of-sales/"
+      },
+      {
+        "role": "Creative Director",
+        "persona": "Masahiko 🦌 (World-crafting elk)",
+        "workspace": "agents/creative-director/"
+      },
+      {
+        "role": "Customer Service Manager",
+        "persona": "Poppy 🪼 (Navigational-beacon jellyfish)",
+        "workspace": "agents/customer-service-manager/"
+      },
+      {
+        "role": "Contract Coordinator",
+        "persona": "Rowan 🦋 (silkmoth)",
+        "workspace": "agents/contract-coordinator/"
+      }
+    ]
+  },
+  "shared_resources": {
+    "brand_voice": "team-memory/brand-voice.md",
+    "icp_profile": "team-memory/icp-profile.md",
+    "market_brief": "team-memory/market-brief.md",
+    "tech_stack": "team-memory/tech-stack.md",
+    "exec_decisions_log": "team-memory/exec-decisions-log.md",
+    "glossary": "team-memory/glossary.md",
+    "cross_team_handoffs": "CROSS-TEAM-HANDOFFS.md",
+    "company_soul": "SOUL.md",
+    "company_identity": "IDENTITY.md",
+    "company_readme": "README.md",
+    "master_kill_switch": "config/shared-emergency-stop.json",
+    "exec_runbook": "ops/exec-runbook.md"
+  },
+  "ledgers": {
+    "cmo": "agents/cmo/data/post-ledger.db",
+    "chief_of_staff": "agents/chief-of-staff/data/exec-ledger.db",
+    "ceo": "agents/ceo/data/ceo-ledger.db",
+    "cfo": "agents/cfo/data/finance-ledger.db",
+    "coo": "agents/coo/data/ops-ledger.db",
+    "cto": "agents/cto/data/tech-ledger.db",
+    "director_of_sales": "agents/director-of-sales/data/sales-ledger.db",
+    "creative_director": "agents/creative-director/data/creative-ledger.db",
+    "customer_service_manager": "agents/customer-service-manager/data/care-ledger.db",
+    "contract_coordinator": "agents/contract-coordinator/data/contract-ledger.db"
+  },
+  "shared_inventory_sheet": {
+    "owner": "Tally 🌲 (COO Inventory Agent)",
+    "co_writer": "Grove 🌱 (Contract Coordinator Inventory & Orders Agent)",
+    "env_var": "INVENTORY_SHEET_ID",
+    "concurrency": "atomic per-row updates only",
+    "canonical_for": "tree counts + reservations"
+  },
+  "approval_thresholds_canonical": {
+    "wholesale_contract_over_threshold": {
+      "amount_usd": 5000,
+      "approver": "ceo",
+      "owner_team": "contract-coordinator"
+    },
+    "deposit_invoice_large": {
+      "amount_usd": 10000,
+      "approver": "cfo + ceo",
+      "owner_team": "contract-coordinator"
+    },
+    "discount_standard": {
+      "pct": 20,
+      "approver": "director_of_sales",
+      "owner_team": "director-of-sales"
+    },
+    "discount_volume_wholesale": {
+      "pct": 25,
+      "min_quantity": 100,
+      "approver": "director_of_sales",
+      "owner_team": "director-of-sales"
+    },
+    "discount_large_or_below_cost": {
+      "approver": "director_of_sales + ceo + cfo_margin",
+      "owner_team": "director-of-sales"
+    },
+    "feature_request_large": {
+      "hours": 40,
+      "amount_usd": 3000,
+      "approver": "ceo",
+      "owner_team": "cto"
+    },
+    "saas_addition": {
+      "monthly_usd": 200,
+      "approver": "ceo",
+      "owner_team": "cto"
+    },
+    "unbudgeted_spend": {
+      "amount_usd": 5000,
+      "approver": "ceo",
+      "owner_team": "cfo"
+    },
+    "rental_damage_dispute": {
+      "amount_usd": 300,
+      "approver": "ceo",
+      "owner_team": "coo + customer-service-manager"
+    },
+    "facility_intervention": {
+      "amount_usd": 1000,
+      "approver": "ceo",
+      "owner_team": "coo"
+    },
+    "facility_major_repair": {
+      "amount_usd": 5000,
+      "approver": "ceo",
+      "owner_team": "coo"
+    },
+    "creative_project_large": {
+      "amount_usd": 2000,
+      "approver": "ceo",
+      "owner_team": "creative-director"
+    },
+    "csm_refund_large": {
+      "amount_usd": 500,
+      "approver": "ceo",
+      "owner_team": "customer-service-manager"
+    },
+    "csm_refund_small": {
+      "amount_usd": 500,
+      "approver": "csm",
+      "owner_team": "customer-service-manager"
+    },
+    "subscription_short_term": {
+      "months_less_than": 12,
+      "approver": "ceo",
+      "owner_team": "director-of-sales"
+    },
+    "customer_dispute_refund_large": {
+      "amount_usd": 1000,
+      "approver": "ceo",
+      "owner_team": "customer-service-manager"
+    },
+    "major_account_save": {
+      "wholesale_annual_usd": 10000,
+      "subscription_monthly_usd": 1000,
+      "approver": "ceo",
+      "owner_team": "customer-service-manager + director-of-sales"
+    }
+  },
+  "company_wide_hard_rules": [
+    "No publishing, contracting, invoicing, or shipping without explicit human approval at the appropriate level",
+    "No outbound to external stakeholders (investors, banks, regulators, press) without CEO per-message approval",
+    "All credentials live outside the workspace",
+    "Master kill switch in config/shared-emergency-stop.json overrides any team-level on setting",
+    "Sensitive personnel matters never enter shared Discord channels",
+    "Every state transition logged to that team's canonical ledger",
+    "Idempotency keys on every outbound side-effect",
+    "Cross-team escalations route through River → Jane",
+    "Briefings to Jane are hard-capped at ≈400 words"
+  ]
+}

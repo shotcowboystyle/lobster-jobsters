@@ -1,0 +1,61 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_contracts_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-contracts-drafts",
+        "purpose": "Quote summaries, contract drafts, deposit invoices for review",
+        "agents_that_post": ["contract-coordinator", "contract-specialist", "payments-agent"],
+        "human_actions": ["review", "comment", "approve", "edit", "hold", "reject"]
+      },
+      "acme_contracts_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-contracts-approvals",
+        "purpose": "CEO escalations: contracts > $5K, inventory shortfall, mid-transit route changes",
+        "agents_that_post": ["contract-coordinator"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_contracts_delivery": {
+        "id": "CHANNEL_ID_DELIVERY",
+        "name": "#acme-contracts-delivery",
+        "purpose": "Route plans, delivery-window emails, pick lists",
+        "agents_that_post": ["delivery-router", "inventory-orders"],
+        "human_actions": ["review", "approve", "edit"]
+      },
+      "acme_contracts_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-contracts-alerts",
+        "purpose": "Payment failures, signature timeouts, emergency-stop events, ledger anomalies",
+        "agents_that_post": ["contract-coordinator", "contract-specialist", "payments-agent", "inventory-orders", "delivery-router"],
+        "human_actions": ["acknowledge", "escalate", "resolve"]
+      }
+    },
+    "approvers": {
+      "coordinator": {
+        "discord_user_id": "COORDINATOR_DISCORD_ID",
+        "name": "Rowan (Contract Coordinator)",
+        "can_approve": ["send_contract", "issue_deposit_invoice", "approve_route_plan", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": ["send_contract_over_threshold", "release_inventory_short", "change_route_post_dispatch", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "cfo": {
+        "discord_user_id": "CFO_DISCORD_ID",
+        "name": "CFO (Secondary Approver)",
+        "can_approve": ["issue_large_deposit_invoice"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 12,
+      "escalation_timeout_hours": 24,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

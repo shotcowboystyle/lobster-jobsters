@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EscalationRouting",
+  "description": "Cross-team escalation packet routed by River from an operating team to Jane",
+  "type": "object",
+  "required": ["escalation_id", "source_team", "kind", "decision_needed", "recommended_action", "posted_at", "status"],
+  "properties": {
+    "escalation_id": {
+      "type": "string",
+      "pattern": "^acme-esc-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "source_team": {
+      "type": "string",
+      "enum": ["cmo", "ceo", "cfo", "coo", "cto", "director-of-sales", "creative-director", "customer-service-manager", "contract-coordinator"]
+    },
+    "kind": {
+      "type": "string",
+      "description": "Domain-specific escalation kind (e.g., contract_over_threshold, inventory_short, deploy_failed, brand_risk)"
+    },
+    "originating_artifact_id": { "type": "string" },
+    "decision_needed": { "type": "string", "description": "One sentence — what Jane must choose" },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "consequence": { "type": "string" }
+        }
+      }
+    },
+    "context": { "type": "string" },
+    "recommended_action": { "type": "string" },
+    "ledger_references": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "posted_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["awaiting_decision", "approved", "rejected", "deferred", "timed_out"]
+    },
+    "decided_by": { "type": "string" },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "decision_notes": { "type": "string" }
+  }
+}

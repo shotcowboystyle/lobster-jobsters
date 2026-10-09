@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FeatureRequest",
+  "description": "Feature or change request intake — owned by Allen until specced",
+  "type": "object",
+  "required": ["feature_id", "title", "requester", "requester_team", "purpose", "submitted_at", "status"],
+  "properties": {
+    "feature_id": {
+      "type": "string",
+      "pattern": "^acme-tech-fr-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "requester": { "type": "string" },
+    "requester_team": {
+      "type": "string",
+      "enum": ["cmo", "director-of-sales", "coo", "cfo", "creative-director", "customer-service-manager", "contract-coordinator", "ceo", "chief-of-staff"]
+    },
+    "purpose": { "type": "string", "description": "Why this feature — business outcome it serves" },
+    "requirements": { "type": "string" },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "domains": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["frontend", "backend", "infra", "data", "integration"] }
+    },
+    "estimated_hours": { "type": "number", "minimum": 0 },
+    "estimated_cost_usd": { "type": "number", "minimum": 0 },
+    "approval_path": {
+      "type": "string",
+      "enum": ["cto_only", "cto_plus_ceo"],
+      "description": "cto_only for ≤40h AND ≤$3K; cto_plus_ceo otherwise"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["p0_critical", "p1_high", "p2_medium", "p3_low"]
+    },
+    "deadline": { "type": "string", "format": "date" },
+    "submitted_at": { "type": "string", "format": "date-time" },
+    "linked_spec_id": { "type": "string" },
+    "linked_pr_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["intake", "triaged", "specced", "in_dev", "in_review", "in_staging", "in_prod", "rejected", "deferred", "rolled_back", "archived"]
+    },
+    "triaged_at": { "type": "string", "format": "date-time" },
+    "triaged_by": { "type": "string" },
+    "rejected_reason": { "type": "string" },
+    "deferred_until": { "type": "string", "format": "date" }
+  }
+}

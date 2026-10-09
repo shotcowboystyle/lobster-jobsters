@@ -1,0 +1,48 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "{{TEAM_SLUG}}_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#{{CHANNEL_PREFIX}}-{{TEAM_SLUG}}-drafts",
+        "purpose": "Drafts, review results, routine summaries",
+        "agents_that_post": ["{{TEAM_SLUG}}"],
+        "human_actions": ["review", "edit"]
+      },
+      "{{TEAM_SLUG}}_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#{{CHANNEL_PREFIX}}-{{TEAM_SLUG}}-approvals",
+        "purpose": "Approval cards, decisions, execution confirmations",
+        "agents_that_post": ["{{TEAM_SLUG}}"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "{{TEAM_SLUG}}_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#{{CHANNEL_PREFIX}}-{{TEAM_SLUG}}-alerts",
+        "purpose": "Failures, escalations, emergency stop",
+        "agents_that_post": ["{{TEAM_SLUG}}"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "{{OWNER}} (CEO)",
+        "can_approve": ["approve_above_threshold", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "{{TEAM_SLUG}}": {
+        "discord_user_id": "COORDINATOR_AGENT_ID",
+        "name": "{{PERSONA}} ({{TEAM_SHORT}})",
+        "can_approve": ["approve_within_authority", "emergency_stop"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 24,
+      "escalation_timeout_hours": 48,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

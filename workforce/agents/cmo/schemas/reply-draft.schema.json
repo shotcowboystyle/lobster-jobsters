@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReplyDraft",
+  "description": "Reply draft packet from Reply Drafter agent",
+  "type": "object",
+  "required": ["reply_id", "alert_id", "post_id", "platform", "original_comment", "drafted_reply", "context", "status", "created_at"],
+  "properties": {
+    "reply_id": {
+      "type": "string",
+      "pattern": "^acme-reply-\\d{4}-\\d{2}-\\d{2}-\\d{3}$"
+    },
+    "alert_id": { "type": "string" },
+    "post_id": { "type": "string" },
+    "platform": { "type": "string", "enum": ["instagram", "facebook"] },
+    "commenter_handle": { "type": "string" },
+    "original_comment": { "type": "string" },
+    "comment_id": { "type": "string" },
+    "drafted_reply": { "type": "string" },
+    "context": {
+      "type": "string",
+      "description": "Vertical context and engagement classification"
+    },
+    "placeholders": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Any sensitivity or attention flags"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "approved", "posted", "skipped"]
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

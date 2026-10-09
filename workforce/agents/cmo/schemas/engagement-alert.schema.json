@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EngagementAlert",
+  "description": "Engagement alert from Engagement Monitor",
+  "type": "object",
+  "required": ["alert_id", "post_id", "platform", "alert_type", "classification", "detected_at"],
+  "properties": {
+    "alert_id": {
+      "type": "string",
+      "pattern": "^acme-alert-\\d{4}-\\d{2}-\\d{2}-\\d{3}$"
+    },
+    "post_id": { "type": "string" },
+    "platform": { "type": "string", "enum": ["instagram", "facebook"] },
+    "alert_type": {
+      "type": "string",
+      "enum": ["comment", "dm", "mention", "reaction_spike"]
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["routine", "actionable", "negative", "spam", "crisis"]
+    },
+    "commenter_handle": { "type": "string" },
+    "comment_text": { "type": "string" },
+    "comment_id": { "type": "string" },
+    "suggested_action": {
+      "type": "string",
+      "enum": ["log_only", "queue_reply_draft", "escalate_operator", "ignore_spam"]
+    },
+    "metrics_snapshot": {
+      "type": "object",
+      "properties": {
+        "likes": { "type": "integer" },
+        "comments": { "type": "integer" },
+        "saves": { "type": "integer" },
+        "shares": { "type": "integer" },
+        "reach": { "type": "integer" },
+        "impressions": { "type": "integer" }
+      }
+    },
+    "detected_at": { "type": "string", "format": "date-time" }
+  }
+}

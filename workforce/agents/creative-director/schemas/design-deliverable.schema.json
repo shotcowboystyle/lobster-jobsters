@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesignDeliverable",
+  "description": "Design deliverable — Hana or Mira drafts; Masahiko reviews; delivered + archived",
+  "type": "object",
+  "required": ["deliverable_id", "brief_id", "owner", "kind", "drafted_at", "status"],
+  "properties": {
+    "deliverable_id": {
+      "type": "string",
+      "pattern": "^acme-creative-dl-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "brief_id": {
+      "type": "string",
+      "pattern": "^acme-creative-br-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "owner": {
+      "type": "string",
+      "enum": ["hana", "mira", "masahiko"]
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["social_graphic", "email_template", "ad_creative", "presentation_deck", "infographic", "signage", "packaging", "logo_application", "web_asset", "print_collateral", "template", "other"]
+    },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "self_checklist": {
+      "type": "object",
+      "description": "Owner's self-review before submitting to Masahiko",
+      "properties": {
+        "hierarchy_ok": { "type": "boolean" },
+        "typography_ok": { "type": "boolean" },
+        "color_ok": { "type": "boolean" },
+        "layout_ok": { "type": "boolean" },
+        "density_ok": { "type": "boolean" },
+        "brand_compliance_ok": { "type": "boolean" },
+        "readability_ok": { "type": "boolean" },
+        "accessibility_ok": { "type": "boolean" },
+        "file_hygiene_ok": { "type": "boolean" }
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Why this design solves the brief; key decisions"
+    },
+    "brand_system_references": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific style guide / color / typography references used"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "format": { "type": "string" },
+          "url_or_path": { "type": "string" },
+          "purpose": { "type": "string" }
+        }
+      }
+    },
+    "revision_count": { "type": "integer", "minimum": 0 },
+    "revisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "round": { "type": "integer" },
+          "feedback": { "type": "string" },
+          "revised_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "linked_asset_id": { "type": "string", "description": "Final brand_asset entry after approval" },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "approved_by": { "type": "string" },
+    "delivered_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "cd_review", "revising", "approved", "delivered", "rejected", "archived"]
+    },
+    "rejected_reason": { "type": "string" }
+  }
+}

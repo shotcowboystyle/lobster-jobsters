@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lead",
+  "description": "Inbound lead in any of the four sales streams",
+  "type": "object",
+  "required": ["lead_id", "stream", "source", "contact", "received_at", "status"],
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "pattern": "^acme-sales-ld-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "stream": {
+      "type": "string",
+      "enum": ["wholesale", "local", "subscription", "event_rental"]
+    },
+    "source": {
+      "type": "string",
+      "enum": ["website_form", "phone", "email", "walk_in", "referral", "marketing_campaign", "trade_show", "social_media", "other"]
+    },
+    "marketing_campaign_id": { "type": "string", "description": "If sourced from a CMO campaign" },
+    "contact": {
+      "type": "object",
+      "required": ["name", "email_or_phone"],
+      "properties": {
+        "name": { "type": "string" },
+        "organization": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "email_or_phone": { "type": "string", "description": "At least one of email or phone required" },
+        "address_state": { "type": "string", "minLength": 2, "maxLength": 2 }
+      }
+    },
+    "inquiry_summary": { "type": "string" },
+    "estimated_value_usd": { "type": "number", "minimum": 0 },
+    "received_at": { "type": "string", "format": "date-time" },
+    "qualified_at": { "type": "string", "format": "date-time" },
+    "qualified_by": { "type": "string" },
+    "qualification_notes": { "type": "string" },
+    "disqualified_reason": { "type": "string" },
+    "linked_opportunity_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["received", "qualified", "opportunity_created", "disqualified", "archived"]
+    }
+  }
+}

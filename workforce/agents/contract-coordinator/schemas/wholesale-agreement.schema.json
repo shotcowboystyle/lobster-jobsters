@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WholesaleAgreement",
+  "description": "Executed wholesale purchase agreement artifact produced by Sage after DocuSign signature",
+  "type": "object",
+  "required": ["contract_id", "docusign_envelope_id", "template_id", "status", "buyer_signed_at", "signed_pdf_url"],
+  "properties": {
+    "contract_id": { "type": "string", "pattern": "^acme-c-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "docusign_envelope_id": { "type": "string", "description": "DocuSign envelope GUID" },
+    "template_id": { "type": "string", "description": "DocuSign template ID used" },
+    "status": {
+      "type": "string",
+      "enum": ["sent", "delivered", "completed", "declined", "voided", "expired"]
+    },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "buyer_signed_at": { "type": "string", "format": "date-time" },
+    "company_countersigned_at": { "type": "string", "format": "date-time" },
+    "signed_pdf_url": { "type": "string", "format": "uri" },
+    "buyer_signer_email": { "type": "string", "format": "email" },
+    "buyer_signer_name": { "type": "string" },
+    "total_usd": { "type": "number", "minimum": 0 },
+    "deposit_usd": { "type": "number", "minimum": 0 },
+    "balance_usd": { "type": "number", "minimum": 0 },
+    "delivery_window": {
+      "type": "object",
+      "properties": {
+        "earliest": { "type": "string", "format": "date" },
+        "latest": { "type": "string", "format": "date" }
+      }
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-.+-docusign-\\d+$",
+      "description": "Format: acme-{contract_id}-docusign-{attempt}"
+    },
+    "reminders_sent": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string", "enum": ["48h", "5d", "escalation"] },
+          "sent_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "ceo_escalated": { "type": "boolean", "default": false },
+    "ceo_escalated_at": { "type": "string", "format": "date-time" },
+    "error_message": { "type": "string" }
+  }
+}

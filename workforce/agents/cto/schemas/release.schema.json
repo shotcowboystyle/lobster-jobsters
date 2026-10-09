@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Release",
+  "description": "Production release / deploy record — owned by Bastion, approved by Allen + Jane (if major)",
+  "type": "object",
+  "required": ["release_id", "title", "scheduled_at", "pr_ids", "backup_verified", "rollback_plan", "deploy_window_ok", "status", "drafted_at", "idempotency_key"],
+  "properties": {
+    "release_id": {
+      "type": "string",
+      "pattern": "^acme-tech-rl-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "kind": {
+      "type": "string",
+      "enum": ["standard", "hotfix", "major", "infra_change", "schema_migration"]
+    },
+    "scheduled_at": { "type": "string", "format": "date-time" },
+    "pr_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "feature_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "changelog": { "type": "string" },
+    "deploy_environment": {
+      "type": "string",
+      "enum": ["staging", "production"]
+    },
+    "backup_verified": { "type": "boolean", "default": false },
+    "backup_verified_at": { "type": "string", "format": "date-time" },
+    "rollback_plan": { "type": "string", "description": "Documented rollback steps" },
+    "rollback_idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-tech-.+-rollback-\\d+$"
+    },
+    "deploy_window_ok": {
+      "type": "boolean",
+      "description": "True if NOT Friday and NOT pre-campaign"
+    },
+    "deploy_window_check_notes": { "type": "string" },
+    "staging_qa": {
+      "type": "object",
+      "properties": {
+        "passed": { "type": "boolean" },
+        "checklist_url": { "type": "string", "format": "uri" },
+        "qa_engineer": { "type": "string" },
+        "completed_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "approval_path": {
+      "type": "string",
+      "enum": ["allen_only", "allen_plus_ceo"]
+    },
+    "approved_by": { "type": "string" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "started_at": { "type": "string", "format": "date-time" },
+        "completed_at": { "type": "string", "format": "date-time" },
+        "deploy_log_url": { "type": "string", "format": "uri" },
+        "commit_sha": { "type": "string" },
+        "provider_deployment_id": { "type": "string" }
+      }
+    },
+    "monitoring_window_hours": {
+      "type": "integer",
+      "default": 24,
+      "description": "How long Bastion watches before closing"
+    },
+    "monitoring_metrics": {
+      "type": "object",
+      "properties": {
+        "error_rate_baseline": { "type": "number" },
+        "error_rate_post_deploy": { "type": "number" },
+        "p95_latency_baseline_ms": { "type": "number" },
+        "p95_latency_post_deploy_ms": { "type": "number" }
+      }
+    },
+    "rollback_triggered": { "type": "boolean", "default": false },
+    "rollback_reason": { "type": "string" },
+    "rollback_completed_at": { "type": "string", "format": "date-time" },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-tech-.+-deploy-\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["scheduled", "in_staging", "staging_qa", "approved", "deploying", "deployed", "monitoring", "closed", "rejected", "rolled_back", "failed"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "closed_at": { "type": "string", "format": "date-time" }
+  }
+}

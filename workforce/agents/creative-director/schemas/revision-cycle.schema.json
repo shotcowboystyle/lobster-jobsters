@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RevisionCycle",
+  "description": "Per-revision review record — captures Masahiko's feedback and the owner's response",
+  "type": "object",
+  "required": ["revision_id", "parent_kind", "parent_id", "round", "feedback", "drafted_at", "status"],
+  "properties": {
+    "revision_id": {
+      "type": "string",
+      "pattern": "^acme-creative-rv-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "parent_kind": {
+      "type": "string",
+      "enum": ["deliverable", "shoot", "care_guide"]
+    },
+    "parent_id": { "type": "string" },
+    "round": { "type": "integer", "minimum": 1, "description": "Revision round number (1 = first revision after initial submission)" },
+    "feedback": {
+      "type": "object",
+      "required": ["whats_working", "needs_attention", "direction_for_next_iteration"],
+      "properties": {
+        "whats_working": { "type": "string", "description": "Brief, specific. Name what's strong and why." },
+        "needs_attention": { "type": "string", "description": "Core issues, direct, prioritized." },
+        "direction_for_next_iteration": {
+          "type": "object",
+          "description": "Actionable enough to hand to a designer or image-gen model.",
+          "properties": {
+            "specific_measurements": { "type": "string" },
+            "color_values_hex": { "type": "string" },
+            "typography_adjustments": { "type": "string" },
+            "layout_changes": { "type": "string" },
+            "other": { "type": "string" }
+          }
+        }
+      }
+    },
+    "owner_response": { "type": "string", "description": "Owner's summary of changes made" },
+    "files_after": {
+      "type": "array",
+      "items": { "type": "string", "description": "Asset paths for this revision" }
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "responded_at": { "type": "string", "format": "date-time" },
+    "resolved_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["open", "responded", "resolved", "abandoned"]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BrandSystemUpdate",
+  "description": "Change to the canonical brand system — requires Masahiko + Jane approval with impact analysis",
+  "type": "object",
+  "required": ["update_id", "kind", "rationale", "proposed_at", "status"],
+  "properties": {
+    "update_id": {
+      "type": "string",
+      "pattern": "^acme-creative-bs-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["color_palette", "typography", "logo_variant", "template", "voice_tone", "iconography", "photography_style", "general_guideline"]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["minor_adjustment", "addition", "deprecation", "major_change", "rebranding"]
+    },
+    "proposed_by": { "type": "string" },
+    "rationale": { "type": "string" },
+    "current_state": { "type": "string", "description": "What the brand system says today" },
+    "proposed_state": { "type": "string", "description": "What it would say after the update" },
+    "impact_analysis": {
+      "type": "object",
+      "properties": {
+        "affected_touchpoints": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["website", "social", "email", "packaging", "signage", "catalogs", "presentations", "workshop_materials", "care_guides", "other"] }
+        },
+        "affected_assets_count": { "type": "integer", "minimum": 0, "description": "Existing brand_asset count needing update" },
+        "estimated_retrofit_hours": { "type": "number" },
+        "estimated_retrofit_cost_usd": { "type": "number" },
+        "risk_summary": { "type": "string" }
+      }
+    },
+    "approval_path": {
+      "type": "string",
+      "enum": ["cd_only", "cd_plus_ceo"],
+      "description": "Minor adjustments: Masahiko only; additions / major changes / rebranding: + Jane"
+    },
+    "cd_decision": {
+      "type": "object",
+      "properties": {
+        "approved": { "type": "boolean" },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      }
+    },
+    "ceo_decision": {
+      "type": "object",
+      "properties": {
+        "approved": { "type": "boolean" },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      }
+    },
+    "published_at": { "type": "string", "format": "date-time" },
+    "linked_retrofit_brief_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "proposed_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "impact_analysis", "cd_review", "ceo_review", "approved", "published", "rejected", "archived"]
+    },
+    "rejected_reason": { "type": "string" }
+  }
+}

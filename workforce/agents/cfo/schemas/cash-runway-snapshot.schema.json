@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CashRunwaySnapshot",
+  "description": "Weekly 13-week cash + runway snapshot produced by Horizon",
+  "type": "object",
+  "required": ["runway_id", "as_of", "cash_position_usd", "runway_days", "burn_rate_usd_per_month", "thirteen_week_projection", "status"],
+  "properties": {
+    "runway_id": {
+      "type": "string",
+      "pattern": "^acme-fin-rw-\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "as_of": { "type": "string", "format": "date" },
+    "cash_position_usd": { "type": "number", "minimum": 0 },
+    "operating_cash_usd": { "type": "number" },
+    "restricted_cash_usd": { "type": "number" },
+    "ar_usd": { "type": "number" },
+    "ap_usd": { "type": "number" },
+    "burn_rate_usd_per_month": { "type": "number" },
+    "trailing_3mo_avg_burn_usd": { "type": "number" },
+    "runway_days": { "type": "integer", "minimum": 0 },
+    "runway_status": {
+      "type": "string",
+      "enum": ["green", "yellow", "red"],
+      "description": "green > 180 days; yellow 90-180 days; red < 90 days"
+    },
+    "thirteen_week_projection": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "required": ["week_ending", "starting_cash_usd", "inflow_usd", "outflow_usd", "ending_cash_usd"],
+        "properties": {
+          "week_ending": { "type": "string", "format": "date" },
+          "starting_cash_usd": { "type": "number" },
+          "inflow_usd": { "type": "number" },
+          "outflow_usd": { "type": "number" },
+          "ending_cash_usd": { "type": "number" }
+        }
+      }
+    },
+    "key_assumptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "cfo_review", "published", "archived"]
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RoutePlan",
+  "description": "Multi-stop van route produced by Miles using Google Maps Directions",
+  "type": "object",
+  "required": ["route_id", "delivery_date", "van_id", "stops", "total_miles", "total_drive_minutes", "status", "created_at"],
+  "properties": {
+    "route_id": {
+      "type": "string",
+      "pattern": "^acme-rt-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$",
+      "description": "Format: acme-rt-YYYY-MM-DD-{slug}"
+    },
+    "delivery_date": { "type": "string", "format": "date" },
+    "van_id": { "type": "string" },
+    "van_capacity_used_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "departure_address": { "type": "string" },
+    "departure_time": { "type": "string", "format": "date-time" },
+    "return_time": { "type": "string", "format": "date-time" },
+    "stops": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["stop_order", "contract_id", "buyer_name", "address", "eta", "drive_minutes_from_prev"],
+        "properties": {
+          "stop_order": { "type": "integer", "minimum": 1 },
+          "contract_id": { "type": "string", "pattern": "^acme-c-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+          "buyer_name": { "type": "string" },
+          "address": { "type": "string" },
+          "lat": { "type": "number" },
+          "lng": { "type": "number" },
+          "eta": { "type": "string", "format": "date-time" },
+          "delivery_window_start": { "type": "string", "format": "date-time" },
+          "delivery_window_end": { "type": "string", "format": "date-time" },
+          "drive_minutes_from_prev": { "type": "integer", "minimum": 0 },
+          "miles_from_prev": { "type": "number", "minimum": 0 },
+          "service_minutes": { "type": "integer", "minimum": 0, "default": 20 }
+        }
+      }
+    },
+    "total_miles": { "type": "number", "minimum": 0 },
+    "total_drive_minutes": { "type": "integer", "minimum": 0 },
+    "google_maps_directions_url": { "type": "string", "format": "uri" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "coordinator_review", "approved", "emailed_buyers", "dispatched", "completed", "failed"]
+    },
+    "approved_by": { "type": "string" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-.+-route-.+-\\d+$",
+      "description": "Format: acme-{any_contract_id_in_route}-route-{route_id}-{attempt}"
+    }
+  }
+}

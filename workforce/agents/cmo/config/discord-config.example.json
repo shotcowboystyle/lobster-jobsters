@@ -1,0 +1,95 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_social_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-social-drafts",
+        "purpose": "Weekly calendars, post briefs, draft captions, QA results",
+        "agents_that_post": [
+          "strategy-planner",
+          "content-brief",
+          "platform-copywriter",
+          "creative-director",
+          "brand-qa"
+        ],
+        "human_actions": [
+          "review",
+          "comment",
+          "request_revision"
+        ]
+      },
+      "acme_social_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-social-approvals",
+        "purpose": "Approval cards, approve/reject/hold/edit actions, publish confirmations",
+        "agents_that_post": [
+          "approval-coordinator",
+          "publisher"
+        ],
+        "human_actions": [
+          "approve",
+          "edit",
+          "hold",
+          "reject"
+        ]
+      },
+      "acme_social_engagement": {
+        "id": "CHANNEL_ID_ENGAGEMENT",
+        "name": "#acme-social-engagement",
+        "purpose": "Engagement alerts, reply drafts, DM notifications",
+        "agents_that_post": [
+          "engagement-monitor",
+          "reply-drafter"
+        ],
+        "human_actions": [
+          "approve_reply",
+          "edit_reply",
+          "skip_reply",
+          "escalate"
+        ]
+      },
+      "acme_social_reports": {
+        "id": "CHANNEL_ID_REPORTS",
+        "name": "#acme-social-reports",
+        "purpose": "Weekly performance reports, optimization recommendations",
+        "agents_that_post": [
+          "weekly-analyst"
+        ],
+        "human_actions": [
+          "review",
+          "comment",
+          "directive"
+        ]
+      }
+    },
+    "approvers": {
+      "primary": {
+        "discord_user_id": "PRIMARY_APPROVER_DISCORD_ID",
+        "name": "Primary Operator",
+        "can_approve": [
+          "publish",
+          "reply",
+          "calendar",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "secondary": {
+        "discord_user_id": "SECONDARY_APPROVER_DISCORD_ID",
+        "name": "Secondary Approver",
+        "can_approve": [
+          "publish",
+          "reply"
+        ],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 12,
+      "escalation_timeout_hours": 24,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

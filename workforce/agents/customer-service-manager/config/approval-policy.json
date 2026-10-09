@@ -1,0 +1,98 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai Customer Service Manager team (Poppy)",
+    "rules": {
+      "approve_refund_small": {
+        "requires_approval": true,
+        "approvers": ["csm"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "threshold_usd": 500,
+        "notes": "Refunds ≤ $500: Poppy approval. Clear rationale + customer context required."
+      },
+      "approve_refund_large": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "threshold_usd": 500,
+        "notes": "Refunds > $500: Jane approval required."
+      },
+      "approve_replacement_tree": {
+        "requires_approval": true,
+        "approvers": ["csm"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Replacement tree for verified quality issue: Poppy approval. Coordinate with Tally for inventory."
+      },
+      "approve_store_credit_or_waiver": {
+        "requires_approval": true,
+        "approvers": ["csm"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "threshold_usd": 200,
+        "notes": "Store credit or fee waiver ≤ $200: Poppy approval."
+      },
+      "approve_rental_damage_dispute_large": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "waive", "reject"],
+        "threshold_usd": 300,
+        "notes": "Rental damage disputes > $300: Jane approval. Coordinated with Cedar (COO) for damage assessment."
+      },
+      "approve_major_account_save": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Concessions to retain major account (wholesale > $10K/year or subscription > $1K/month) require Jane approval."
+      },
+      "approve_subscription_cancellation_save": {
+        "requires_approval": true,
+        "approvers": ["csm", "ceo"],
+        "min_approvers": 2,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve_concession", "approve_cancellation", "edit"],
+        "notes": "Subscription cancellation due to repeated quality failures requires Poppy + Jane review of save options."
+      },
+      "approve_legal_response": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Any response to customer using legal language requires Jane approval. Route to legal if engaged."
+      },
+      "approve_pattern_issue_response": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Pattern of same issue ≥ 3 customers: Jane approves response strategy + corrective action. Operating team owner identified."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["csm", "ceo"],
+        "notes": "Emergency stop on outbound replies can be activated immediately by Poppy or Jane."
+      }
+    }
+  }
+}

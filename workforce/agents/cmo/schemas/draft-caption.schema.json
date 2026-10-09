@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DraftCaption",
+  "description": "Draft caption package from Platform Copywriter",
+  "type": "object",
+  "required": ["post_id", "platform", "vertical", "caption_text", "hashtags", "status", "created_at"],
+  "properties": {
+    "post_id": { "type": "string" },
+    "platform": { "type": "string", "enum": ["instagram", "facebook"] },
+    "vertical": { "type": "string", "enum": ["wholesale", "local", "display", "events"] },
+    "caption_text": { "type": "string", "minLength": 20 },
+    "hashtags": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^#" }
+    },
+    "first_comment": {
+      "type": "string",
+      "description": "Optional first comment for Instagram (hashtags or additional text)"
+    },
+    "placeholders": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "revision_number": { "type": "integer", "minimum": 1, "default": 1 },
+    "revision_notes": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "revised", "qa_reviewing"]
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

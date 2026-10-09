@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TechDebtEntry",
+  "description": "Tracked technical debt with explicit interest rate — owned by Allen, prioritized weekly",
+  "type": "object",
+  "required": ["debt_id", "title", "domain", "logged_at", "interest_rate_pct_monthly", "principal_estimate_hours", "status"],
+  "properties": {
+    "debt_id": {
+      "type": "string",
+      "pattern": "^acme-tech-debt-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "description": { "type": "string" },
+    "domain": {
+      "type": "string",
+      "enum": ["frontend", "backend", "infra", "data", "integration", "test", "documentation"]
+    },
+    "logged_at": { "type": "string", "format": "date-time" },
+    "logged_by": { "type": "string" },
+    "discovered_in_incident_id": { "type": "string", "description": "If debt was discovered during an incident" },
+    "discovered_in_feature_id": { "type": "string" },
+    "principal_estimate_hours": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Estimated effort to pay off — the principal"
+    },
+    "interest_rate_pct_monthly": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Estimated cost of carrying this debt per month — slowdown, incident risk, lost revenue"
+    },
+    "interest_explanation": { "type": "string" },
+    "cumulative_interest_paid_usd": {
+      "type": "number",
+      "description": "Tracked over time — incident hours, slowed deploys, etc."
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "scheduled_for_quarter": { "type": "string", "description": "e.g. '2026-Q3'" },
+    "scheduled_owner": { "type": "string" },
+    "linked_pr_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["logged", "triaged", "scheduled", "in_progress", "resolved", "deferred", "archived"]
+    },
+    "deferred_reason": { "type": "string" },
+    "deferred_next_review_date": { "type": "string", "format": "date" },
+    "resolved_at": { "type": "string", "format": "date-time" }
+  }
+}

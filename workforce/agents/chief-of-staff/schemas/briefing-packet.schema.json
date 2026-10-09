@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BriefingPacket",
+  "description": "CEO briefing artifact produced by Heron, reviewed by River, published to #acme-exec-briefings",
+  "type": "object",
+  "required": ["briefing_id", "kind", "headline_decision", "summary", "status", "drafted_at"],
+  "properties": {
+    "briefing_id": {
+      "type": "string",
+      "pattern": "^acme-brf-\\d{4}-\\d{2}-\\d{2}-(weekly|midweek|daily|adhoc)$"
+    },
+    "kind": { "type": "string", "enum": ["weekly", "midweek", "daily", "adhoc"] },
+    "headline_decision": {
+      "type": "string",
+      "description": "One-sentence statement of the decision Jane needs to make (or 'no decision needed; informational')"
+    },
+    "summary": {
+      "type": "string",
+      "description": "≤400 words. Plain English. Cite ledger refs for every metric."
+    },
+    "word_count": { "type": "integer", "minimum": 0, "maximum": 400 },
+    "key_metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "value": { "type": "string" },
+          "source_team": { "type": "string" },
+          "ledger_reference": { "type": "string" }
+        }
+      }
+    },
+    "open_blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "owner": { "type": "string" },
+          "ledger_reference": { "type": "string" }
+        }
+      }
+    },
+    "recommended_action": { "type": "string" },
+    "team_contributions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "team": { "type": "string" },
+          "highlight": { "type": "string" },
+          "ledger_reference": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["queued", "drafting", "coordinator_review", "revising", "published", "acknowledged", "archived", "held", "retracted"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "published_at": { "type": "string", "format": "date-time" },
+    "acknowledged_at": { "type": "string", "format": "date-time" },
+    "drafted_by": { "type": "string", "default": "briefing-synthesizer" },
+    "approved_by": { "type": "string" }
+  }
+}

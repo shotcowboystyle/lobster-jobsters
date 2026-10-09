@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExternalComm",
+  "description": "External-stakeholder communication drafted by Envoy; per-message CEO approval required",
+  "type": "object",
+  "required": ["comm_id", "stakeholder_kind", "recipient", "channel", "subject", "body_text", "status", "drafted_at", "idempotency_key"],
+  "properties": {
+    "comm_id": {
+      "type": "string",
+      "pattern": "^acme-ceo-c-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "stakeholder_kind": {
+      "type": "string",
+      "enum": ["investor", "advisor", "bank", "key_partner", "press", "regulator", "vendor_strategic", "other"]
+    },
+    "recipient": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "organization": { "type": "string" },
+        "stakeholder_record_id": { "type": "string", "description": "Reference into data/stakeholder-records.jsonl" }
+      }
+    },
+    "channel": { "type": "string", "enum": ["email", "letter", "phone_call_note", "in_person_note"] },
+    "subject": { "type": "string", "maxLength": 200 },
+    "body_text": { "type": "string" },
+    "body_html": { "type": "string" },
+    "linked_memo_id": { "type": "string" },
+    "linked_decision_id": { "type": "string" },
+    "prior_comm_history": {
+      "type": "array",
+      "items": { "type": "string", "description": "Prior comm_ids in the same thread" }
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-ceo-.+-\\d+$",
+      "description": "Format: acme-ceo-{comm_id}-{channel}-{attempt}"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["queued", "drafting", "ceo_review", "revising", "approved", "sent", "acknowledged", "rejected", "failed", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "acknowledged_at": { "type": "string", "format": "date-time" },
+    "failure_reason": { "type": "string" },
+    "provider_message_id": { "type": "string" }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PullRequest",
+  "description": "PR workflow state — GitHub holds source of truth; this captures workflow context",
+  "type": "object",
+  "required": ["pr_id", "github_pr_number", "github_repo", "feature_id", "author", "branch", "title", "drafted_at", "status"],
+  "properties": {
+    "pr_id": {
+      "type": "string",
+      "pattern": "^acme-tech-pr-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "github_pr_number": { "type": "integer" },
+    "github_repo": { "type": "string" },
+    "github_pr_url": { "type": "string", "format": "uri" },
+    "feature_id": {
+      "type": "string",
+      "pattern": "^acme-tech-fr-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "linked_spec_id": { "type": "string" },
+    "author": { "type": "string", "enum": ["pixel", "forge", "bastion", "human"] },
+    "branch": { "type": "string" },
+    "title": { "type": "string", "maxLength": 120 },
+    "description": { "type": "string" },
+    "files_changed": { "type": "integer", "minimum": 0 },
+    "lines_added": { "type": "integer", "minimum": 0 },
+    "lines_deleted": { "type": "integer", "minimum": 0 },
+    "ci_status": {
+      "type": "string",
+      "enum": ["pending", "passing", "failing", "neutral"]
+    },
+    "test_coverage_delta_pct": { "type": "number" },
+    "reviewers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "review_comments": { "type": "integer", "minimum": 0 },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "linked_release_id": { "type": "string" },
+    "commit_sha": { "type": "string" },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "merged_at": { "type": "string", "format": "date-time" },
+    "deployed_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "review", "approved", "merged", "deployed", "closed", "rejected", "abandoned"]
+    }
+  }
+}

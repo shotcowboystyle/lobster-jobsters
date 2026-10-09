@@ -1,0 +1,61 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_exec_briefings": {
+        "id": "CHANNEL_ID_BRIEFINGS",
+        "name": "#acme-exec-briefings",
+        "purpose": "Daily and weekly CEO briefings; meeting agendas and minutes",
+        "agents_that_post": ["chief-of-staff", "briefing-synthesizer"],
+        "human_actions": ["acknowledge", "comment", "directive"]
+      },
+      "acme_exec_actions": {
+        "id": "CHANNEL_ID_ACTIONS",
+        "name": "#acme-exec-actions",
+        "purpose": "Open action items, follow-ups, owner pings",
+        "agents_that_post": ["action-item-tracker"],
+        "human_actions": ["update", "complete", "drop", "reassign"]
+      },
+      "acme_exec_initiatives": {
+        "id": "CHANNEL_ID_INITIATIVES",
+        "name": "#acme-exec-initiatives",
+        "purpose": "Strategic initiative status updates and traffic-light changes",
+        "agents_that_post": ["initiative-tracker"],
+        "human_actions": ["sponsor_confirm", "comment", "directive"]
+      },
+      "acme_exec_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-exec-alerts",
+        "purpose": "Agent-health anomalies, ledger anomalies, emergency-stop events",
+        "agents_that_post": ["agent-health-monitor", "chief-of-staff"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": ["external_communication", "delegation_window", "agent_restart_or_pause", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "chief_of_staff": {
+        "discord_user_id": "CHIEF_OF_STAFF_DISCORD_ID",
+        "name": "River (Chief of Staff)",
+        "can_approve": ["publish_briefing", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "initiative_sponsor": {
+        "discord_user_id": "INITIATIVE_SPONSOR_DISCORD_ID",
+        "name": "Initiative Sponsor (per-initiative)",
+        "can_approve": ["publish_initiative_color_change"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 6,
+      "escalation_timeout_hours": 24,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubscriptionContract",
+  "description": "Recurring display service contract owned by Sophia",
+  "type": "object",
+  "required": ["subscription_id", "customer_id", "term_months", "monthly_fee_usd", "deposit_usd", "tree_plan", "start_date", "status", "drafted_at"],
+  "properties": {
+    "subscription_id": {
+      "type": "string",
+      "pattern": "^acme-sales-sub-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer_id": { "type": "string" },
+    "linked_opportunity_id": { "type": "string" },
+    "linked_quote_id": { "type": "string" },
+    "site_visit": {
+      "type": "object",
+      "properties": {
+        "scheduled_at": { "type": "string", "format": "date-time" },
+        "completed_at": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" },
+        "photos": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "tree_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "species": { "type": "string" },
+          "size": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "placement_notes": { "type": "string" },
+          "rotation_frequency_weeks": { "type": "integer" }
+        }
+      }
+    },
+    "term_months": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 12,
+      "description": "12-month minimum unless Jane approves shorter"
+    },
+    "monthly_fee_usd": { "type": "number", "minimum": 0 },
+    "deposit_usd": { "type": "number", "minimum": 0 },
+    "service_tier": {
+      "type": "string",
+      "enum": ["essentials", "professional", "premium", "custom"]
+    },
+    "service_includes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "e.g. 'weekly watering', 'monthly pruning', 'seasonal rotation', '24h response on issues'"
+    },
+    "start_date": { "type": "string", "format": "date" },
+    "renewal_date": { "type": "string", "format": "date" },
+    "billing_setup": {
+      "type": "object",
+      "properties": {
+        "method": { "type": "string", "enum": ["stripe_subscription", "ach", "invoice"] },
+        "stripe_subscription_id": { "type": "string" },
+        "billing_email": { "type": "string", "format": "email" }
+      }
+    },
+    "renewal_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "renewal_at": { "type": "string", "format": "date-time" },
+          "new_term_months": { "type": "integer" },
+          "new_monthly_fee_usd": { "type": "number" },
+          "expansion": { "type": "boolean", "description": "Did the contract grow at renewal?" }
+        }
+      }
+    },
+    "churn_risk_signals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Detected risks: missed payments, complaints, sponsor change, etc."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["prospect", "site_visit", "proposed", "signed", "active", "renewing", "renewed", "churned", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "signed_at": { "type": "string", "format": "date-time" },
+    "churned_at": { "type": "string", "format": "date-time" },
+    "churn_reason": { "type": "string" }
+  }
+}

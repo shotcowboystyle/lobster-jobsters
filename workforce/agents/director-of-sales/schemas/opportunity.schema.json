@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Opportunity",
+  "description": "Qualified sales opportunity in the pipeline",
+  "type": "object",
+  "required": ["opportunity_id", "stream", "customer_id", "stage", "weighted_value_usd", "probability_pct", "expected_close_date", "owner", "drafted_at", "status"],
+  "properties": {
+    "opportunity_id": {
+      "type": "string",
+      "pattern": "^acme-sales-op-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "stream": {
+      "type": "string",
+      "enum": ["wholesale", "local", "subscription", "event_rental"]
+    },
+    "linked_lead_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "stage": {
+      "type": "string",
+      "enum": ["discovery", "proposal", "negotiation", "committed"]
+    },
+    "stage_probability": {
+      "type": "object",
+      "properties": {
+        "discovery": { "type": "number", "default": 0.20 },
+        "proposal": { "type": "number", "default": 0.40 },
+        "negotiation": { "type": "number", "default": 0.70 },
+        "committed": { "type": "number", "default": 0.90 }
+      }
+    },
+    "probability_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Override of stage default if needed"
+    },
+    "estimated_value_usd": { "type": "number", "minimum": 0 },
+    "weighted_value_usd": {
+      "type": "number",
+      "minimum": 0,
+      "description": "estimated_value_usd * (probability_pct / 100)"
+    },
+    "expected_close_date": { "type": "string", "format": "date" },
+    "owner": {
+      "type": "string",
+      "enum": ["wade", "lily", "sophia", "max", "cash"]
+    },
+    "linked_quote_id": { "type": "string" },
+    "next_action": {
+      "type": "object",
+      "properties": {
+        "what": { "type": "string" },
+        "owner": { "type": "string" },
+        "due_date": { "type": "string", "format": "date" }
+      }
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "stage_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage": { "type": "string" },
+          "at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["discovery", "proposal", "negotiation", "committed", "won", "lost", "archived"]
+    },
+    "won_at": { "type": "string", "format": "date-time" },
+    "lost_at": { "type": "string", "format": "date-time" },
+    "lost_reason": { "type": "string" },
+    "linked_deal_id": { "type": "string" }
+  }
+}

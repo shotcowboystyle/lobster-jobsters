@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApprovalPacket",
+  "description": "Approval request packet posted to Discord",
+  "type": "object",
+  "required": ["post_id", "platform", "vertical", "scheduled_date", "caption_text", "qa_status", "visual_asset_status", "approval_status", "posted_at"],
+  "properties": {
+    "post_id": { "type": "string" },
+    "platform": { "type": "string", "enum": ["instagram", "facebook"] },
+    "vertical": { "type": "string", "enum": ["wholesale", "local", "display", "events"] },
+    "scheduled_date": { "type": "string", "format": "date" },
+    "caption_text": { "type": "string" },
+    "hashtags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "visual_asset_status": {
+      "type": "string",
+      "enum": ["attached", "pending", "not_applicable"]
+    },
+    "visual_asset_path": { "type": "string" },
+    "qa_status": { "type": "string", "enum": ["pass", "pass_with_flags"] },
+    "qa_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "placeholders": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["awaiting_approval", "approved", "rejected", "held", "edited"]
+    },
+    "approved_by": { "type": "string" },
+    "approval_notes": { "type": "string" },
+    "posted_at": { "type": "string", "format": "date-time" },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "timeout_reminder_sent": { "type": "boolean", "default": false }
+  }
+}

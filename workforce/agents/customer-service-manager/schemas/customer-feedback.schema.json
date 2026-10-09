@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CustomerFeedback",
+  "description": "Captured customer feedback — testimonials, complaints, product insights, operational signals routed to relevant teams",
+  "type": "object",
+  "required": ["feedback_id", "customer_id", "kind", "summary", "received_at", "status"],
+  "properties": {
+    "feedback_id": {
+      "type": "string",
+      "pattern": "^acme-care-fb-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer_id": { "type": "string" },
+    "linked_ticket_id": { "type": "string" },
+    "linked_consult_id": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "testimonial", "compliment", "complaint",
+        "product_feedback", "operational_feedback", "service_feedback",
+        "feature_request", "referral_signal", "churn_signal",
+        "case_study_candidate", "other"
+      ]
+    },
+    "summary": { "type": "string", "maxLength": 500 },
+    "verbatim_quote": { "type": "string", "description": "Customer's own words if quotable" },
+    "routed_to": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["cmo", "director-of-sales", "coo", "cto", "creative-director", "contract-coordinator", "cfo", "ceo"]
+      },
+      "description": "Which operating teams should hear this signal"
+    },
+    "routing_idempotency_key": { "type": "string" },
+    "received_at": { "type": "string", "format": "date-time" },
+    "captured_by": { "type": "string" },
+    "consent_to_publish": {
+      "type": "object",
+      "properties": {
+        "requested": { "type": "boolean", "default": false },
+        "granted": { "type": "boolean", "default": false },
+        "granted_at": { "type": "string", "format": "date-time" },
+        "use_cases": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": ["very_positive", "positive", "neutral", "negative", "very_negative"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["captured", "routed", "acknowledged", "archived"]
+    }
+  }
+}

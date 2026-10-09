@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RentalJob",
+  "description": "Rental cycle (outbound + at-event + return + inspection) owned by Cedar",
+  "type": "object",
+  "required": ["rental_id", "customer", "tree_ids", "event_window", "outbound_window", "return_window", "deposit_usd", "status", "drafted_at"],
+  "properties": {
+    "rental_id": {
+      "type": "string",
+      "pattern": "^acme-ops-rt-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "organization": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" }
+      }
+    },
+    "tree_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" }
+    },
+    "event_window": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "outbound_window": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "return_window": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "venue_address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "zip": { "type": "string" }
+      }
+    },
+    "deposit_usd": { "type": "number", "minimum": 0 },
+    "rental_fee_usd": { "type": "number", "minimum": 0 },
+    "rental_agreement_url": { "type": "string", "format": "uri" },
+    "before_photos": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "description": "Asset path or URL" },
+      "description": "≥3 photos required before dispatch"
+    },
+    "after_photos": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string" },
+      "description": "≥3 photos required at return"
+    },
+    "damage_assessment": {
+      "type": "object",
+      "properties": {
+        "damaged": { "type": "boolean" },
+        "items_damaged": { "type": "array", "items": { "type": "string" } },
+        "estimated_repair_usd": { "type": "number" },
+        "deposit_withheld_usd": { "type": "number" },
+        "dispute_open": { "type": "boolean", "default": false },
+        "ceo_approval_required": { "type": "boolean", "description": "True if estimated > $300" },
+        "idempotency_key": { "type": "string", "pattern": "^acme-ops-.+-damage-\\d+$" }
+      }
+    },
+    "pickup_notice": {
+      "type": "object",
+      "properties": {
+        "sent_at": { "type": "string", "format": "date-time" },
+        "idempotency_key": { "type": "string", "pattern": "^acme-ops-.+-pickup-\\d+$" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["scheduled", "outbound", "at_event", "return_pickup", "inspected", "closed", "damaged", "disputed", "resolved"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "closed_at": { "type": "string", "format": "date-time" }
+  }
+}

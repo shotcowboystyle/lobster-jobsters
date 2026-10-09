@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LocalSale",
+  "description": "Walk-in / single-tree sale owned by Lily",
+  "type": "object",
+  "required": ["local_sale_id", "customer_id", "interaction_at", "status"],
+  "properties": {
+    "local_sale_id": {
+      "type": "string",
+      "pattern": "^acme-sales-ls-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer_id": { "type": "string" },
+    "linked_lead_id": { "type": "string" },
+    "interaction_at": { "type": "string", "format": "date-time" },
+    "interaction_kind": {
+      "type": "string",
+      "enum": ["walk_in", "scheduled_visit", "remote_consult"]
+    },
+    "consult_topics": {
+      "type": "array",
+      "items": { "type": "string", "description": "e.g. 'beginner guidance', 'specific species', 'gift selection'" }
+    },
+    "trees_recommended": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tree_id": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" },
+          "species": { "type": "string" },
+          "size": { "type": "string" },
+          "price_usd": { "type": "number" },
+          "reasoning": { "type": "string" }
+        }
+      }
+    },
+    "purchased_tree_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$" }
+    },
+    "total_usd": { "type": "number", "minimum": 0 },
+    "payment_method": {
+      "type": "string",
+      "enum": ["stripe", "cash", "check", "ach", "other"]
+    },
+    "stripe_payment_intent_id": { "type": "string" },
+    "delivery_required": { "type": "boolean", "default": false },
+    "linked_delivery_id": {
+      "type": "string",
+      "description": "Hand-off ID into Cedar's delivery_jobs (COO ops ledger)"
+    },
+    "care_guidance_sent": { "type": "boolean", "default": false },
+    "follow_up_at": { "type": "string", "format": "date-time" },
+    "cross_stream_opportunity": {
+      "type": "object",
+      "properties": {
+        "stream": { "type": "string", "enum": ["wholesale", "subscription", "event_rental"] },
+        "routed_to": { "type": "string" },
+        "routed_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["walk_in", "consult", "recommended", "purchased", "no_purchase", "followed_up", "archived"]
+    }
+  }
+}

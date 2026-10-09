@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrategicQuestion",
+  "description": "Weekly strategic question produced by Compass and answered by Jane",
+  "type": "object",
+  "required": ["question_id", "headline", "trade_off", "context", "source_signals", "status", "drafted_at"],
+  "properties": {
+    "question_id": {
+      "type": "string",
+      "pattern": "^acme-ceo-q-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "headline": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "One-sentence framing of the trade-off"
+    },
+    "trade_off": {
+      "type": "object",
+      "required": ["if_we_choose_a", "if_we_choose_b"],
+      "properties": {
+        "if_we_choose_a": { "type": "string" },
+        "if_we_choose_b": { "type": "string" },
+        "third_path": { "type": "string", "description": "Optional — a re-frame Jane might consider" }
+      }
+    },
+    "context": {
+      "type": "string",
+      "maxLength": 1500,
+      "description": "Why this question now. ≤200 words preferred."
+    },
+    "source_signals": {
+      "type": "array",
+      "minItems": 3,
+      "description": "Ledger references that triggered this question — ≥3 across ≥2 source teams",
+      "items": {
+        "type": "object",
+        "required": ["team", "ledger_reference", "signal"],
+        "properties": {
+          "team": {
+            "type": "string",
+            "enum": ["cmo", "cfo", "coo", "cto", "director-of-sales", "creative-director", "customer-service-manager", "contract-coordinator", "chief-of-staff"]
+          },
+          "ledger_reference": { "type": "string" },
+          "signal": { "type": "string", "description": "What the data shows" }
+        }
+      }
+    },
+    "what_would_change_my_mind": {
+      "type": "string",
+      "description": "Optional — Compass's suggestion of what data or event would flip Jane's choice"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["queued", "researching", "drafted", "ceo_review", "answered", "deferred", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "answered_at": { "type": "string", "format": "date-time" },
+    "answer_text": { "type": "string", "description": "Jane's answer verbatim" },
+    "answer_reasoning": { "type": "string", "description": "Jane's reasoning if shared" },
+    "linked_decision_id": { "type": "string", "description": "If the answer produced a journaled decision" }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EscalationCard",
+  "description": "Escalation routed to Jane or to an operating team — Poppy posts; recipients act",
+  "type": "object",
+  "required": ["escalation_id", "kind", "decision_needed", "recommended_action", "opened_at", "status"],
+  "properties": {
+    "escalation_id": {
+      "type": "string",
+      "pattern": "^acme-care-esc-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "linked_ticket_id": { "type": "string" },
+    "linked_consult_id": { "type": "string" },
+    "linked_order_issue_id": { "type": "string" },
+    "linked_refund_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "refund_over_threshold",
+        "legal_language_detected",
+        "rental_damage_dispute_large",
+        "subscription_cancellation_save",
+        "major_account_save",
+        "media_or_social_escalation",
+        "pattern_issue_root_cause",
+        "persistent_unresolved",
+        "operational_team_referral"
+      ]
+    },
+    "decision_needed": { "type": "string" },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "consequence": { "type": "string" }
+        }
+      }
+    },
+    "context": { "type": "string" },
+    "recommended_action": { "type": "string" },
+    "routed_to": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["ceo", "cmo", "director-of-sales", "coo", "cto", "creative-director", "contract-coordinator", "cfo", "chief-of-staff"]
+      }
+    },
+    "ledger_references": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "opened_at": { "type": "string", "format": "date-time" },
+    "decided_by": { "type": "string" },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "decision_notes": { "type": "string" },
+    "corrective_action": { "type": "string", "description": "If pattern_issue, the action committed by operating team owner" },
+    "customer_communicated_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["opened", "routed", "acknowledged", "resolved", "archived"]
+    }
+  }
+}

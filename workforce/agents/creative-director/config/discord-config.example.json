@@ -1,0 +1,68 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_creative_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-creative-drafts",
+        "purpose": "Brief intake, design drafts, photo proofs, care guide drafts",
+        "agents_that_post": ["creative-director", "brand-designer", "photography-agent", "educational-content-designer"],
+        "human_actions": ["review", "approve", "revising", "reject"]
+      },
+      "acme_creative_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-creative-approvals",
+        "purpose": "CEO escalations: projects > $2K, rebranding, IP, conflicting priorities",
+        "agents_that_post": ["creative-director"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_creative_library": {
+        "id": "CHANNEL_ID_LIBRARY",
+        "name": "#acme-creative-library",
+        "purpose": "Brand asset library updates, brand system changes, template releases",
+        "agents_that_post": ["brand-designer", "creative-director"],
+        "human_actions": ["review", "approve", "request_revision"]
+      },
+      "acme_creative_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-creative-alerts",
+        "purpose": "Brand drift, off-brand publications, missed deadlines, emergency-stop",
+        "agents_that_post": ["creative-director", "brand-designer", "photography-agent", "educational-content-designer"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": [
+          "approve_creative_project_large",
+          "approve_rebranding",
+          "approve_brand_system_update",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "creative_director": {
+        "discord_user_id": "CD_AGENT_ID",
+        "name": "Masahiko (Creative Director)",
+        "can_approve": [
+          "approve_deliverable",
+          "approve_photo_shoot",
+          "approve_care_guide",
+          "approve_brand_system_update",
+          "approve_external_publish",
+          "approve_photo_release_request",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 24,
+      "escalation_timeout_hours": 48,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

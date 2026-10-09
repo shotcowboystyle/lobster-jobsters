@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CareGuide",
+  "description": "Educational content piece — owned by Mira; technically reviewed by Care Education; brand-reviewed by Masahiko",
+  "type": "object",
+  "required": ["guide_id", "title", "kind", "topic", "drafted_at", "status"],
+  "properties": {
+    "guide_id": {
+      "type": "string",
+      "pattern": "^acme-creative-gd-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "linked_brief_id": { "type": "string" },
+    "title": { "type": "string", "maxLength": 120 },
+    "kind": {
+      "type": "string",
+      "enum": ["species_care", "general_care", "seasonal", "troubleshooting", "workshop_handout", "infographic", "video_storyboard", "step_by_step", "other"]
+    },
+    "topic": { "type": "string" },
+    "target_audience": {
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced", "all"]
+    },
+    "format": {
+      "type": "string",
+      "enum": ["pdf", "web_page", "social_carousel", "video", "print_handout", "infographic"]
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "heading": { "type": "string" },
+          "body": { "type": "string" },
+          "imagery": { "type": "array", "items": { "type": "string" } },
+          "iconography": { "type": "array", "items": { "type": "string", "enum": ["watering", "fertilizing", "pruning", "repotting", "light", "humidity", "seasonal", "pest", "other"] } }
+        }
+      }
+    },
+    "technical_review": {
+      "type": "object",
+      "description": "Care Education review (Customer Service Manager team)",
+      "properties": {
+        "reviewer": { "type": "string" },
+        "approved": { "type": "boolean", "default": false },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "feedback": { "type": "string" },
+        "verified_facts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "cd_review": {
+      "type": "object",
+      "description": "Masahiko brand review",
+      "properties": {
+        "approved": { "type": "boolean", "default": false },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "feedback": { "type": "string" }
+      }
+    },
+    "linked_asset_id": { "type": "string", "description": "Brand asset entry after publication" },
+    "publication_targets": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["website", "email_subscribers", "workshop_attendees", "wholesale_partners", "social"] }
+    },
+    "published_at": { "type": "string", "format": "date-time" },
+    "publish_idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-creative-.+-publish-\\d+$"
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["drafted", "technical_review", "cd_review", "revising", "approved", "published", "rejected", "archived"]
+    },
+    "rejected_reason": { "type": "string" }
+  }
+}

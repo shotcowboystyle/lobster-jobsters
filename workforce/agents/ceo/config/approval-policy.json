@@ -1,0 +1,58 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai CEO team (Apex)",
+    "rules": {
+      "answer_strategic_question": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["answer", "defer", "drop"],
+        "notes": "Strategic questions have no SLA — Jane answers when he has thought it through."
+      },
+      "capture_decision": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "remind",
+        "allowed_actions": ["ack", "edit", "drop"],
+        "notes": "Almanac drafts decision entries; Jane acks within 48h or edits."
+      },
+      "record_outcome": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 168,
+        "timeout_action": "remind",
+        "allowed_actions": ["record", "inconclusive", "defer"],
+        "notes": "When a decision's outcome window opens, Jane records the actual outcome within 7 days."
+      },
+      "approve_memo": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Memos have no SLA — Jane approves when the wording is right."
+      },
+      "approve_external_comm": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Per-message approval required for every Envoy outbound. Silence is never consent."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["ceo", "apex"],
+        "notes": "Emergency stop can be activated immediately by Jane or Apex."
+      }
+    }
+  }
+}

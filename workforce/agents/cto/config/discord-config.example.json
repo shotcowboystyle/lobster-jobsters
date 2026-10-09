@@ -1,0 +1,68 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "acme_tech_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#acme-tech-drafts",
+        "purpose": "Feature intake, spec drafts, PR reviews, weekly platform report",
+        "agents_that_post": ["cto", "frontend-developer", "backend-developer", "devops-agent"],
+        "human_actions": ["review", "approve", "edit", "defer", "reject"]
+      },
+      "acme_tech_approvals": {
+        "id": "CHANNEL_ID_APPROVALS",
+        "name": "#acme-tech-approvals",
+        "purpose": "CEO escalations: > 40h / > $3K features, architecture changes, SaaS > $200/mo, rollbacks",
+        "agents_that_post": ["cto"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_tech_releases": {
+        "id": "CHANNEL_ID_RELEASES",
+        "name": "#acme-tech-releases",
+        "purpose": "Release plans, staging QA, prod deploy confirmations",
+        "agents_that_post": ["devops-agent", "cto"],
+        "human_actions": ["approve", "edit", "hold", "reject"]
+      },
+      "acme_tech_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#acme-tech-alerts",
+        "purpose": "Incidents, security findings, uptime / latency / error-rate breaches, emergency-stop",
+        "agents_that_post": ["cto", "frontend-developer", "backend-developer", "devops-agent"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "ceo": {
+        "discord_user_id": "CEO_DISCORD_ID",
+        "name": "Jane (CEO)",
+        "can_approve": [
+          "approve_feature_large",
+          "approve_major_release",
+          "approve_rollback",
+          "approve_saas_addition",
+          "approve_security_risk_acceptance",
+          "approve_data_destruction",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      },
+      "cto": {
+        "discord_user_id": "CTO_AGENT_ID",
+        "name": "Allen (CTO)",
+        "can_approve": [
+          "approve_feature_small",
+          "approve_release",
+          "approve_security_risk_acceptance",
+          "emergency_stop"
+        ],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 24,
+      "escalation_timeout_hours": 48,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

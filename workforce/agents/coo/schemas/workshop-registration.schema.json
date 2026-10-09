@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkshopRegistration",
+  "description": "Per-attendee workshop registration owned by Hazel",
+  "type": "object",
+  "required": ["registration_id", "workshop_id", "attendee", "registered_at", "status"],
+  "properties": {
+    "registration_id": {
+      "type": "string",
+      "pattern": "^acme-ops-rg-[a-z0-9-]+$"
+    },
+    "workshop_id": {
+      "type": "string",
+      "pattern": "^acme-ops-ws-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "attendee": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "skill_level": { "type": "string", "enum": ["first_timer", "beginner", "intermediate", "advanced"] },
+        "returning": { "type": "boolean", "default": false }
+      }
+    },
+    "registered_at": { "type": "string", "format": "date-time" },
+    "payment_status": {
+      "type": "string",
+      "enum": ["unpaid", "paid", "refunded", "comped"]
+    },
+    "amount_paid_usd": { "type": "number", "minimum": 0 },
+    "reminders_sent": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string", "enum": ["confirmation", "48h", "day_of"] },
+          "sent_at": { "type": "string", "format": "date-time" },
+          "channel": { "type": "string", "enum": ["email", "sms"] },
+          "idempotency_key": { "type": "string", "pattern": "^acme-ops-.+-reminder-\\d+$" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "confirmed", "attended", "no_show", "cancelled", "followed_up"]
+    },
+    "follow_up": {
+      "type": "object",
+      "properties": {
+        "care_guide_sent_at": { "type": "string", "format": "date-time" },
+        "survey_completed": { "type": "boolean", "default": false },
+        "survey_score": { "type": "number", "minimum": 0, "maximum": 5 },
+        "discount_offered": { "type": "string", "description": "Discount code for follow-up purchase" }
+      }
+    }
+  }
+}

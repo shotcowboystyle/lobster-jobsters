@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EscalationPacket",
+  "description": "CEO escalation card posted by Rowan to #acme-contracts-approvals",
+  "type": "object",
+  "required": ["escalation_id", "kind", "contract_id", "decision_needed", "context", "recommended_action", "posted_at", "status"],
+  "properties": {
+    "escalation_id": {
+      "type": "string",
+      "pattern": "^acme-esc-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "contract_over_threshold",
+        "inventory_short",
+        "signature_expired",
+        "deposit_failed",
+        "route_change_post_dispatch",
+        "high_risk_buyer",
+        "ledger_anomaly",
+        "emergency_stop_proposed"
+      ]
+    },
+    "contract_id": { "type": "string" },
+    "buyer_name": { "type": "string" },
+    "total_usd": { "type": "number" },
+    "decision_needed": {
+      "type": "string",
+      "description": "One-sentence statement of what Jane needs to decide"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "consequence": { "type": "string" }
+        }
+      }
+    },
+    "context": {
+      "type": "string",
+      "description": "Plain-English summary of why this is being escalated"
+    },
+    "recommended_action": {
+      "type": "string",
+      "description": "Rowan's recommendation"
+    },
+    "ledger_references": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "posted_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["awaiting_decision", "approved", "rejected", "deferred", "timed_out"]
+    },
+    "decided_by": { "type": "string" },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "decision_notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExceptionLog",
+  "description": "Documented financial exception owned by Garrison",
+  "type": "object",
+  "required": ["exception_id", "kind", "description", "detected_at", "owner", "status"],
+  "properties": {
+    "exception_id": {
+      "type": "string",
+      "pattern": "^acme-fin-exc-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "off_policy_discount",
+        "off_policy_spend",
+        "deposit_liability_drift",
+        "refund_above_threshold",
+        "write_off",
+        "duplicate_payment",
+        "missing_documentation",
+        "control_failure",
+        "fraud_suspect",
+        "other"
+      ]
+    },
+    "description": { "type": "string" },
+    "detected_at": { "type": "string", "format": "date-time" },
+    "detected_by": { "type": "string", "description": "Agent or human who flagged it" },
+    "amount_usd": { "type": "number" },
+    "linked_references": {
+      "type": "array",
+      "items": { "type": "string", "description": "Accounting refs, ledger entries, source-team refs" }
+    },
+    "owner": { "type": "string", "description": "Who is responsible for resolution" },
+    "root_cause": { "type": "string" },
+    "corrective_action": { "type": "string" },
+    "preventive_action": { "type": "string", "description": "What stops this from recurring" },
+    "approval_chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "approver": { "type": "string" },
+          "at": { "type": "string", "format": "date-time" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["detected", "documented", "owner_assigned", "resolved", "escalated", "archived"]
+    },
+    "resolved_at": { "type": "string", "format": "date-time" },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    }
+  }
+}

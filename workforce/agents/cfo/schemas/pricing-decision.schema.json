@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PricingDecision",
+  "description": "Pricing / discount decision documented by Margin and approved by Sterling or Jane",
+  "type": "object",
+  "required": ["pricing_id", "kind", "subject", "current", "proposed", "margin_impact", "strategic_rationale", "status", "drafted_at"],
+  "properties": {
+    "pricing_id": {
+      "type": "string",
+      "pattern": "^acme-fin-px-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["price_change", "discount", "promo", "channel_repricing", "subscription_change", "deal_economics"]
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["retail", "wholesale", "subscription", "event_rental", "workshops", "cross"]
+    },
+    "subject": {
+      "type": "string",
+      "description": "What is being priced — species, SKU, deal, customer"
+    },
+    "requested_by": { "type": "string", "description": "Sales rep, channel owner, or Jane" },
+    "current": {
+      "type": "object",
+      "properties": {
+        "list_price_usd": { "type": "number" },
+        "effective_price_usd": { "type": "number" },
+        "unit_cost_usd": { "type": "number" },
+        "current_margin_pct": { "type": "number" }
+      }
+    },
+    "proposed": {
+      "type": "object",
+      "properties": {
+        "new_price_usd": { "type": "number" },
+        "discount_pct": { "type": "number" },
+        "new_margin_pct": { "type": "number" },
+        "below_cost": { "type": "boolean", "default": false }
+      }
+    },
+    "margin_impact": {
+      "type": "object",
+      "properties": {
+        "delta_margin_pct": { "type": "number" },
+        "estimated_volume_units": { "type": "number" },
+        "estimated_revenue_impact_usd": { "type": "number" },
+        "estimated_gross_profit_impact_usd": { "type": "number" }
+      }
+    },
+    "strategic_rationale": {
+      "type": "string",
+      "description": "Why this change is worth the margin impact — required for discounts > 15% or below cost"
+    },
+    "expected_outcome": { "type": "string" },
+    "expiry_date": { "type": "string", "format": "date", "description": "For promos / temporary discounts" },
+    "approval_path": {
+      "type": "string",
+      "enum": ["sterling_only", "sterling_plus_ceo", "ceo_only"],
+      "description": "≤15% → sterling_only; >15% or below cost → sterling_plus_ceo"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "analysis", "cfo_review", "ceo_review", "approved", "rejected", "in_effect", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "approved_by": { "type": "string" },
+    "rejected_reason": { "type": "string" }
+  }
+}

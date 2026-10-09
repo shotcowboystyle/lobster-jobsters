@@ -1,0 +1,83 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for ACME Bonsai wholesale contract operations",
+    "rules": {
+      "send_contract": {
+        "requires_approval": true,
+        "approvers": ["coordinator"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Every contract must be reviewed by Rowan before DocuSign send. Silence is never consent."
+      },
+      "send_contract_over_threshold": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_usd": 5000,
+        "notes": "Contracts with total value > $5,000 require explicit CEO approval before send."
+      },
+      "issue_deposit_invoice": {
+        "requires_approval": true,
+        "approvers": ["coordinator"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold"],
+        "notes": "Rowan must approve every deposit invoice before send."
+      },
+      "issue_large_deposit_invoice": {
+        "requires_approval": true,
+        "approvers": ["coordinator", "cfo"],
+        "min_approvers": 2,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold"],
+        "threshold_usd": 10000,
+        "notes": "Deposit invoices > $10,000 require both Coordinator and CFO acknowledgement."
+      },
+      "reserve_inventory": {
+        "requires_approval": false,
+        "authorized_actors": ["grove"],
+        "notes": "Grove auto-reserves inventory the moment Finch confirms deposit clearance — no human approval required."
+      },
+      "release_inventory_short": {
+        "requires_approval": true,
+        "approvers": ["coordinator", "ceo"],
+        "min_approvers": 2,
+        "timeout_hours": 12,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "partial_fulfill", "reject"],
+        "notes": "If Grove cannot reserve full quantity, Coordinator + CEO must decide partial fulfillment, substitution, or pause."
+      },
+      "approve_route_plan": {
+        "requires_approval": true,
+        "approvers": ["coordinator"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold"],
+        "notes": "Rowan reviews Miles' route plan before delivery-window emails go to buyers."
+      },
+      "change_route_post_dispatch": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": null,
+        "timeout_action": null,
+        "allowed_actions": ["approve", "reject"],
+        "notes": "Once delivery-window emails are sent, route changes require CEO sign-off — buyer trust is at stake."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["coordinator", "ceo"],
+        "notes": "Emergency stop can be activated immediately by Rowan or Jane."
+      }
+    }
+  }
+}

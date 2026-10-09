@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EventBooking",
+  "description": "Event rental booking owned by Max",
+  "type": "object",
+  "required": ["booking_id", "customer_id", "event_date", "venue", "trees_requested", "rental_fee_usd", "deposit_usd", "status", "drafted_at"],
+  "properties": {
+    "booking_id": {
+      "type": "string",
+      "pattern": "^acme-sales-bk-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "customer_id": { "type": "string" },
+    "linked_opportunity_id": { "type": "string" },
+    "linked_quote_id": { "type": "string" },
+    "event_kind": {
+      "type": "string",
+      "enum": ["wedding", "corporate", "private_party", "trade_show", "photo_shoot", "other"]
+    },
+    "event_date": { "type": "string", "format": "date" },
+    "event_window": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "venue": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "contact": { "type": "string" },
+        "access_notes": { "type": "string" }
+      }
+    },
+    "trees_requested": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "species": { "type": "string" },
+          "size": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "placement": { "type": "string" }
+        }
+      }
+    },
+    "rental_fee_usd": { "type": "number", "minimum": 0 },
+    "deposit_usd": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Minimum 50% of rental_fee_usd"
+    },
+    "damage_policy": { "type": "string" },
+    "rental_agreement_url": { "type": "string", "format": "uri" },
+    "rental_agreement_signed_at": { "type": "string", "format": "date-time" },
+    "linked_rental_job_id": {
+      "type": "string",
+      "description": "Hand-off ID into Cedar's rental_jobs (COO ops ledger)"
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-sales-.+-confirm-\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["inquiry", "quoted", "deposit_paid", "confirmed", "in_progress", "returned", "closed", "cancelled", "archived"]
+    },
+    "drafted_at": { "type": "string", "format": "date-time" },
+    "closed_at": { "type": "string", "format": "date-time" },
+    "cancellation_reason": { "type": "string" }
+  }
+}

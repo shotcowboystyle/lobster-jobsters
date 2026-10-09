@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CustomerAccount",
+  "description": "Customer profile (CRM record) — owned by the sub-agent serving the primary stream",
+  "type": "object",
+  "required": ["customer_id", "kind", "name", "primary_email", "primary_stream", "created_at", "owner"],
+  "properties": {
+    "customer_id": {
+      "type": "string",
+      "pattern": "^acme-sales-cu-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["individual", "business", "hospitality", "venue", "designer", "event_planner", "other"]
+    },
+    "name": { "type": "string" },
+    "organization": { "type": "string" },
+    "primary_email": { "type": "string", "format": "email" },
+    "primary_phone": { "type": "string" },
+    "billing_address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "zip": { "type": "string" }
+      }
+    },
+    "shipping_address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "zip": { "type": "string" }
+      }
+    },
+    "primary_stream": {
+      "type": "string",
+      "enum": ["wholesale", "local", "subscription", "event_rental"]
+    },
+    "active_streams": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["wholesale", "local", "subscription", "event_rental"] },
+      "description": "Cross-stream customer tracking"
+    },
+    "owner": {
+      "type": "string",
+      "enum": ["wade", "lily", "sophia", "max", "cash"]
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "communication_channel": { "type": "string", "enum": ["email", "sms", "phone"] },
+        "do_not_contact": { "type": "boolean", "default": false },
+        "notes": { "type": "string" }
+      }
+    },
+    "ltv_estimate_usd": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Estimated lifetime value across all streams"
+    },
+    "first_purchase_at": { "type": "string", "format": "date-time" },
+    "last_purchase_at": { "type": "string", "format": "date-time" },
+    "total_lifetime_spend_usd": { "type": "number", "minimum": 0 },
+    "purchase_count": { "type": "integer", "minimum": 0 },
+    "satisfaction_signals": {
+      "type": "object",
+      "properties": {
+        "nps_score": { "type": "number", "minimum": -100, "maximum": 100 },
+        "csat_score": { "type": "number", "minimum": 0, "maximum": 5 },
+        "complaints_count": { "type": "integer", "minimum": 0 },
+        "referrals_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

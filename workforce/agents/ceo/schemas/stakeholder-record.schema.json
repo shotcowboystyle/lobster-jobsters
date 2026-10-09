@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StakeholderRecord",
+  "description": "External stakeholder address-book entry maintained by Envoy",
+  "type": "object",
+  "required": ["stakeholder_record_id", "kind", "name", "email", "added_at"],
+  "properties": {
+    "stakeholder_record_id": {
+      "type": "string",
+      "pattern": "^acme-ceo-stk-[a-z0-9-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["investor", "advisor", "bank", "key_partner", "press", "regulator", "vendor_strategic", "other"]
+    },
+    "name": { "type": "string" },
+    "organization": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "phone": { "type": "string" },
+    "relationship_summary": {
+      "type": "string",
+      "description": "Plain-English: who they are to us, what we owe them, what they owe us"
+    },
+    "communication_cadence": {
+      "type": "string",
+      "description": "e.g. 'quarterly investor update', 'ad hoc'"
+    },
+    "last_contact_at": { "type": "string", "format": "date-time" },
+    "last_comm_id": { "type": "string" },
+    "added_at": { "type": "string", "format": "date-time" },
+    "added_by": {
+      "type": "string",
+      "default": "Jane",
+      "description": "Jane must explicitly approve every new stakeholder record"
+    },
+    "notes": { "type": "string" },
+    "do_not_contact": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

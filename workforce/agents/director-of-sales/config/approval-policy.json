@@ -1,0 +1,88 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the ACME Bonsai Director of Sales team (Cash)",
+    "rules": {
+      "approve_quote_send": {
+        "requires_approval": true,
+        "approvers": ["director_of_sales"],
+        "min_approvers": 1,
+        "timeout_hours": 12,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Every quote drafted by a sub-agent requires Cash's review before send. Margin floor must be verified."
+      },
+      "approve_discount_standard": {
+        "requires_approval": true,
+        "approvers": ["director_of_sales"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_pct": 20,
+        "notes": "Discounts ≤ 20% off list: Cash approval. Documented rationale required."
+      },
+      "approve_discount_volume": {
+        "requires_approval": true,
+        "approvers": ["director_of_sales"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "threshold_pct": 25,
+        "notes": "Discounts 20-25% on wholesale orders > 100 trees: Cash volume-tier approval."
+      },
+      "approve_discount_large": {
+        "requires_approval": true,
+        "approvers": ["director_of_sales", "ceo", "cfo"],
+        "min_approvers": 3,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Discounts > 25% or below cost: requires Cash + Jane + Margin (via Sterling) all three. Strategic rationale documented."
+      },
+      "approve_subscription_short_term": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Subscription contract < 12 months requires Jane approval."
+      },
+      "approve_custom_commercial_terms": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "hold", "reject"],
+        "notes": "Any custom commercial terms (non-standard payment, custom SLA, custom clauses) require Jane approval."
+      },
+      "approve_customer_refund": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "threshold_usd": 1000,
+        "notes": "Customer dispute refund > $1,000 requires Jane approval."
+      },
+      "approve_major_account_save": {
+        "requires_approval": true,
+        "approvers": ["ceo"],
+        "min_approvers": 1,
+        "timeout_hours": 24,
+        "timeout_action": "remind",
+        "allowed_actions": ["approve", "edit", "reject"],
+        "notes": "Concessions to retain a major account (wholesale > $10K/year or subscription > $1K/month) require Jane approval."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["director_of_sales", "ceo"],
+        "notes": "Emergency stop can be activated immediately by Cash or Jane."
+      }
+    }
+  }
+}

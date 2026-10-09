@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PublishJob",
+  "description": "Publish job executed by Publisher agent",
+  "type": "object",
+  "required": ["post_id", "platform", "idempotency_key", "publish_status", "attempt"],
+  "properties": {
+    "post_id": { "type": "string" },
+    "platform": { "type": "string", "enum": ["instagram", "facebook"] },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^acme-.+-\\d+$",
+      "description": "Format: acme-{post_id}-{platform}-{scheduled_date}-{attempt}"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": ["pending", "publishing", "published", "publish_failed", "skipped_duplicate", "blocked_emergency_stop"]
+    },
+    "attempt": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "platform_post_id": {
+      "type": "string",
+      "description": "Facebook post ID or Instagram media ID returned after publish"
+    },
+    "platform_container_id": {
+      "type": "string",
+      "description": "Instagram media container ID (intermediate step)"
+    },
+    "scheduled_publish_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "For Facebook scheduled posts"
+    },
+    "error_message": { "type": "string" },
+    "error_code": { "type": "string" },
+    "published_at": { "type": "string", "format": "date-time" },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

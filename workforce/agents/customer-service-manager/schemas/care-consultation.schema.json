@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CareConsultation",
+  "description": "Tree health diagnostic + prescription — owned by Maple; calibrated for Harbor City Zone 9a",
+  "type": "object",
+  "required": ["consult_id", "ticket_id", "customer_id", "species", "requested_at", "status"],
+  "properties": {
+    "consult_id": {
+      "type": "string",
+      "pattern": "^acme-care-cn-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "ticket_id": { "type": "string", "pattern": "^acme-care-tk-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "customer_id": { "type": "string" },
+    "tree_id": { "type": "string", "pattern": "^acme-tr-[a-z0-9-]+$", "description": "Original inventory tree ID if known" },
+    "species": { "type": "string" },
+    "purchased_at": { "type": "string", "format": "date" },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "indoor_outdoor": { "type": "string", "enum": ["indoor", "outdoor", "covered_outdoor"] },
+        "light_exposure": { "type": "string", "enum": ["direct_sun", "filtered_sun", "indirect_bright", "low_light"] },
+        "humidity_estimate": { "type": "string" },
+        "watering_routine": { "type": "string" },
+        "fertilizing_routine": { "type": "string" },
+        "zone": { "type": "string", "default": "9a", "description": "Harbor City Zone 9a humid subtropical" }
+      }
+    },
+    "symptoms": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "photos": {
+      "type": "array",
+      "items": { "type": "string", "description": "URL or asset path" }
+    },
+    "timeline": { "type": "string", "description": "When symptoms started; recent changes" },
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "likely_cause": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "differentials": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "prescription": {
+      "type": "object",
+      "properties": {
+        "immediate_action": { "type": "string" },
+        "ongoing_care": { "type": "string" },
+        "what_to_watch_for": { "type": "string" },
+        "reasoning": { "type": "string", "description": "The teaching — why this prescription works" }
+      }
+    },
+    "care_guide_references": {
+      "type": "array",
+      "items": { "type": "string", "description": "Asset IDs from Creative Director care guide library" }
+    },
+    "follow_up_date": { "type": "string", "format": "date" },
+    "follow_ups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "follow_up_number": { "type": "integer" },
+          "scheduled_for": { "type": "string", "format": "date" },
+          "sent_at": { "type": "string", "format": "date-time" },
+          "idempotency_key": { "type": "string", "pattern": "^acme-care-.+-followup-\\d+-\\d+$" },
+          "customer_response": { "type": "string" },
+          "tree_status": { "type": "string", "enum": ["improving", "stable", "declining", "lost"] }
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "properties": {
+        "tree_healthy": { "type": "boolean" },
+        "outcome_at": { "type": "string", "format": "date-time" },
+        "outcome_notes": { "type": "string" },
+        "linked_replacement_ticket_id": { "type": "string", "description": "If tree was lost and replacement issued" }
+      }
+    },
+    "species_pattern_flag": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this consultation is part of a recurring species pattern (3+ customers same species + same symptoms)"
+    },
+    "linked_inventory_alert": {
+      "type": "string",
+      "description": "If species pattern, link to Tally inventory alert"
+    },
+    "requested_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["requested", "diagnosing", "guidance_provided", "follow_up_scheduled", "confirmed_healthy", "tree_lost", "escalated", "archived"]
+    }
+  }
+}

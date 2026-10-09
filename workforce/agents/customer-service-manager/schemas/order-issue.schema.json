@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrderIssue",
+  "description": "Order-related issue — owned by Oakley; coordinated with COO Cedar / CC Rowan / CFO Sterling",
+  "type": "object",
+  "required": ["order_issue_id", "ticket_id", "customer_id", "kind", "reported_at", "status"],
+  "properties": {
+    "order_issue_id": {
+      "type": "string",
+      "pattern": "^acme-care-oi-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "ticket_id": { "type": "string", "pattern": "^acme-care-tk-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "customer_id": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "delivery_late", "delivery_damaged", "delivery_wrong_tree",
+        "delivery_missing", "delivery_customer_unavailable",
+        "rental_pickup_late", "rental_damage_dispute",
+        "billing_question", "billing_overcharge", "billing_undercharge",
+        "subscription_billing", "wholesale_invoice_dispute",
+        "order_modification", "order_cancellation", "other"
+      ]
+    },
+    "reported_at": { "type": "string", "format": "date-time" },
+    "linked_order_reference": {
+      "type": "object",
+      "description": "Reference into source-of-truth ledger",
+      "properties": {
+        "team": { "type": "string", "enum": ["coo", "contract-coordinator", "director-of-sales", "cfo"] },
+        "ledger_id": { "type": "string", "description": "delivery_id / rental_id / contract_id / booking_id / subscription_id / invoice_id" }
+      }
+    },
+    "investigation_summary": { "type": "string" },
+    "proposed_resolution": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "redelivery", "replacement_tree", "refund_partial", "refund_full",
+            "store_credit", "expedited_shipping", "fee_waiver",
+            "damage_assessment", "no_action_explanation_provided"
+          ]
+        },
+        "amount_usd": { "type": "number" },
+        "description": { "type": "string" },
+        "cross_team_coordination": {
+          "type": "array",
+          "items": { "type": "string", "description": "Cross-team handoffs needed (Cedar for redelivery, Tally for replacement, Sterling for refund, etc.)" }
+        }
+      }
+    },
+    "customer_acceptance": {
+      "type": "object",
+      "properties": {
+        "accepted": { "type": "boolean" },
+        "accepted_at": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      }
+    },
+    "approval_path": {
+      "type": "string",
+      "enum": ["oakley_only", "poppy_only", "poppy_plus_ceo"],
+      "description": "oakley_only for routine; poppy_only for resolutions within Poppy's authority; poppy_plus_ceo for > $500 / > $300 rental damage"
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "executed_at": { "type": "string", "format": "date-time" },
+        "executed_by": { "type": "string" },
+        "idempotency_key": { "type": "string" },
+        "cross_team_reference_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["reported", "investigating", "resolution_proposed", "customer_review", "resolved", "escalated", "archived"]
+    }
+  }
+}
