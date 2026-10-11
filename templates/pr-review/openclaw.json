@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "entries": {
+      "pr-review": {
+        "name": "PR Review Agent",
+        "workspace": "~/.openclaw/workspaces/pr-review",
+        "identity": {
+          "name": "PR Review Agent",
+          "emoji": "🔍"
+        },
+        "skills": ["github", "discord"],
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "entries": {
+      "client-reporting": {
+        "name": "Client Reporting Agent",
+        "workspace": "~/.openclaw/workspaces/client-reporting",
+        "identity": {
+          "name": "Client Reporting Agent",
+          "emoji": "📊"
+        },
+        "skills": ["discord"],
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

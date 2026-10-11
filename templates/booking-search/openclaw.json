@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "entries": {
+      "booking-search": {
+        "name": "Booking Search Agent",
+        "workspace": "~/.openclaw/workspaces/booking-search",
+        "identity": {
+          "name": "Booking Search Agent",
+          "emoji": "🏨"
+        },
+        "skills": [],
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

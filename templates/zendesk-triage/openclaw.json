@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "entries": {
+      "zendesk-triage": {
+        "name": "Zendesk Triage Agent",
+        "workspace": "~/.openclaw/workspaces/zendesk-triage",
+        "identity": {
+          "name": "Zendesk Triage Agent",
+          "emoji": "🎟️"
+        },
+        "skills": ["discord"],
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

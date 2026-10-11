@@ -1,0 +1,36 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the SEO Content Planner",
+    "rules": {
+      "push_brief_to_calendar": {
+        "requires_approval": true,
+        "approvers": ["user"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "remind",
+        "allowed_actions": ["confirm", "revise", "reject"],
+        "notes": "A brief becomes a calendar card in the Drafts column only after the user confirms it in chat. One card per brief (idempotency key)."
+      },
+      "edit_card_outside_drafts": {
+        "requires_approval": true,
+        "approvers": ["user"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "hold", "reject"],
+        "notes": "Cards outside Drafts belong to the editorial team. Edits there need an explicit thumbs-up per card."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["team", "user"],
+        "notes": "Anyone on the team can stop calendar writes and posts immediately. Only the marketing lead can resume."
+      }
+    },
+    "forbidden": {
+      "external_publishing": "Publishing, scheduling, or posting content to any external surface (CMS, social, newsletter). Not approvable through this agent.",
+      "cms_social_ad_api_calls": "Any call to a CMS, social, newsletter, or ad platform API. Not approvable through this agent.",
+      "invented_data": "Keyword data, traffic numbers, or competitor coverage not returned by a source. Not approvable by anyone."
+    }
+  }
+}

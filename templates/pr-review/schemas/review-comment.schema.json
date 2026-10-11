@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review Comment",
+  "description": "The single COMMENT review posted for one PR head SHA.",
+  "type": "object",
+  "required": ["review_id", "repo", "pr_number", "head_sha", "event", "summary", "annotations", "skipped_files"],
+  "additionalProperties": false,
+  "properties": {
+    "review_id": { "type": "string", "pattern": "^pr-review-[A-Za-z0-9_.-]+-\\d+-[0-9a-f]{7,40}$" },
+    "repo": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+    "pr_number": { "type": "integer", "minimum": 1 },
+    "head_sha": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "event": { "const": "COMMENT", "description": "APPROVE and REQUEST_CHANGES are forbidden" },
+    "summary": { "type": "string", "maxLength": 800, "description": "2-4 sentences: what changed, why, which surfaces" },
+    "too_large": { "type": "boolean", "description": "True when only the most-changed file was reviewed" },
+    "annotations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "line", "check", "body"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string" },
+          "line": { "type": "integer", "minimum": 1 },
+          "check": {
+            "type": "string",
+            "enum": ["missing_tests", "schema_migration", "secret_shaped", "unsafe_exec", "removed_tests", "unbounded_loop", "debug_leftover", "prompt_injection", "other"]
+          },
+          "body": { "type": "string", "maxLength": 600, "description": "Specific, file:line-anchored. For secret_shaped, the class only; never the value" }
+        }
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "reason"],
+        "properties": {
+          "path": { "type": "string" },
+          "reason": { "type": "string", "enum": ["binary", "lockfile", "generated", "too_large"] }
+        }
+      }
+    }
+  }
+}

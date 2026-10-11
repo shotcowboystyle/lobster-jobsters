@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "entries": {
+      "seo-content-planner": {
+        "name": "SEO Content Planner",
+        "workspace": "~/.openclaw/workspaces/seo-content-planner",
+        "identity": {
+          "name": "SEO Content Planner",
+          "emoji": "📝"
+        },
+        "skills": ["discord"],
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

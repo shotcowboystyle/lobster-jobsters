@@ -17,7 +17,7 @@ scripts/rebrand.sh --company "Northwind Plants" --slug northwind --owner "Sam Ri
 | Path | What it is |
 |---|---|
 | [`workforce/`](workforce/) | The ACME Bonsai company workspace: 10 executive teams, 53 agents, cross-team handoffs, shared memory, master kill switch |
-| [`templates/`](templates/) | Blank team-workspace and sub-agent templates used by the scaffolder |
+| [`templates/`](templates/) | Blank team-workspace and sub-agent templates used by the scaffolder, plus standalone agent templates: [client reporting](templates/client-reporting/), [zendesk triage](templates/zendesk-triage/), [PR review](templates/pr-review/), [Stripe revenue](templates/stripe-revenue-reporter/), [SEO planner](templates/seo-content-planner/), [booking search](templates/booking-search/) |
 | [`scripts/`](scripts/) | Rebrand, scaffold, validate, audit, and ledger tooling |
 | [`docs/`](docs/) | Architecture, governance, security model, evidence & benchmarking, adding agents |
 

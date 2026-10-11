@@ -1,0 +1,49 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "am_alex": {
+        "id": "CHANNEL_ID_AM_ALEX",
+        "name": "#am-alex",
+        "purpose": "Draft reports for Alex's clients, one thread per client",
+        "clients": ["client-a"],
+        "agents_that_post": ["client-reporting"],
+        "human_actions": ["send_manually", "request_redraft", "discard"]
+      },
+      "am_bea": {
+        "id": "CHANNEL_ID_AM_BEA",
+        "name": "#am-bea",
+        "purpose": "Draft reports for Bea's clients, one thread per client",
+        "clients": ["client-b"],
+        "agents_that_post": ["client-reporting"],
+        "human_actions": ["send_manually", "request_redraft", "discard"]
+      },
+      "reporting_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#reporting-alerts",
+        "purpose": "Run summaries, missing credentials, failures, emergency stop. Never client metrics",
+        "agents_that_post": ["client-reporting"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "owner": {
+        "discord_user_id": "OWNER_DISCORD_ID",
+        "name": "Agency owner",
+        "can_approve": ["add_client", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "am": {
+        "discord_user_ids": ["AM_ALEX_DISCORD_ID", "AM_BEA_DISCORD_ID"],
+        "name": "Account managers",
+        "can_approve": ["send_report_to_client", "emergency_stop"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 48,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

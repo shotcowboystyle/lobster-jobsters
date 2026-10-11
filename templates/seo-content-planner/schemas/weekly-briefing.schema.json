@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Weekly SEO Briefing",
+  "description": "Monday briefing: top opportunities, one risk, one win. Data from Search Console and GA4 only.",
+  "type": "object",
+  "required": ["week_start", "opportunities", "risk", "win", "sources_missing"],
+  "additionalProperties": false,
+  "properties": {
+    "week_start": { "type": "string", "format": "date" },
+    "opportunities": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["keyword", "position", "impressions_7d", "impressions_prior_7d", "why"],
+        "properties": {
+          "keyword": { "type": "string" },
+          "position": { "type": "number", "minimum": 6, "maximum": 20 },
+          "impressions_7d": { "type": "integer" },
+          "impressions_prior_7d": { "type": "integer" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "risk": { "$ref": "#/$defs/page_move" },
+    "win": { "$ref": "#/$defs/page_move" },
+    "sources_missing": { "type": "array", "items": { "type": "string", "enum": ["gsc", "ga4"] } }
+  },
+  "$defs": {
+    "page_move": {
+      "type": ["object", "null"],
+      "required": ["url", "sessions_7d", "sessions_prior_7d"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "sessions_7d": { "type": "integer" },
+        "sessions_prior_7d": { "type": "integer" },
+        "likely_cause": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Report Draft",
+  "description": "One client's weekly report draft, posted to that client's AM for review. Contains data for exactly one client.",
+  "type": "object",
+  "required": ["draft_id", "client_slug", "week_start", "headline", "next_action", "sources_skipped"],
+  "additionalProperties": false,
+  "properties": {
+    "draft_id": { "type": "string", "pattern": "^client-reporting-[a-z0-9-]+-\\d{4}-\\d{2}-\\d{2}$" },
+    "client_slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "week_start": { "type": "string", "format": "date" },
+    "headline": { "type": "string", "maxLength": 200, "description": "One sentence summary of the week" },
+    "traffic": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "metrics": { "type": "array", "items": { "$ref": "#/$defs/metric" } }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "winners": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/query_move" } },
+        "losers": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/query_move" } }
+      }
+    },
+    "paid": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "metrics": { "type": "array", "items": { "$ref": "#/$defs/metric" } }
+      }
+    },
+    "projects": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "completed": { "type": "array", "items": { "type": "string" } },
+        "in_progress": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "next_action": { "type": "string", "maxLength": 300, "description": "Exactly one concrete action for next week" },
+    "sources_skipped": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "reason"],
+        "properties": {
+          "source": { "type": "string", "enum": ["ga4", "gsc", "google_ads", "meta_ads", "tracker"] },
+          "reason": { "type": "string", "enum": ["not_configured", "missing_credential", "api_error", "disabled"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "required": ["name", "value", "prior_value", "comparison"],
+      "properties": {
+        "name": { "type": "string" },
+        "value": { "type": "number" },
+        "prior_value": { "type": "number" },
+        "comparison": { "type": "string", "enum": ["prior_week", "prior_month"] }
+      }
+    },
+    "query_move": {
+      "type": "object",
+      "required": ["query", "position", "prior_position"],
+      "properties": {
+        "query": { "type": "string" },
+        "position": { "type": "number" },
+        "prior_position": { "type": "number" },
+        "clicks": { "type": "integer" }
+      }
+    }
+  }
+}

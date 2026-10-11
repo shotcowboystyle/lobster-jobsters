@@ -1,0 +1,28 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the Stripe Revenue Reporter",
+    "rules": {
+      "change_digest_channel_or_audience": {
+        "requires_approval": true,
+        "approvers": ["owner"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "hold", "reject"],
+        "notes": "Revenue figures are sensitive. Moving the digest to a new channel or widening who can read it needs the owner."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["owner", "finance_lead"],
+        "notes": "The owner or finance lead can stop posting immediately. Only the owner can resume."
+      }
+    },
+    "forbidden": {
+      "stripe_write": "Any refund, charge, capture, payout, or modification of a Stripe object. Not approvable by anyone; build a separate, gated agent.",
+      "pii_in_digest": "Card numbers, BIN, last-4, or full email addresses in any message. Not approvable by anyone.",
+      "cache_stripe_data": "Persisting Stripe responses or revenue figures anywhere. Not approvable by anyone.",
+      "customer_messaging": "Any message to a customer. Not approvable by anyone."
+    }
+  }
+}
