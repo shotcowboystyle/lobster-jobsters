@@ -4,7 +4,7 @@
 
 Most "awesome OpenClaw agents" lists give you a persona file and wish you luck. Each agent here is a full OpenClaw workspace: operating instructions, kill switch, approval policy, ledger schema, handoff contracts, Discord templates, scheduled routines, runbook, and a roster of sub-agents that are themselves full workspaces. Drop one into your OpenClaw instance and it knows how to behave before you say a word.
 
-The example company is **ACME Bonsai**, a fictional specialty nursery with a 45-agent executive workforce. The tooling makes it yours in one command.
+The example company is **ACME Bonsai**, a fictional specialty nursery with a 53-agent executive workforce. The tooling makes it yours in one command.
 
 ```
 scripts/rebrand.sh --company "Northwind Plants" --slug northwind --owner "Sam Rivera" --owner-first Sam
@@ -16,7 +16,7 @@ scripts/rebrand.sh --company "Northwind Plants" --slug northwind --owner "Sam Ri
 
 | Path | What it is |
 |---|---|
-| [`workforce/`](workforce/) | The ACME Bonsai company workspace: 10 executive teams, 45 agents, cross-team handoffs, shared memory, master kill switch |
+| [`workforce/`](workforce/) | The ACME Bonsai company workspace: 10 executive teams, 53 agents, cross-team handoffs, shared memory, master kill switch |
 | [`templates/`](templates/) | Blank team-workspace and sub-agent templates used by the scaffolder |
 | [`scripts/`](scripts/) | Rebrand, scaffold, validate, audit, and ledger tooling |
 | [`docs/`](docs/) | Architecture, governance, security model, evidence & benchmarking, adding agents |
@@ -32,14 +32,14 @@ scripts/rebrand.sh --company "Northwind Plants" --slug northwind --owner "Sam Ri
                                        │
    ┌──────────┬──────────┬──────────┬──┴──────┬──────────┬──────────┬────────────────┐
   CMO        CFO        COO        CTO     Sales       Creative    Customer        Contract
-  📣        Sterling 🦅 Victor 🐙  Allen 🎯  Cash 🐬    Masahiko 🦌 Poppy 🪼        Rowan 🦋
+  Marisol 📣 Sterling 🦅 Victor 🐙  Allen 🎯  Cash 🐬    Masahiko 🦌 Poppy 🪼        Rowan 🦋
 ```
 
 | Team | Coordinator | Sub-agents | Domain |
 |---|---|---|---|
 | [CEO](workforce/agents/ceo/) | Apex 🪨 | Compass, Almanac, Atlas, Envoy | Strategy synthesis, decision journal, memos, external comms |
 | [Chief of Staff](workforce/agents/chief-of-staff/) | River 🦉 | Heron, Wren, Magpie, Egret | Briefings, action items, agent health, initiatives |
-| [CMO](workforce/agents/cmo/) | Marketing lead 📣 | 10 pipeline agents | Plan → draft → QA → approve → publish → monitor |
+| [CMO](workforce/agents/cmo/) | Marisol 📣 | 10 pipeline agents | Plan → draft → QA → approve → publish → monitor |
 | [CFO](workforce/agents/cfo/) | Sterling 🦅 | Ledger, Horizon, Garrison, Margin | Close, FP&A, controls, pricing |
 | [COO](workforce/agents/coo/) | Victor 🐙 | Tally, Cedar, Hazel, Birch | Inventory, logistics, workshops, facility |
 | [CTO](workforce/agents/cto/) | Allen 🎯 | Pixel, Forge, Bastion | Frontend, backend, DevOps |
@@ -53,7 +53,8 @@ Every team workspace has the same shape:
 ```
 agents/<team>/
 ├── AGENTS.md  SOUL.md  IDENTITY.md  USER.md  HEARTBEAT.md  MEMORY.md  TOOLS.md  README.md
-├── agents/<sub-agent>/          # each sub-agent is a full OpenClaw workspace
+├── openclaw.json                # agent entry to merge into your global OpenClaw config
+├── agents/<sub-agent>/          # each sub-agent is a full OpenClaw workspace (+ its own openclaw.json)
 ├── config/
 │   ├── emergency-stop.json      # team kill switch — one boolean flag
 │   ├── approval-policy.json     # who approves what, timeouts, allowed actions
@@ -75,7 +76,15 @@ git clone https://github.com/shotcowboystyle/lobster-jobsters.git
 cp -R lobster-jobsters/workforce/agents/cfo ~/.openclaw/workspaces/cfo
 ```
 
-Sub-agents live under `agents/<name>/` inside the team and are spawned by the coordinator. Fill `config/env.example` → `.env` (outside the repo), create the Discord channels in `config/discord-config.example.json`, then initialize the ledger:
+Register the team with your OpenClaw gateway. Every agent directory ships an `openclaw.json` holding its `agents.entries.<id>` block (id `cfo` for the coordinator, `cfo-<sub>` for each sub-agent; workspace paths assume `~/.openclaw/workspaces/<team>`). Deep-merge them into your global config:
+
+```bash
+jq -s 'reduce .[] as $c ({}; . * $c)' ~/.openclaw/openclaw.json \
+  $(find ~/.openclaw/workspaces/cfo -name openclaw.json) > /tmp/openclaw.json \
+  && mv /tmp/openclaw.json ~/.openclaw/openclaw.json
+```
+
+(or list them under `$include` — see [architecture](docs/architecture.md#registering-agents-with-openclaw)). Sub-agents live under `agents/<name>/` inside the team and are spawned by the coordinator, which may only spawn the ids in its `subagents.allowAgents`. Fill `config/env.example` → `.env` (outside the repo), create the Discord channels in `config/discord-config.example.json`, then initialize the ledger:
 
 ```bash
 scripts/ledger.sh init cfo

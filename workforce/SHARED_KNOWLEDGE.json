@@ -41,7 +41,7 @@
     "operating_layer": [
       {
         "role": "CMO",
-        "persona": "ACME Bonsai marketing team",
+        "persona": "Marisol",
         "workspace": "agents/cmo/"
       },
       {

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Operating instructions for all agents on the ACME Bonsai marketing team.
+Operating instructions for all agents on the ACME Bonsai marketing team, coordinated by Marisol 📣 (Marketing Lead).
 
 ---
 
