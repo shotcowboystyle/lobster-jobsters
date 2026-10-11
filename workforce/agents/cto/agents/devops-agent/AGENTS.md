@@ -80,7 +80,7 @@ Idempotency keys:
 - GitHub Actions (CI / CD)
 - Sentry (error tracking + alerting)
 - Better Uptime (synthetic monitoring + status page)
-- 1Password CLI (secret management)
+- Secrets manager CLI (secret management)
 - Dependabot + Snyk (vulnerability scanning)
 - Tech ledger (read + write `releases`, `incidents`, `security_findings`, `observability_snapshots`, `tech_actions`, `ledger_state_transitions`)
 - Discord webhook

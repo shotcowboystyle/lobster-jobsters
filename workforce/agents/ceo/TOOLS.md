@@ -57,10 +57,6 @@ For ledgers not yet shipped, Compass reads the team's most recent `memory/YYYY-M
 - Activated by: Jane or Apex (per `approval-policy.json` rule `emergency_stop`)
 - Effect: see `ops/runbook.md` "Emergency Stop" section
 
-## Self-Improving Skill (third-party)
-
-The `skills/self-improving/` skill is installed in this workspace from clawic.com. It is not modified by this team and not part of the OpenClaw bootstrap files. It runs alongside the standard memory architecture.
-
 ## Local Dev Quick Reference
 
 ```bash

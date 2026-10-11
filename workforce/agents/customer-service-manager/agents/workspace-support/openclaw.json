@@ -8,6 +8,7 @@
           "name": "Pearl",
           "emoji": "🦭"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

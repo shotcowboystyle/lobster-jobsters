@@ -8,6 +8,9 @@
           "name": "Compass",
           "emoji": "🧭"
         },
+        "skills": [
+          "summarize"
+        ],
         "tools": {
           "deny": [
             "gateway",

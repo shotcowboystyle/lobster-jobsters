@@ -8,6 +8,9 @@
           "name": "Grove",
           "emoji": "🌱"
         },
+        "skills": [
+          "gog"
+        ],
         "tools": {
           "deny": [
             "gateway",

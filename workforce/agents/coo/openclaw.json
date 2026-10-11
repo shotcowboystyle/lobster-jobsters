@@ -8,6 +8,9 @@
           "name": "Victor",
           "emoji": "🐙"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "coo-facility-management",

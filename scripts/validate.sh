@@ -67,6 +67,13 @@ for team in "$ROOT"/agents/*/; do
   expect=$(printf '%s\n' ${want[@]+"${want[@]}"} | jq -R 'select(length > 0)' | jq -cs 'sort')
   [[ "$have" == "$expect" ]] || err "subagents.allowAgents must list exactly the team's sub-agents $expect: ${team}openclaw.json"
 done
+# Omitting `skills` means unrestricted, so every agent (and template) needs an explicit
+# allowlist of skill names: no wildcards, no globs, `[]` for none.
+while IFS= read -r f; do
+  jq -e '.agents.entries | to_entries | all(.value.skills | type == "array" and all(.[]; type == "string" and test("^[a-z0-9][a-z0-9-]*$")))' "$f" >/dev/null 2>&1 \
+    || err "every agent needs an explicit skills allowlist of names (no wildcards): $f"
+done < <(find "$ROOT" templates -name openclaw.json 2>/dev/null)
+while IFS= read -r d; do err "skills are granted via openclaw.json, not pinned: remove $d"; done < <(find "$ROOT" templates -type d -name .clawhub 2>/dev/null)
 dupes=$(find "$ROOT" -name openclaw.json -exec jq -r '.agents.entries | keys[]' {} + 2>/dev/null | sort | uniq -d)
 [[ -z "$dupes" ]] || err "duplicate OpenClaw agent ids: $dupes"
 ok "openclaw config"

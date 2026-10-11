@@ -8,6 +8,7 @@
           "name": "Almanac",
           "emoji": "📓"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

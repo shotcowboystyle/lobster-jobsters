@@ -14,7 +14,7 @@ If you're an agent unsure what tool the company uses for X, this file is the ans
 | CDN + WAF + DNS | Cloudflare | Bastion (CTO) | Cache hit rate target > 70% |
 | Primary database | Postgres (managed) | Forge (CTO) | Connection pool, read replica when needed |
 | Workflow ledgers (per team) | SQLite | All teams | Per-team `data/*-ledger.db` |
-| Secrets management | 1Password (or equivalent) | Bastion (CTO) | Never in repo; never in env files committed |
+| Secrets management | Secrets manager (vendor of choice) | Bastion (CTO) | Never in repo; never in env files committed |
 | Source code | GitHub (`your-org/storefront` + `your-org/lobster-jobsters`) | All | Branch protection on main |
 | CI / CD | GitHub Actions | Bastion (CTO) | Required PR review + CI pass + staging deploy |
 

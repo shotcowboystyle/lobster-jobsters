@@ -8,6 +8,7 @@
           "name": "Finch",
           "emoji": "🪙"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

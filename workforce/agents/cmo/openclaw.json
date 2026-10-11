@@ -8,6 +8,9 @@
           "name": "Marisol",
           "emoji": "📣"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "cmo-approval-coordinator",

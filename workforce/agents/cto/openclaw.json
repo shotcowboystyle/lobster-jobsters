@@ -8,6 +8,10 @@
           "name": "Allen",
           "emoji": "🎯"
         },
+        "skills": [
+          "discord",
+          "github"
+        ],
         "subagents": {
           "allowAgents": [
             "cto-backend-developer",

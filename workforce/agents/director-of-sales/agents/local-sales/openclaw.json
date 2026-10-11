@@ -8,6 +8,7 @@
           "name": "Lily",
           "emoji": "🌿"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

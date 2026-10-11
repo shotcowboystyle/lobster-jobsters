@@ -8,6 +8,9 @@
           "name": "Poppy",
           "emoji": "🪼"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "customer-service-manager-care-education",

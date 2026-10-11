@@ -19,7 +19,7 @@ These workspaces assume the agent reads untrusted content (customer DMs, comment
 | "Who did what, when, why?" | Append-only state-transition log per team | `schemas/*-ledger.sql` → `ledger_state_transitions` |
 | Credential leakage | Secrets never in the workspace; `env.example` names only; gitleaks in CI | `.gitignore`, `scripts/validate.sh`, `.github/workflows/ci.yml` |
 | Sub-agent skips the rules | Sub-agents only load `AGENTS.md` + `TOOLS.md`, so rules are restated there | audit check `subagent_safety` |
-| Supply-chain risk from skills | Third-party skills pinned by version + sha256, installed not vendored | `.clawhub/lock.json` |
+| Supply-chain risk from skills | Explicit per-agent skill allowlist by name, no wildcards; skills not vendored | `openclaw.json` `skills`, `scripts/validate.sh` |
 
 Full write-up: [docs/security.md](docs/security.md).
 

@@ -8,6 +8,9 @@
           "name": "Magpie",
           "emoji": "🪞"
         },
+        "skills": [
+          "session-logs"
+        ],
         "tools": {
           "deny": [
             "gateway",

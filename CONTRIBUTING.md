@@ -13,7 +13,7 @@ Thanks for helping make agent workspaces that are safe to run unattended.
 
 1. **Fictional company only.** Everything is ACME Bonsai, Jane Founder, Harbor City. No real customers, vendors, prices, phone numbers, addresses, Discord IDs, or repo names.
 2. **No secrets, ever.** `env.example` names variables; never values. CI runs gitleaks.
-3. **No vendored third-party skills.** Pin them in the workspace's `.clawhub/lock.json` instead.
+3. **No vendored skills, no wildcard grants.** Name each skill an agent may use in its `openclaw.json` `skills` allowlist.
 4. **No daily memory logs or ledgers.** `memory/*.md`, `data/`, and `*.db` are git-ignored on purpose.
 5. **Every team scores 12/12.** Run `scripts/validate.sh && scripts/audit.py --strict` before opening a PR.
 6. **Sub-agents restate safety rules and have cost controls.** They only receive `AGENTS.md` + `TOOLS.md` at runtime.

@@ -8,6 +8,7 @@
           "name": "Publisher",
           "emoji": "🚀"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

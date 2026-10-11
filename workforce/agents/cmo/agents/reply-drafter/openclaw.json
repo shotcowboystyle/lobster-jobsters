@@ -8,6 +8,7 @@
           "name": "Reply Drafter",
           "emoji": "💬"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

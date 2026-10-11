@@ -8,6 +8,7 @@
           "name": "{{PERSONA}}",
           "emoji": "{{EMOJI}}"
         },
+        "skills": [],
         "tools": {
           "deny": ["gateway", "nodes", "plugins", "cron", "sessions_spawn", "subagents"]
         }

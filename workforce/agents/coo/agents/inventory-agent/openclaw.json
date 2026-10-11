@@ -8,6 +8,9 @@
           "name": "Tally",
           "emoji": "🌲"
         },
+        "skills": [
+          "gog"
+        ],
         "tools": {
           "deny": [
             "gateway",

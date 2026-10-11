@@ -37,7 +37,7 @@ Every outbound side-effect carries a key like `acme-{post_id}-{platform}-{date}-
 
 ## 8. Supply chain
 
-Third-party skills are not vendored. `.clawhub/lock.json` pins `version`, artifact `sha256`, and `SKILL.md` sha256; `clawhub install` verifies them. Review a skill's `SKILL.md` before pinning it — a skill is a prompt, and a prompt can instruct the agent.
+Skills are not vendored. Every agent's `openclaw.json` entry names its skills in an explicit `skills` allowlist (`[]` for none); an omitted list would expose every installed skill, so `scripts/validate.sh` rejects missing lists and wildcards. Review a skill's `SKILL.md` before granting it — a skill is a prompt, and a prompt can instruct the agent. The allowlist filters skill visibility, not shell access; `tools.deny` and sandboxing still apply.
 
 ## 9. High-risk content gates
 

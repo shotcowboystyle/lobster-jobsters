@@ -8,6 +8,7 @@
           "name": "Miles",
           "emoji": "🛣️"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",
