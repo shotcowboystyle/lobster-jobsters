@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "ceo-decision-journal": {
+        "name": "Almanac",
+        "workspace": "~/.openclaw/workspaces/ceo/agents/decision-journal",
+        "identity": {
+          "name": "Almanac",
+          "emoji": "📓"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

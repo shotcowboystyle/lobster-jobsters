@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "contract-coordinator-contract-specialist": {
+        "name": "Sage",
+        "workspace": "~/.openclaw/workspaces/contract-coordinator/agents/contract-specialist",
+        "identity": {
+          "name": "Sage",
+          "emoji": "🪺"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

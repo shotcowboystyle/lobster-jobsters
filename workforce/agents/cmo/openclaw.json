@@ -1,0 +1,28 @@
+{
+  "agents": {
+    "entries": {
+      "cmo": {
+        "name": "Marisol",
+        "workspace": "~/.openclaw/workspaces/cmo",
+        "identity": {
+          "name": "Marisol",
+          "emoji": "📣"
+        },
+        "subagents": {
+          "allowAgents": [
+            "cmo-approval-coordinator",
+            "cmo-brand-qa",
+            "cmo-content-brief",
+            "cmo-creative-director",
+            "cmo-engagement-monitor",
+            "cmo-platform-copywriter",
+            "cmo-publisher",
+            "cmo-reply-drafter",
+            "cmo-strategy-planner",
+            "cmo-weekly-analyst"
+          ]
+        }
+      }
+    }
+  }
+}

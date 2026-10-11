@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "contract-coordinator-delivery-router": {
+        "name": "Miles",
+        "workspace": "~/.openclaw/workspaces/contract-coordinator/agents/delivery-router",
+        "identity": {
+          "name": "Miles",
+          "emoji": "🛣️"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

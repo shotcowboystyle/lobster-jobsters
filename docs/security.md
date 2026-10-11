@@ -43,6 +43,10 @@ Third-party skills are not vendored. `.clawhub/lock.json` pins `version`, artifa
 
 Content-producing teams (CMO, Creative, CSM) carry explicit checklists that force human review for competitor mentions, health claims, pricing, inventory counts, legal language, testimonials, and anything political. These are in the team README and the QA prompts.
 
+## 10. Agent config lives outside the agent's reach
+
+Each agent's `openclaw.json` sets its workspace, which sub-agents it may spawn, and the tools it is denied (sub-agents lose `gateway`, `nodes`, `plugins`, `cron`, `sessions_spawn`, `subagents`). That file sits in the agent's own workspace, so treat it as a source, not the live config: copy-merge it into `~/.openclaw/openclaw.json` rather than `$include`-ing it, or an agent with `write` access could widen its own permissions. If you do use `$include`, run agents with a read-only workspace (`sandbox.workspaceAccess`).
+
 ## What you still have to do
 
 - Run OpenClaw with sandboxed tool execution and least-privilege API tokens.

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cto-devops-agent": {
+        "name": "Bastion",
+        "workspace": "~/.openclaw/workspaces/cto/agents/devops-agent",
+        "identity": {
+          "name": "Bastion",
+          "emoji": "🏰"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

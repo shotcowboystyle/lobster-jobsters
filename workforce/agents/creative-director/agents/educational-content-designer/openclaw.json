@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "creative-director-educational-content-designer": {
+        "name": "Mira",
+        "workspace": "~/.openclaw/workspaces/creative-director/agents/educational-content-designer",
+        "identity": {
+          "name": "Mira",
+          "emoji": "📘"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

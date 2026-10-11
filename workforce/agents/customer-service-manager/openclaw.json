@@ -1,0 +1,21 @@
+{
+  "agents": {
+    "entries": {
+      "customer-service-manager": {
+        "name": "Poppy",
+        "workspace": "~/.openclaw/workspaces/customer-service-manager",
+        "identity": {
+          "name": "Poppy",
+          "emoji": "🪼"
+        },
+        "subagents": {
+          "allowAgents": [
+            "customer-service-manager-care-education",
+            "customer-service-manager-order-management",
+            "customer-service-manager-workspace-support"
+          ]
+        }
+      }
+    }
+  }
+}

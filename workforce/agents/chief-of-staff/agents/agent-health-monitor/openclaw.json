@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "chief-of-staff-agent-health-monitor": {
+        "name": "Magpie",
+        "workspace": "~/.openclaw/workspaces/chief-of-staff/agents/agent-health-monitor",
+        "identity": {
+          "name": "Magpie",
+          "emoji": "🪞"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

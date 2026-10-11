@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "entries": {
+      "coo": {
+        "name": "Victor",
+        "workspace": "~/.openclaw/workspaces/coo",
+        "identity": {
+          "name": "Victor",
+          "emoji": "🐙"
+        },
+        "subagents": {
+          "allowAgents": [
+            "coo-facility-management",
+            "coo-inventory-agent",
+            "coo-logistics-agent",
+            "coo-workshop-coordinator"
+          ]
+        }
+      }
+    }
+  }
+}

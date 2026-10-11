@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-strategy-planner": {
+        "name": "Strategy Planner",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/strategy-planner",
+        "identity": {
+          "name": "Strategy Planner",
+          "emoji": "📅"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

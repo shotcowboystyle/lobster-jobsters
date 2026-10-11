@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cfo-fpa": {
+        "name": "Horizon",
+        "workspace": "~/.openclaw/workspaces/cfo/agents/fpa",
+        "identity": {
+          "name": "Horizon",
+          "emoji": "📈"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

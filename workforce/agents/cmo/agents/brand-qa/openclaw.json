@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-brand-qa": {
+        "name": "Brand QA",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/brand-qa",
+        "identity": {
+          "name": "Brand QA",
+          "emoji": "🔍"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

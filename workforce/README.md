@@ -33,14 +33,14 @@ ACME Bonsai is a worked example, not a real company. The company name, owner ("J
   CMO        CFO        COO        CTO     DoS         CD         CSM            Contract
                                                                                   Coordinator
    │          │          │          │         │          │          │                │
-  team     Sterling   Victor      Allen     Cash      Masahiko    Poppy            Rowan
-           🦅 hawk    🐙 octopus  🎯        🐬        🦌 elk     🪼 jellyfish     🦋 silkmoth
+ Marisol   Sterling   Victor      Allen     Cash      Masahiko    Poppy            Rowan
+  📣 tern  🦅 hawk    🐙 octopus  🎯        🐬        🦌 elk     🪼 jellyfish     🦋 silkmoth
                                             dolphin
 ```
 
 ---
 
-## Persona Reference (45 agents)
+## Persona Reference (53 agents)
 
 ### Executive Layer
 
@@ -53,7 +53,7 @@ ACME Bonsai is a worked example, not a real company. The company name, owner ("J
 
 | Workspace | Coordinator | Sub-agents |
 |---|---|---|
-| **CMO** `agents/cmo/` | Marketing team lead | Strategy Planner 📅, Content Brief 📝, Platform Copywriter ✍️, Creative Director 🎨, Brand QA 🔍, Approval Coordinator ✅, Publisher 🚀, Engagement Monitor 👀, Reply Drafter 💬, Weekly Analyst 📊 |
+| **CMO** `agents/cmo/` | Marisol 📣 (Arctic tern) | Strategy Planner 📅, Content Brief 📝, Platform Copywriter ✍️, Creative Director 🎨, Brand QA 🔍, Approval Coordinator ✅, Publisher 🚀, Engagement Monitor 👀, Reply Drafter 💬, Weekly Analyst 📊 |
 | **CFO** `agents/cfo/` | Sterling 🦅 (red-tailed hawk) | Ledger 📊 (Finance Ops), Horizon 📈 (FP&A), Garrison 🛡️ (Controls & Compliance), Margin 💰 (Pricing & Profitability) |
 | **COO** `agents/coo/` | Victor 🐙 (octopus) | Tally 🌲 (Inventory), Cedar 🚚 (Logistics), Hazel 🎓 (Workshops), Birch 🏡 (Facility) |
 | **CTO** `agents/cto/` | Allen 🎯 (orchestrator) | Pixel 🎨 (Frontend), Forge ⚙️ (Backend), Bastion 🏰 (DevOps) |
@@ -112,8 +112,9 @@ agents/<team>/
 ├── HEARTBEAT.md                    # periodic checks (tiny)
 ├── MEMORY.md                       # ≤200-line durable facts
 ├── TOOLS.md                        # local services + paths
+├── openclaw.json                   # agents.entries block to merge into the global OpenClaw config
 ├── agents/<sub-agent>/             # one OpenClaw sub-workspace per specialist
-│   ├── AGENTS.md  SOUL.md  IDENTITY.md  USER.md  HEARTBEAT.md  [TOOLS.md MEMORY.md]
+│   ├── AGENTS.md  SOUL.md  IDENTITY.md  USER.md  HEARTBEAT.md  openclaw.json  [TOOLS.md MEMORY.md]
 ├── config/
 │   ├── emergency-stop.json         # team kill switch (master stop overrides)
 │   ├── approval-policy.json        # who approves what, timeouts, allowed actions

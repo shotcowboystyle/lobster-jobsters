@@ -72,6 +72,10 @@ else
   DEST="$TEAM_DIR/agents/$SUB_SLUG"
   [[ -e "$DEST" ]] && { echo "already exists: $DEST" >&2; exit 1; }
   while IFS= read -r src; do render "$src" "$DEST/${src#"$TPL/sub-agent/"}"; done < <(find "$TPL/sub-agent" -type f)
+  # Let the coordinator spawn the new sub-agent by id.
+  CFG="$TEAM_DIR/openclaw.json"
+  jq --arg t "$TEAM_SLUG" --arg id "$TEAM_SLUG-$SUB_SLUG" \
+    '.agents.entries[$t].subagents.allowAgents |= ((. // []) + [$id] | unique)' "$CFG" > "$CFG.tmp" && mv "$CFG.tmp" "$CFG"
   echo "created sub-agent workspace: $DEST"
   echo "next: add $PERSONA to the roster table in $TEAM_DIR/AGENTS.md and $TEAM_DIR/README.md"
 fi

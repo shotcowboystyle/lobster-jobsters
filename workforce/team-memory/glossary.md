@@ -188,7 +188,7 @@ Canonical vocabulary used across all teams. When in doubt about what a term mean
 
 **Jane** — Owner / CEO. Final approver per per-team `approval-policy.json` rules.
 
-**Apex** — CEO AI shadow. Thinks with Jane; never decides for him.
+**Apex** — CEO AI shadow. Thinks with Jane; never decides for her.
 
 **Briefing** — ≤ 400-word CEO update. Compiled by Heron Mondays 7 AM (weekly) + Fridays 4 PM (mid-week).
 
@@ -207,6 +207,7 @@ Canonical vocabulary used across all teams. When in doubt about what a term mean
 Format varies by team. Pattern: `acme-{team-prefix}-{entity-id}-{action-kind}-{attempt}`.
 
 Examples:
+
 - Wholesale contract send: `acme-{contract_id}-docusign-{attempt}`
 - Customer support reply: `acme-care-{ticket_id}-reply-first-{attempt}`
 - Production deploy: `acme-tech-{release_id}-deploy-{attempt}`

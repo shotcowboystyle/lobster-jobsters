@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "creative-director-brand-designer": {
+        "name": "Hana",
+        "workspace": "~/.openclaw/workspaces/creative-director/agents/brand-designer",
+        "identity": {
+          "name": "Hana",
+          "emoji": "🌸"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

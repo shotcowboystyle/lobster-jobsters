@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "entries": {
+      "chief-of-staff": {
+        "name": "River",
+        "workspace": "~/.openclaw/workspaces/chief-of-staff",
+        "identity": {
+          "name": "River",
+          "emoji": "🦉"
+        },
+        "subagents": {
+          "allowAgents": [
+            "chief-of-staff-action-item-tracker",
+            "chief-of-staff-agent-health-monitor",
+            "chief-of-staff-briefing-synthesizer",
+            "chief-of-staff-initiative-tracker"
+          ]
+        }
+      }
+    }
+  }
+}

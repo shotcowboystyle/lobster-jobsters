@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-approval-coordinator": {
+        "name": "Approval Coordinator",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/approval-coordinator",
+        "identity": {
+          "name": "Approval Coordinator",
+          "emoji": "✅"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "chief-of-staff-initiative-tracker": {
+        "name": "Egret",
+        "workspace": "~/.openclaw/workspaces/chief-of-staff/agents/initiative-tracker",
+        "identity": {
+          "name": "Egret",
+          "emoji": "🪿"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cfo-pricing-profitability": {
+        "name": "Margin",
+        "workspace": "~/.openclaw/workspaces/cfo/agents/pricing-profitability",
+        "identity": {
+          "name": "Margin",
+          "emoji": "💰"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

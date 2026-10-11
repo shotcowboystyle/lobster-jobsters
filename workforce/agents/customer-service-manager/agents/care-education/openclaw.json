@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "customer-service-manager-care-education": {
+        "name": "Maple",
+        "workspace": "~/.openclaw/workspaces/customer-service-manager/agents/care-education",
+        "identity": {
+          "name": "Maple",
+          "emoji": "🌳"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

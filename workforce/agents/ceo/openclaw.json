@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "entries": {
+      "ceo": {
+        "name": "Apex",
+        "workspace": "~/.openclaw/workspaces/ceo",
+        "identity": {
+          "name": "Apex",
+          "emoji": "🪨"
+        },
+        "subagents": {
+          "allowAgents": [
+            "ceo-decision-journal",
+            "ceo-external-comms",
+            "ceo-memo-drafter",
+            "ceo-strategy-synthesizer"
+          ]
+        }
+      }
+    }
+  }
+}

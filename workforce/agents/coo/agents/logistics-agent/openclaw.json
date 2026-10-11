@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "coo-logistics-agent": {
+        "name": "Cedar",
+        "workspace": "~/.openclaw/workspaces/coo/agents/logistics-agent",
+        "identity": {
+          "name": "Cedar",
+          "emoji": "🚚"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

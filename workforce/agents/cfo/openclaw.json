@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "entries": {
+      "cfo": {
+        "name": "Sterling",
+        "workspace": "~/.openclaw/workspaces/cfo",
+        "identity": {
+          "name": "Sterling",
+          "emoji": "🦅"
+        },
+        "subagents": {
+          "allowAgents": [
+            "cfo-controls-compliance",
+            "cfo-finance-ops",
+            "cfo-fpa",
+            "cfo-pricing-profitability"
+          ]
+        }
+      }
+    }
+  }
+}

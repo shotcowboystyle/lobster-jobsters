@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-reply-drafter": {
+        "name": "Reply Drafter",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/reply-drafter",
+        "identity": {
+          "name": "Reply Drafter",
+          "emoji": "💬"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

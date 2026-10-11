@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "director-of-sales-subscription-sales": {
+        "name": "Sophia",
+        "workspace": "~/.openclaw/workspaces/director-of-sales/agents/subscription-sales",
+        "identity": {
+          "name": "Sophia",
+          "emoji": "🤝"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}
