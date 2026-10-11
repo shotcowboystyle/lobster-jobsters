@@ -1,0 +1,33 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "travel": {
+        "id": "CHANNEL_ID_TRAVEL",
+        "name": "#travel",
+        "purpose": "Optional. Hotel search requests and answers",
+        "agents_that_post": ["booking-search"],
+        "human_actions": ["ask", "refine"]
+      },
+      "search_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#search-alerts",
+        "purpose": "Provider blocks, hourly cap reached, failures, emergency stop",
+        "agents_that_post": ["booking-search"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "owner": {
+        "discord_user_id": "OWNER_DISCORD_ID",
+        "name": "Workspace owner",
+        "can_approve": ["add_search_provider", "emergency_stop"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

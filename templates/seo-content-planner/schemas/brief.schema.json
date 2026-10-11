@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Content Brief",
+  "description": "Editor-ready SEO brief. A proposal until the user confirms it.",
+  "type": "object",
+  "required": ["brief_id", "target_keyword", "search_intent", "h1", "h2s", "internal_links", "competitor_links", "word_count", "meta_description", "data_basis"],
+  "additionalProperties": false,
+  "properties": {
+    "brief_id": { "type": "string", "pattern": "^seo-content-planner-\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$" },
+    "target_keyword": { "type": "string" },
+    "search_intent": { "type": "string", "enum": ["informational", "commercial", "transactional", "navigational"] },
+    "h1": { "type": "string", "maxLength": 120 },
+    "h2s": { "type": "array", "minItems": 5, "maxItems": 8, "items": { "type": "string" } },
+    "internal_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "anchor"],
+        "properties": { "url": { "type": "string", "format": "uri" }, "anchor": { "type": "string" } }
+      }
+    },
+    "competitor_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "position", "gap"],
+        "properties": {
+          "url": { "type": "string", "format": "uri" },
+          "position": { "type": "number" },
+          "gap": { "type": "string", "description": "What this page misses that ours will cover" }
+        }
+      }
+    },
+    "word_count": { "type": "integer", "minimum": 300 },
+    "meta_description": { "type": "string", "maxLength": 160 },
+    "data_basis": {
+      "type": "object",
+      "required": ["current_position", "impressions_7d", "impressions_prior_7d"],
+      "properties": {
+        "current_position": { "type": ["number", "null"] },
+        "impressions_7d": { "type": ["integer", "null"] },
+        "impressions_prior_7d": { "type": ["integer", "null"] }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" }, "description": "Missing data, robots-disallowed pages, flagged competitor text" }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Triage Note",
+  "description": "The single internal (private) note the agent writes on a ticket event. Never public, never an assignment.",
+  "type": "object",
+  "required": ["ticket_id", "event_id", "category", "priority", "rationale", "suggested_assignee", "public", "idempotency_key"],
+  "additionalProperties": false,
+  "properties": {
+    "ticket_id": { "type": "string" },
+    "event_id": { "type": "string" },
+    "category": { "type": "string", "description": "One category key from USER.md, or 'unsorted'" },
+    "category_confident": { "type": "boolean" },
+    "priority": { "type": "string", "enum": ["high", "normal", "low"] },
+    "rationale": { "type": "string", "maxLength": 300, "description": "Why this category and priority, based on the issue, not the customer's tone" },
+    "suggested_assignee": { "type": "string", "description": "From USER.md. A suggestion only; the agent never assigns" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(triaged|category:[a-z_]+|priority:(high|normal|low))$" }
+    },
+    "duplicate_of": {
+      "type": "object",
+      "required": ["ticket_id", "similarity_basis"],
+      "properties": {
+        "ticket_id": { "type": "string" },
+        "similarity_basis": { "type": "string", "enum": ["subject", "body_prefix", "subject_and_body_prefix"] }
+      }
+    },
+    "possible_sev1": { "type": "boolean" },
+    "public": { "const": false },
+    "idempotency_key": { "type": "string", "pattern": "^zendesk-triage-[A-Za-z0-9]+-[A-Za-z0-9-]+-note-\\d+$" }
+  }
+}

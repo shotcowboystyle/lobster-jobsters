@@ -1,0 +1,28 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the Booking Search Agent",
+    "rules": {
+      "add_search_provider": {
+        "requires_approval": true,
+        "approvers": ["owner"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "hold", "reject"],
+        "notes": "Granting or swapping the search skill. Owner reads its SKILL.md and the provider's terms first: search-only, automated queries permitted, no scraping or challenge solving."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["user", "owner"],
+        "notes": "Anyone using the channel or the owner can stop searches immediately. Only the owner can resume."
+      }
+    },
+    "forbidden": {
+      "booking_or_payment": "Booking, holding, or paying for any room. The traveller books via the link. Not approvable by anyone.",
+      "guest_pii_entry": "Sending guest names, contact details, or payment data to any provider. Not approvable by anyone.",
+      "anti_bot_circumvention": "Solving or bypassing CAPTCHA, WAF, bot checks, or rate limits. Not approvable by anyone.",
+      "unauthorized_scraping": "Scraping any site whose terms don't permit automated access. Not approvable by anyone."
+    }
+  }
+}

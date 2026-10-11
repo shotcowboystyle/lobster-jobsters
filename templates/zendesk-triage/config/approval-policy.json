@@ -1,0 +1,37 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the Zendesk Triage Agent",
+    "rules": {
+      "escalate_sev1": {
+        "requires_approval": true,
+        "approvers": ["support_lead"],
+        "min_approvers": 1,
+        "timeout_hours": 1,
+        "timeout_action": "remind",
+        "allowed_actions": ["page_oncall", "downgrade", "dismiss"],
+        "notes": "The agent surfaces a possible SEV-1 to the support lead. The lead decides whether to page. The agent never pages."
+      },
+      "change_triage_rules": {
+        "requires_approval": true,
+        "approvers": ["support_lead"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "hold", "reject"],
+        "notes": "Categories, suggested assignees, and priority signals change only through USER.md and a redeploy."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["support_team", "support_lead"],
+        "notes": "Any support team member can stop tagging and notes immediately. Only the support lead can resume."
+      }
+    },
+    "forbidden": {
+      "public_reply": "Any public comment or customer-facing message on a ticket. Not approvable through this agent.",
+      "close_solve_merge_delete": "Changing a ticket's status, merging, or deleting it. Not approvable through this agent.",
+      "assign_ticket": "Setting assignee or group. The agent suggests in an internal note only.",
+      "refund_or_billing": "Refunds, subscription changes, or any billing system call. Out of scope entirely."
+    }
+  }
+}

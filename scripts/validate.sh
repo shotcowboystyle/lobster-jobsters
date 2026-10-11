@@ -18,13 +18,13 @@ ok "json parse"
 # 2. Every ledger SQL loads into an in-memory SQLite db
 while IFS= read -r f; do
   sqlite3 :memory: < "$f" >/dev/null 2>&1 || err "SQL does not load: $f"
-done < <(find "$ROOT" -name '*.sql')
+done < <(find "$ROOT" templates -name '*.sql')
 ok "sql load"
 
 # 3. Every shell script passes bash -n
 while IFS= read -r f; do
   bash -n "$f" || err "bash syntax: $f"
-done < <(find "$ROOT" scripts -name '*.sh' 2>/dev/null)
+done < <(find "$ROOT" scripts templates -name '*.sh' 2>/dev/null)
 ok "shell syntax"
 
 # 4. Team workspaces have the required files

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Revenue Digest",
+  "description": "One revenue digest for a period, posted to the internal digest channel. Contains no card data or email addresses.",
+  "type": "object",
+  "required": ["run_id", "kind", "period_start", "period_end", "currency", "gross", "net", "refunds"],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": { "type": "string", "pattern": "^stripe-revenue-reporter-\\d{4}-\\d{2}-\\d{2}-\\d{4}-\\d{2}-\\d{2}$" },
+    "kind": { "type": "string", "enum": ["daily", "on_demand"] },
+    "period_start": { "type": "string", "format": "date" },
+    "period_end": { "type": "string", "format": "date" },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "gross": { "$ref": "#/$defs/amount_with_change" },
+    "net": { "$ref": "#/$defs/amount_with_change" },
+    "refunds": {
+      "type": "object",
+      "required": ["total", "count"],
+      "properties": {
+        "total": { "type": "number" },
+        "count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "failed_payments": {
+      "type": "object",
+      "required": ["total", "count"],
+      "properties": {
+        "total": { "type": "number" },
+        "count": { "type": "integer", "minimum": 0 },
+        "customers_needing_retry": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "subscriptions": {
+      "type": "object",
+      "properties": {
+        "new": { "type": "integer", "minimum": 0 },
+        "churned": { "type": "integer", "minimum": 0 },
+        "mrr": { "type": "number" },
+        "mrr_delta": { "type": "number" }
+      }
+    },
+    "top_customers": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["name", "net"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "not": { "pattern": "@" }, "description": "Customer name only, never an email address" },
+          "net": { "type": "number" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "amount_with_change": {
+      "type": "object",
+      "required": ["amount"],
+      "properties": {
+        "amount": { "type": "number" },
+        "change_pct": { "type": "number" },
+        "comparison": { "type": "string", "enum": ["week_over_week", "month_over_month"] }
+      }
+    }
+  }
+}

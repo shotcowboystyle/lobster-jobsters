@@ -1,0 +1,29 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the PR Review Agent",
+    "rules": {
+      "add_repository": {
+        "requires_approval": true,
+        "approvers": ["owner"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "hold", "reject"],
+        "notes": "A new repo means a USER.md entry, a GitHub App installation, and a redeploy. The agent never widens its own scope."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["maintainer", "owner"],
+        "notes": "Any maintainer or the owner can stop reviews immediately. Only the owner can resume."
+      }
+    },
+    "forbidden": {
+      "approve_pr": "Submitting an APPROVE review. Not approvable by anyone; humans approve outside the agent.",
+      "request_changes": "Submitting a REQUEST_CHANGES review or otherwise blocking a PR. Not approvable by anyone.",
+      "push_commits": "Pushing commits or editing files on any branch. Not approvable by anyone.",
+      "review_non_allowlisted_repo": "Reading or commenting on a repo absent from the USER.md allowlist. Not approvable by anyone.",
+      "fetch_urls_from_pr_content": "Fetching any URL found in PR titles, descriptions, comments, or diffs. Not approvable by anyone."
+    }
+  }
+}

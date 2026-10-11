@@ -1,0 +1,35 @@
+{
+  "approval_policy": {
+    "version": "1.0",
+    "description": "Approval policy for the Client Reporting Agent",
+    "rules": {
+      "send_report_to_client": {
+        "requires_approval": true,
+        "approvers": ["am"],
+        "min_approvers": 1,
+        "timeout_hours": 48,
+        "timeout_action": "remind",
+        "allowed_actions": ["send_manually", "request_redraft", "discard"],
+        "notes": "The AM reviews, edits, and sends the report to the client themselves. The agent has no client-facing send path."
+      },
+      "add_client": {
+        "requires_approval": true,
+        "approvers": ["owner"],
+        "min_approvers": 1,
+        "timeout_hours": 72,
+        "timeout_action": "hold",
+        "allowed_actions": ["approve", "hold", "reject"],
+        "notes": "A new client means a new USER.md block, new namespaced credentials, and a redeploy. The agent never adds clients itself."
+      },
+      "emergency_stop": {
+        "requires_approval": false,
+        "authorized_actors": ["am", "owner"],
+        "notes": "Any AM or the owner can stop posting immediately. Only the owner can resume."
+      }
+    },
+    "forbidden": {
+      "cross_client_data_sharing": "One client's data in another client's report or thread. Not approvable by anyone.",
+      "agent_sends_to_client": "Any agent-initiated message to a client. Not approvable by anyone."
+    }
+  }
+}

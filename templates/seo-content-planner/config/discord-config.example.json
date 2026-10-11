@@ -1,0 +1,47 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "seo_briefings": {
+        "id": "CHANNEL_ID_BRIEFINGS",
+        "name": "#seo-briefings",
+        "purpose": "Monday briefing: three opportunities, one risk, one win",
+        "agents_that_post": ["seo-content-planner"],
+        "human_actions": ["request_brief"]
+      },
+      "seo_drafts": {
+        "id": "CHANNEL_ID_DRAFTS",
+        "name": "#seo-drafts",
+        "purpose": "On-demand briefs, confirmations, calendar card links",
+        "agents_that_post": ["seo-content-planner"],
+        "human_actions": ["confirm", "revise", "reject"]
+      },
+      "seo_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#seo-alerts",
+        "purpose": "Data source failures, calendar write failures, flagged competitor text, emergency stop",
+        "agents_that_post": ["seo-content-planner"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "user": {
+        "discord_user_id": "MARKETING_LEAD_DISCORD_ID",
+        "name": "Marketing lead",
+        "can_approve": ["push_brief_to_calendar", "edit_card_outside_drafts", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "team": {
+        "discord_role_id": "CONTENT_TEAM_ROLE_ID",
+        "name": "Content team",
+        "can_approve": ["emergency_stop"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "approval_timeout_hours": 72,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

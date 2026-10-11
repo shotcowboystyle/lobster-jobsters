@@ -1,0 +1,40 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "support_leads": {
+        "id": "CHANNEL_ID_SUPPORT_LEADS",
+        "name": "#support-leads",
+        "purpose": "Daily queue summary, possible SEV-1 surfaces, triage corrections",
+        "agents_that_post": ["zendesk-triage"],
+        "human_actions": ["page_oncall", "downgrade", "dismiss", "correct_triage"]
+      },
+      "triage_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#triage-alerts",
+        "purpose": "Write failures, Zendesk permission errors, emergency stop. Never ticket bodies or requester details",
+        "agents_that_post": ["zendesk-triage"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "support_lead": {
+        "discord_user_id": "SUPPORT_LEAD_DISCORD_ID",
+        "name": "Support lead",
+        "can_approve": ["escalate_sev1", "change_triage_rules", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "support_team": {
+        "discord_role_id": "SUPPORT_TEAM_ROLE_ID",
+        "name": "Support team",
+        "can_approve": ["emergency_stop"],
+        "notification_preference": "none"
+      }
+    },
+    "notification_rules": {
+      "sev1_ack_timeout_hours": 1,
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

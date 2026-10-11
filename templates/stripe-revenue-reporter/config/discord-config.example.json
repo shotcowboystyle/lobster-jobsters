@@ -1,0 +1,39 @@
+{
+  "discord": {
+    "guild_id": "YOUR_DISCORD_SERVER_ID",
+    "channels": {
+      "revenue": {
+        "id": "CHANNEL_ID_REVENUE",
+        "name": "#revenue",
+        "purpose": "Daily revenue digest and on-demand range reports. Restrict to people cleared to see revenue",
+        "agents_that_post": ["stripe-revenue-reporter"],
+        "human_actions": ["read", "request_range", "request_rerun"]
+      },
+      "revenue_alerts": {
+        "id": "CHANNEL_ID_ALERTS",
+        "name": "#revenue-alerts",
+        "purpose": "Partial-data skips, failures, key-scope warnings, emergency stop. Never revenue figures",
+        "agents_that_post": ["stripe-revenue-reporter"],
+        "human_actions": ["acknowledge", "investigate", "resolve"]
+      }
+    },
+    "approvers": {
+      "owner": {
+        "discord_user_id": "OWNER_DISCORD_ID",
+        "name": "Owner",
+        "can_approve": ["change_digest_channel_or_audience", "emergency_stop"],
+        "notification_preference": "mention"
+      },
+      "finance_lead": {
+        "discord_user_id": "FINANCE_LEAD_DISCORD_ID",
+        "name": "Finance lead",
+        "can_approve": ["emergency_stop"],
+        "notification_preference": "mention"
+      }
+    },
+    "notification_rules": {
+      "critical_incident_mention": "@here",
+      "emergency_stop_mention": "@everyone"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "entries": {
+      "stripe-revenue-reporter": {
+        "name": "Stripe Revenue Reporter",
+        "workspace": "~/.openclaw/workspaces/stripe-revenue-reporter",
+        "identity": {
+          "name": "Stripe Revenue Reporter",
+          "emoji": "💰"
+        },
+        "skills": ["discord"],
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}
