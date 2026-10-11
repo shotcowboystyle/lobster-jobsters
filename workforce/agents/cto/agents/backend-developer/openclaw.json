@@ -8,6 +8,10 @@
           "name": "Forge",
           "emoji": "⚙️"
         },
+        "skills": [
+          "github",
+          "coding-agent"
+        ],
         "tools": {
           "deny": [
             "gateway",

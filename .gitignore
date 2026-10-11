@@ -14,9 +14,8 @@
 *.sqlite
 **/memory/*.md
 
-# Vendored third-party skills are installed from .clawhub/lock.json, not committed
+# Skills are granted by name in openclaw.json, never committed
 **/skills/*/
-!**/skills/README.md
 
 # Editor / OS
 .vscode/

@@ -8,6 +8,10 @@
           "name": "River",
           "emoji": "🦉"
         },
+        "skills": [
+          "discord",
+          "gog"
+        ],
         "subagents": {
           "allowAgents": [
             "chief-of-staff-action-item-tracker",

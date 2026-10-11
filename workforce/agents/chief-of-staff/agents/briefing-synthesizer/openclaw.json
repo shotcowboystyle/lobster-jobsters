@@ -8,6 +8,10 @@
           "name": "Heron",
           "emoji": "🪶"
         },
+        "skills": [
+          "gog",
+          "summarize"
+        ],
         "tools": {
           "deny": [
             "gateway",

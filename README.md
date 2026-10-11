@@ -126,7 +126,7 @@ scripts/ledger.sh metrics cfo  # operational metrics from the ledger once it has
 - **Idempotency everywhere.** Every outbound side-effect carries a key checked against the ledger before acting.
 - **Sub-agents only get `AGENTS.md` + `TOOLS.md`.** So every cross-cutting safety rule is restated in each sub-agent's `AGENTS.md`, and each has explicit cost controls (max turns, max retries).
 - **Secrets never enter the workspace.** `env.example` names variables; values live in your secrets manager. CI runs a secret scan on every push.
-- **Third-party skills are pinned, not vendored.** `.clawhub/lock.json` records version + sha256; install with `clawhub install`.
+- **Skills are allowlisted by name.** Every agent's `openclaw.json` lists its skills explicitly (`[]` for none) — no wildcards, enforced by `scripts/validate.sh`.
 
 Read more: [architecture](docs/architecture.md) · [governance](docs/governance.md) · [security](docs/security.md) · [evidence & benchmarking](docs/evidence-and-benchmarking.md) · [adding agents](docs/adding-agents.md)
 

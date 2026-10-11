@@ -8,6 +8,9 @@
           "name": "Wren",
           "emoji": "🐦"
         },
+        "skills": [
+          "gh-issues"
+        ],
         "tools": {
           "deny": [
             "gateway",

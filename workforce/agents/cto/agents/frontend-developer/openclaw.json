@@ -8,6 +8,10 @@
           "name": "Pixel",
           "emoji": "🎨"
         },
+        "skills": [
+          "github",
+          "coding-agent"
+        ],
         "tools": {
           "deny": [
             "gateway",

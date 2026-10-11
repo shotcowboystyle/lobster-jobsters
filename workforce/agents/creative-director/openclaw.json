@@ -8,6 +8,9 @@
           "name": "Masahiko",
           "emoji": "🦌"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "creative-director-brand-designer",

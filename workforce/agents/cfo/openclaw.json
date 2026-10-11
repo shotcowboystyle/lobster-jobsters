@@ -8,6 +8,9 @@
           "name": "Sterling",
           "emoji": "🦅"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "cfo-controls-compliance",

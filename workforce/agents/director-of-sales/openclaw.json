@@ -8,6 +8,9 @@
           "name": "Cash",
           "emoji": "🐬"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "director-of-sales-event-rental",

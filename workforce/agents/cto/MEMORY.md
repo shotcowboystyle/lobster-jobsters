@@ -19,7 +19,7 @@
 - Payment data: Stripe only — PCI compliance via tokenization; we never touch raw card data
 - Stripe + DocuSign + Plaid integrations already in use across Sales (Cash), CFO (Sterling), Contract Coordinator (Rowan)
 - Sub-agents receive `AGENTS.md` + `TOOLS.md` only — never `MEMORY.md` or `SOUL.md`
-- Production secrets in Vercel/Render env vars or 1Password; never in repo
+- Production secrets in Vercel/Render env vars or the secrets manager; never in repo
 
 ## Hard Operating Rules
 

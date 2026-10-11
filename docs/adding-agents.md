@@ -13,7 +13,7 @@ This creates `workforce/agents/cfo/agents/tax/` with the six sub-agent files plu
 3. **Set the budget.** Edit `Cost Controls` to numbers that fit the task; the defaults (5 turns, 2 retries) are a floor, not a recommendation.
 4. **Register it.** Add a row to the roster in the team `AGENTS.md` and the agent table in the team `README.md`.
 5. **Wire approvals.** If the agent's output leads to a side-effect, name the `approval-policy.json` rule in its Handoff Contract.
-6. **Tune its OpenClaw entry.** `openclaw.json` denies infra and spawning tools by default; add `model`, `skills`, or tighter `tools.deny` (e.g. `message` for agents that never post) if the role needs them. Re-merge it into your global config.
+6. **Tune its OpenClaw entry.** `openclaw.json` denies infra and spawning tools by default; set its `skills` allowlist (`[]` unless the role needs a named skill), add `model` or tighter `tools.deny` (e.g. `message` for agents that never post) if the role needs them. Re-merge it into your global config.
 7. Run `scripts/validate.sh && scripts/audit.py --strict`.
 
 ## A new team
@@ -33,7 +33,7 @@ You get a complete team workspace that already passes validation and scores 12/1
 | `README.md` | state machine, agent table, RACI, guard rails for this domain |
 | `config/routines.example.sh` | the real cadence |
 | `ops/runbook.md` | domain-specific incident severities |
-| `openclaw.json` | agent id `<team>`; add `model`/`skills` if the coordinator needs non-default ones |
+| `openclaw.json` | agent id `<team>`; list the coordinator's `skills` by name; add `model` if it needs a non-default one |
 
 Then connect it to the company:
 
@@ -67,17 +67,15 @@ It is the only file a sub-agent is guaranteed to see, so it must stand alone:
 
 If a rule matters, it goes here, not in `SOUL.md`.
 
-## Using a third-party skill
+## Granting a skill
 
-Do not copy skill files into the repo. Pin it:
+Every agent's `openclaw.json` entry carries an explicit `skills` allowlist. Omitting it means *every* installed skill is visible, so `scripts/validate.sh` rejects a missing list, wildcards, and globs:
 
 ```json
-// workforce/agents/<team>/.clawhub/lock.json
-{ "version": 1, "skills": { "self-improving": { "version": "1.2.16", "registry": "https://clawhub.ai",
-  "artifact": { "kind": "archive", "sha256": "…" }, "skillFile": { "path": "SKILL.md", "sha256": "…" } } } }
+"cto-devops-agent": { "skills": ["github"], ... }
 ```
 
-and install with `clawhub install` in the workspace. Read the skill's `SKILL.md` first — it is a prompt, and prompts instruct agents.
+Use `[]` for none. A non-empty list is the agent's final set; it does not merge with `agents.defaults.skills`. Do not copy skill files into the repo. Read a skill's `SKILL.md` before granting it — it is a prompt, and prompts instruct agents. The allowlist controls visibility only; it is not a shell boundary, so keep `tools.deny` tight too.
 
 ## Removing an agent
 

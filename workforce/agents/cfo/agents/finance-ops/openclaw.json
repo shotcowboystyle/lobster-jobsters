@@ -8,6 +8,7 @@
           "name": "Ledger",
           "emoji": "📊"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

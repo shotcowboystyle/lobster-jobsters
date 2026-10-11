@@ -8,6 +8,9 @@
           "name": "Hazel",
           "emoji": "🎓"
         },
+        "skills": [
+          "gog"
+        ],
         "tools": {
           "deny": [
             "gateway",

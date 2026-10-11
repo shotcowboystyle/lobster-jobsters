@@ -8,6 +8,9 @@
           "name": "Apex",
           "emoji": "🪨"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "ceo-decision-journal",

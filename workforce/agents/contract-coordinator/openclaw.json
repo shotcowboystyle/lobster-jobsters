@@ -8,6 +8,9 @@
           "name": "Rowan",
           "emoji": "🦋"
         },
+        "skills": [
+          "discord"
+        ],
         "subagents": {
           "allowAgents": [
             "contract-coordinator-contract-specialist",

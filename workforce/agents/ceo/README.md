@@ -152,7 +152,6 @@ workforce/agents/ceo/
 ├── MEMORY.md
 ├── TOOLS.md
 ├── BOOTSTRAP.md                 # legacy — left in place; harmless
-├── skills/self-improving/       # third-party skill — not modified
 ├── agents/
 │   ├── strategy-synthesizer/    # Compass
 │   ├── decision-journal/        # Almanac

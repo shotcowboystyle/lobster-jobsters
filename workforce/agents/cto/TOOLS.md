@@ -14,7 +14,7 @@ Local environment specifics for Allen and the three sub-agents. Skills define _h
 | Sentry | Error tracking + alerting | `SENTRY_DSN` | All |
 | Better Uptime (or equivalent) | Synthetic monitoring + status page | `BETTER_UPTIME_API_KEY` | Bastion |
 | Postgres (managed) | Primary database | `DATABASE_URL` | Forge |
-| 1Password (or equivalent secrets manager) | Secrets / credentials | n/a (CLI) | Bastion |
+| Secrets manager | Secrets / credentials | n/a (CLI) | Bastion |
 | SQLite | Tech ledger (workflow state) | `TECH_LEDGER_DB_PATH` | All (read + write) |
 
 ## Discord Channels

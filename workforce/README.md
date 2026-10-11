@@ -168,4 +168,4 @@ Each ledger is the **single source of truth** for its domain. Every state transi
 - Discord bot for all coordination
 - SQLite ledgers per team, backed up nightly
 - See each team's `config/env.example` for required environment variables
-- Third-party skills are pinned in `.clawhub/lock.json` per workspace and installed with `clawhub install`, not vendored
+- Each agent's skills are an explicit allowlist in its `openclaw.json` (`[]` for none); skills are not vendored

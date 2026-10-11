@@ -8,6 +8,7 @@
           "name": "Mira",
           "emoji": "📘"
         },
+        "skills": [],
         "tools": {
           "deny": [
             "gateway",

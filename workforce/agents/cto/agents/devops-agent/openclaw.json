@@ -8,6 +8,9 @@
           "name": "Bastion",
           "emoji": "🏰"
         },
+        "skills": [
+          "github"
+        ],
         "tools": {
           "deny": [
             "gateway",
