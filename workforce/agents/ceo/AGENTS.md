@@ -45,13 +45,13 @@ All strategic questions, decision entries, memos, and external comms are recorde
 
 ## Agent Roster
 
-| # | Agent | Persona | Responsibility |
-|---|-------|---------|----------------|
-| 1 | CEO Shadow | Apex 🪨 | Thinks with Jane; frames decisions; never decides for him |
-| 2 | Strategy Synthesizer | Compass 🧭 | One strategic question per week pulled from cross-team signals |
-| 3 | Decision Journal | Almanac 📓 | Captures every meaningful decision with reasoning; reopens at outcome window |
-| 4 | Memo Drafter | Atlas 🗺️ | Drafts long-form CEO output on explicit request only |
-| 5 | External Comms | Envoy 📨 | Drafts every outbound to investors/advisors/bank/partners; per-message approval |
+| #   | Agent                | Persona    | Responsibility                                                                  |
+| --- | -------------------- | ---------- | ------------------------------------------------------------------------------- |
+| 1   | CEO Shadow           | Apex 🪨    | Thinks with Jane; frames decisions; never decides for her                       |
+| 2   | Strategy Synthesizer | Compass 🧭 | One strategic question per week pulled from cross-team signals                  |
+| 3   | Decision Journal     | Almanac 📓 | Captures every meaningful decision with reasoning; reopens at outcome window    |
+| 4   | Memo Drafter         | Atlas 🗺️   | Drafts long-form CEO output on explicit request only                            |
+| 5   | External Comms       | Envoy 📨   | Drafts every outbound to investors/advisors/bank/partners; per-message approval |
 
 Full specifications for each sub-agent live in `agents/<name>/` as an OpenClaw sub-workspace.
 
@@ -94,6 +94,7 @@ Receiving agent responsibilities:
 ### Artifact state machines
 
 **Strategic question (Compass):**
+
 ```
 queued → researching → drafted → ceo_review → answered → archived
                                        ↓
@@ -101,6 +102,7 @@ queued → researching → drafted → ceo_review → answered → archived
 ```
 
 **Decision entry (Almanac):**
+
 ```
 captured → outcome_window_open → outcome_captured → archived
                                          ↓
@@ -108,6 +110,7 @@ captured → outcome_window_open → outcome_captured → archived
 ```
 
 **Strategic memo (Atlas):**
+
 ```
 requested → drafting → ceo_review → revising → ceo_review
                               ↓
@@ -117,6 +120,7 @@ requested → drafting → ceo_review → revising → ceo_review
 ```
 
 **External comm (Envoy):**
+
 ```
 queued → drafting → ceo_review → revising → ceo_review
                           ↓
@@ -129,12 +133,12 @@ queued → drafting → ceo_review → revising → ceo_review
 
 ## Discord Channel Routing
 
-| Channel | Purpose |
-|---------|---------|
-| `#acme-ceo-strategy` | Compass weekly questions; Apex's strategic notes for Jane |
-| `#acme-ceo-decisions` | Almanac decision-entry confirmations and outcome captures |
-| `#acme-ceo-memos` | Atlas memo drafts in review (Jane-only access) |
-| `#acme-ceo-alerts` | Ledger anomalies, outbound failures, emergency-stop events |
+| Channel               | Purpose                                                    |
+| --------------------- | ---------------------------------------------------------- |
+| `#acme-ceo-strategy`  | Compass weekly questions; Apex's strategic notes for Jane  |
+| `#acme-ceo-decisions` | Almanac decision-entry confirmations and outcome captures  |
+| `#acme-ceo-memos`     | Atlas memo drafts in review (Jane-only access)             |
+| `#acme-ceo-alerts`    | Ledger anomalies, outbound failures, emergency-stop events |
 
 External-comm drafts (Envoy) live in `#acme-ceo-memos` since both are Jane-only review channels.
 
@@ -151,16 +155,16 @@ External-comm drafts (Envoy) live in `#acme-ceo-memos` since both are Jane-only 
 
 ## Verification Before State Advance
 
-| Artifact → state | What Apex verifies |
-|---|---|
-| `question → ceo_review` | Cites ≥3 ledger references across ≥2 source teams; frames as a trade-off, not a tactic |
-| `question → answered` | Jane's answer captured verbatim; reasoning preserved; outcome window set if relevant |
+| Artifact → state                 | What Apex verifies                                                                                |
+| -------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `question → ceo_review`          | Cites ≥3 ledger references across ≥2 source teams; frames as a trade-off, not a tactic            |
+| `question → answered`            | Jane's answer captured verbatim; reasoning preserved; outcome window set if relevant              |
 | `decision → outcome_window_open` | Decision text, alternatives, rationale, "what would change my mind", and outcome date all present |
-| `decision → outcome_captured` | Actual outcome recorded; Jane's reflection note captured; ledger reference linked |
-| `memo → ceo_review` | Word count under cap (1,500 default); cites only what is in scope; reads like Jane at his best |
-| `memo → approved` | Jane's explicit `approve` in ledger; final word count recorded |
-| `comm → ceo_review` | Recipient identified; prior comm history referenced; tone matches Jane's voice |
-| `comm → approved` | Jane's explicit per-message `approve` in ledger; recipient confirmed; channel confirmed |
-| `comm → sent` | Idempotency key in place; provider confirmation captured |
+| `decision → outcome_captured`    | Actual outcome recorded; Jane's reflection note captured; ledger reference linked                 |
+| `memo → ceo_review`              | Word count under cap (1,500 default); cites only what is in scope; reads like Jane at his best    |
+| `memo → approved`                | Jane's explicit `approve` in ledger; final word count recorded                                    |
+| `comm → ceo_review`              | Recipient identified; prior comm history referenced; tone matches Jane's voice                    |
+| `comm → approved`                | Jane's explicit per-message `approve` in ledger; recipient confirmed; channel confirmed           |
+| `comm → sent`                    | Idempotency key in place; provider confirmation captured                                          |
 
 If any check fails, return to the sub-agent with a structured correction request rather than advancing.
