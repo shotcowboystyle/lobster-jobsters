@@ -1,0 +1,21 @@
+{
+  "agents": {
+    "entries": {
+      "creative-director": {
+        "name": "Masahiko",
+        "workspace": "~/.openclaw/workspaces/creative-director",
+        "identity": {
+          "name": "Masahiko",
+          "emoji": "🦌"
+        },
+        "subagents": {
+          "allowAgents": [
+            "creative-director-brand-designer",
+            "creative-director-educational-content-designer",
+            "creative-director-photography-agent"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "director-of-sales-local-sales": {
+        "name": "Lily",
+        "workspace": "~/.openclaw/workspaces/director-of-sales/agents/local-sales",
+        "identity": {
+          "name": "Lily",
+          "emoji": "🌿"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

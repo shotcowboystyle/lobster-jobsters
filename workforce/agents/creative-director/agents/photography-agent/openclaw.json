@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "creative-director-photography-agent": {
+        "name": "Iris",
+        "workspace": "~/.openclaw/workspaces/creative-director/agents/photography-agent",
+        "identity": {
+          "name": "Iris",
+          "emoji": "📷"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

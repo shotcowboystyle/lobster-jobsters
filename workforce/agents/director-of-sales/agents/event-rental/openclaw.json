@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "director-of-sales-event-rental": {
+        "name": "Max",
+        "workspace": "~/.openclaw/workspaces/director-of-sales/agents/event-rental",
+        "identity": {
+          "name": "Max",
+          "emoji": "🎉"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

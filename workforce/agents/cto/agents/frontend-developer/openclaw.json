@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cto-frontend-developer": {
+        "name": "Pixel",
+        "workspace": "~/.openclaw/workspaces/cto/agents/frontend-developer",
+        "identity": {
+          "name": "Pixel",
+          "emoji": "🎨"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

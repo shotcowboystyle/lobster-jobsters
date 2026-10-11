@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-content-brief": {
+        "name": "Content Brief",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/content-brief",
+        "identity": {
+          "name": "Content Brief",
+          "emoji": "📝"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

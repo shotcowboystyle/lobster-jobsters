@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cfo-controls-compliance": {
+        "name": "Garrison",
+        "workspace": "~/.openclaw/workspaces/cfo/agents/controls-compliance",
+        "identity": {
+          "name": "Garrison",
+          "emoji": "🛡️"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "coo-workshop-coordinator": {
+        "name": "Hazel",
+        "workspace": "~/.openclaw/workspaces/coo/agents/workshop-coordinator",
+        "identity": {
+          "name": "Hazel",
+          "emoji": "🎓"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

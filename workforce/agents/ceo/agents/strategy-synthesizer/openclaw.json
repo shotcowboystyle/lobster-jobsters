@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "ceo-strategy-synthesizer": {
+        "name": "Compass",
+        "workspace": "~/.openclaw/workspaces/ceo/agents/strategy-synthesizer",
+        "identity": {
+          "name": "Compass",
+          "emoji": "🧭"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

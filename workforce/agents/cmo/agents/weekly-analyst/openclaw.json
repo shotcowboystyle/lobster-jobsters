@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-weekly-analyst": {
+        "name": "Weekly Analyst",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/weekly-analyst",
+        "identity": {
+          "name": "Weekly Analyst",
+          "emoji": "📊"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

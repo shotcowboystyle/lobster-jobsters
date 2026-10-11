@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "customer-service-manager-order-management": {
+        "name": "Oakley",
+        "workspace": "~/.openclaw/workspaces/customer-service-manager/agents/order-management",
+        "identity": {
+          "name": "Oakley",
+          "emoji": "🐕"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

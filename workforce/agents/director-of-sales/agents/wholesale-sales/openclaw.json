@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "director-of-sales-wholesale-sales": {
+        "name": "Wade",
+        "workspace": "~/.openclaw/workspaces/director-of-sales/agents/wholesale-sales",
+        "identity": {
+          "name": "Wade",
+          "emoji": "📦"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

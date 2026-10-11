@@ -1,0 +1,21 @@
+{
+  "agents": {
+    "entries": {
+      "cto": {
+        "name": "Allen",
+        "workspace": "~/.openclaw/workspaces/cto",
+        "identity": {
+          "name": "Allen",
+          "emoji": "🎯"
+        },
+        "subagents": {
+          "allowAgents": [
+            "cto-backend-developer",
+            "cto-devops-agent",
+            "cto-frontend-developer"
+          ]
+        }
+      }
+    }
+  }
+}

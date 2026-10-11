@@ -6,14 +6,15 @@
 scripts/new-agent.sh sub cfo tax --persona Keel --role "Tax & Filings Agent" --emoji ⚖️ --creature "sea turtle"
 ```
 
-This creates `workforce/agents/cfo/agents/tax/` with the six sub-agent files, pre-wired to the CFO coordinator (Sterling), the CFO kill-switch flag, and the CFO Discord channels. Then:
+This creates `workforce/agents/cfo/agents/tax/` with the six sub-agent files plus `openclaw.json` (agent id `cfo-tax`), pre-wired to the CFO coordinator (Sterling), the CFO kill-switch flag, and the CFO Discord channels, and adds `cfo-tax` to `subagents.allowAgents` in `workforce/agents/cfo/openclaw.json`. Then:
 
 1. **Make the role real.** Replace the generic Triggers, Handoff Contract, and State Transitions in `AGENTS.md` with the actual inputs, outputs, and schema names. Add a prompt in the team's `prompts/` if the task is non-trivial.
 2. **Add a schema** for any new artifact in the team's `schemas/` and a table or columns in the ledger SQL if the artifact has a lifecycle.
 3. **Set the budget.** Edit `Cost Controls` to numbers that fit the task; the defaults (5 turns, 2 retries) are a floor, not a recommendation.
 4. **Register it.** Add a row to the roster in the team `AGENTS.md` and the agent table in the team `README.md`.
 5. **Wire approvals.** If the agent's output leads to a side-effect, name the `approval-policy.json` rule in its Handoff Contract.
-6. Run `scripts/validate.sh && scripts/audit.py --strict`.
+6. **Tune its OpenClaw entry.** `openclaw.json` denies infra and spawning tools by default; add `model`, `skills`, or tighter `tools.deny` (e.g. `message` for agents that never post) if the role needs them. Re-merge it into your global config.
+7. Run `scripts/validate.sh && scripts/audit.py --strict`.
 
 ## A new team
 
@@ -32,6 +33,7 @@ You get a complete team workspace that already passes validation and scores 12/1
 | `README.md` | state machine, agent table, RACI, guard rails for this domain |
 | `config/routines.example.sh` | the real cadence |
 | `ops/runbook.md` | domain-specific incident severities |
+| `openclaw.json` | agent id `<team>`; add `model`/`skills` if the coordinator needs non-default ones |
 
 Then connect it to the company:
 
@@ -79,4 +81,4 @@ and install with `clawhub install` in the workspace. Read the skill's `SKILL.md`
 
 ## Removing an agent
 
-Delete the directory, remove it from the roster tables and `SHARED_KNOWLEDGE.json`, and add an entry to `team-memory/exec-decisions-log.md` saying why. Keep its ledger rows; they are evidence.
+Delete the directory, remove its id from the coordinator's `subagents.allowAgents` in `openclaw.json` and its entry from your global OpenClaw config, remove it from the roster tables and `SHARED_KNOWLEDGE.json`, and add an entry to `team-memory/exec-decisions-log.md` saying why. Keep its ledger rows; they are evidence.

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "chief-of-staff-action-item-tracker": {
+        "name": "Wren",
+        "workspace": "~/.openclaw/workspaces/chief-of-staff/agents/action-item-tracker",
+        "identity": {
+          "name": "Wren",
+          "emoji": "🐦"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

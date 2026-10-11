@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "entries": {
+      "director-of-sales": {
+        "name": "Cash",
+        "workspace": "~/.openclaw/workspaces/director-of-sales",
+        "identity": {
+          "name": "Cash",
+          "emoji": "🐬"
+        },
+        "subagents": {
+          "allowAgents": [
+            "director-of-sales-event-rental",
+            "director-of-sales-local-sales",
+            "director-of-sales-subscription-sales",
+            "director-of-sales-wholesale-sales"
+          ]
+        }
+      }
+    }
+  }
+}

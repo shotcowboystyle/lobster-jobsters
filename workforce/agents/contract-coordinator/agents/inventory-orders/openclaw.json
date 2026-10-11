@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "contract-coordinator-inventory-orders": {
+        "name": "Grove",
+        "workspace": "~/.openclaw/workspaces/contract-coordinator/agents/inventory-orders",
+        "identity": {
+          "name": "Grove",
+          "emoji": "🌱"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

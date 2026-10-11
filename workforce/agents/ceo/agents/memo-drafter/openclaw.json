@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "ceo-memo-drafter": {
+        "name": "Atlas",
+        "workspace": "~/.openclaw/workspaces/ceo/agents/memo-drafter",
+        "identity": {
+          "name": "Atlas",
+          "emoji": "🗺️"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

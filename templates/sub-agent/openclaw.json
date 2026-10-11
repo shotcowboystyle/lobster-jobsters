@@ -1,0 +1,17 @@
+{
+  "agents": {
+    "entries": {
+      "{{TEAM_SLUG}}-{{SUB_SLUG}}": {
+        "name": "{{PERSONA}}",
+        "workspace": "~/.openclaw/workspaces/{{TEAM_SLUG}}/agents/{{SUB_SLUG}}",
+        "identity": {
+          "name": "{{PERSONA}}",
+          "emoji": "{{EMOJI}}"
+        },
+        "tools": {
+          "deny": ["gateway", "nodes", "plugins", "cron", "sessions_spawn", "subagents"]
+        }
+      }
+    }
+  }
+}

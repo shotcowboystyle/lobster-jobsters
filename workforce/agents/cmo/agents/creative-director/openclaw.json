@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-creative-director": {
+        "name": "Creative Director",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/creative-director",
+        "identity": {
+          "name": "Creative Director",
+          "emoji": "🎨"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

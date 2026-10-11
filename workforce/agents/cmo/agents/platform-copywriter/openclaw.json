@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-platform-copywriter": {
+        "name": "Platform Copywriter",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/platform-copywriter",
+        "identity": {
+          "name": "Platform Copywriter",
+          "emoji": "✍️"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

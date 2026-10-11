@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "entries": {
+      "contract-coordinator": {
+        "name": "Rowan",
+        "workspace": "~/.openclaw/workspaces/contract-coordinator",
+        "identity": {
+          "name": "Rowan",
+          "emoji": "🦋"
+        },
+        "subagents": {
+          "allowAgents": [
+            "contract-coordinator-contract-specialist",
+            "contract-coordinator-delivery-router",
+            "contract-coordinator-inventory-orders",
+            "contract-coordinator-payments-agent"
+          ]
+        }
+      }
+    }
+  }
+}

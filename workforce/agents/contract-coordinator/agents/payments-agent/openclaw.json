@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "contract-coordinator-payments-agent": {
+        "name": "Finch",
+        "workspace": "~/.openclaw/workspaces/contract-coordinator/agents/payments-agent",
+        "identity": {
+          "name": "Finch",
+          "emoji": "🪙"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

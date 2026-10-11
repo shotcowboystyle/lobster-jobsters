@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cfo-finance-ops": {
+        "name": "Ledger",
+        "workspace": "~/.openclaw/workspaces/cfo/agents/finance-ops",
+        "identity": {
+          "name": "Ledger",
+          "emoji": "📊"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

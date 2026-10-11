@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "cmo-publisher": {
+        "name": "Publisher",
+        "workspace": "~/.openclaw/workspaces/cmo/agents/publisher",
+        "identity": {
+          "name": "Publisher",
+          "emoji": "🚀"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

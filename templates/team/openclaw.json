@@ -1,0 +1,17 @@
+{
+  "agents": {
+    "entries": {
+      "{{TEAM_SLUG}}": {
+        "name": "{{PERSONA}}",
+        "workspace": "~/.openclaw/workspaces/{{TEAM_SLUG}}",
+        "identity": {
+          "name": "{{PERSONA}}",
+          "emoji": "{{EMOJI}}"
+        },
+        "subagents": {
+          "allowAgents": []
+        }
+      }
+    }
+  }
+}

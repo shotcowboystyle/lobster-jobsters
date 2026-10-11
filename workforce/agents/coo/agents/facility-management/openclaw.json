@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "coo-facility-management": {
+        "name": "Birch",
+        "workspace": "~/.openclaw/workspaces/coo/agents/facility-management",
+        "identity": {
+          "name": "Birch",
+          "emoji": "🏡"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

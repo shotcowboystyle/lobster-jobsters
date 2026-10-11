@@ -44,6 +44,33 @@ for team in "$ROOT"/agents/*/; do
 done
 ok "required files"
 
+# 5b. Every agent has an openclaw.json fragment registering exactly itself, with the
+#     workspace path from the README quickstart; coordinators may spawn exactly their sub-agents.
+oc_check() {  # oc_check <dir> <id> <workspace-suffix>
+  local f="$1openclaw.json"
+  [[ -f "$f" ]] || { err "missing openclaw.json in $1"; return; }
+  jq -e --arg id "$2" --arg ws "$3" '.agents.entries | keys == [$id] and (.[$id].workspace | endswith($ws))' "$f" >/dev/null 2>&1 \
+    || err "openclaw.json must register only agent '$2' with workspace ending '$3': $f"
+}
+for team in "$ROOT"/agents/*/; do
+  t=$(basename "$team")
+  oc_check "$team" "$t" "/workspaces/$t"
+  want=()
+  for sub in "$team"agents/*/; do
+    [[ -d "$sub" ]] || continue
+    s=$(basename "$sub")
+    oc_check "$sub" "$t-$s" "/workspaces/$t/agents/$s"
+    want+=("$t-$s")
+  done
+  [[ -f "${team}openclaw.json" ]] || continue
+  have=$(jq -c --arg t "$t" '.agents.entries[$t].subagents.allowAgents // [] | sort' "${team}openclaw.json" 2>/dev/null)
+  expect=$(printf '%s\n' ${want[@]+"${want[@]}"} | jq -R 'select(length > 0)' | jq -cs 'sort')
+  [[ "$have" == "$expect" ]] || err "subagents.allowAgents must list exactly the team's sub-agents $expect: ${team}openclaw.json"
+done
+dupes=$(find "$ROOT" -name openclaw.json -exec jq -r '.agents.entries | keys[]' {} + 2>/dev/null | sort | uniq -d)
+[[ -z "$dupes" ]] || err "duplicate OpenClaw agent ids: $dupes"
+ok "openclaw config"
+
 # 6. Size budgets from the OpenClaw memory model
 while IFS= read -r f; do
   n=$(wc -l < "$f")

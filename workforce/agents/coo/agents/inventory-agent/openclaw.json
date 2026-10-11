@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "coo-inventory-agent": {
+        "name": "Tally",
+        "workspace": "~/.openclaw/workspaces/coo/agents/inventory-agent",
+        "identity": {
+          "name": "Tally",
+          "emoji": "🌲"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "entries": {
+      "chief-of-staff-briefing-synthesizer": {
+        "name": "Heron",
+        "workspace": "~/.openclaw/workspaces/chief-of-staff/agents/briefing-synthesizer",
+        "identity": {
+          "name": "Heron",
+          "emoji": "🪶"
+        },
+        "tools": {
+          "deny": [
+            "gateway",
+            "nodes",
+            "plugins",
+            "cron",
+            "sessions_spawn",
+            "subagents"
+          ]
+        }
+      }
+    }
+  }
+}
